@@ -1,0 +1,104 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Comptes Utilisateurs | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Comptes Utilisateurs</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        {% include "./admin/user/delete.html.twig" %}
+                    </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_user_edit', {'id': user.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                    </li>
+                    <li>
+                        <a class="link" href="{{ path('app_admin_user_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+                              {{ user.agent.Prenom}} {{ user.agent.Nom }}.
+                            </p>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10 col-xs-12 mr-2">
+                                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                                <div class="card-body p-1">
+                                                    <div class="row">
+                                                        <div class="col-lg-10 col-xs-12 mx-auto">
+                                                            <div class="p-1">
+                                                                <ul class="list-group">
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Id</strong>: {{ user.id }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Nom Complet</strong>: {{ user.agent.Prenom}} {{ user.agent.Nom }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Pseudo</strong>: {{ user.Username }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Email</strong>: {{ user.Email }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <ol class="list-group">
+                                                                            {% for role in user.roles %}
+                                                                                {% if role=='ROLE_SUPER_ADMIN' %}
+                                                                                    <li class="list-group-item">Super Admin</li>
+                                                                                {% elseif role=='ROLE_ADMIN' %}
+                                                                                    <li class="list-group-item">Admin</li>
+                                                                                {% elseif role=='ROLE_RH_ADMIN' %}
+                                                                                    <li class="list-group-item">Admin RH</li>
+                                                                                {% elseif role=='ROLE_INFO_ADMIN' %}
+                                                                                    <li class="list-group-item">Admin Informatique</li>
+                                                                                {% elseif role=='ROLE_GESTION_ADMIN' %}
+                                                                                    <li class="list-group-item">Admin Gestion</li>
+                                                                                {% elseif role=='ROLE_TECH' %}
+                                                                                    <li class="list-group-item">Technicien</li>
+                                                                                {% elseif role=='ROLE_USER' %}
+                                                                                    <li class="list-group-item">Utilisateur</li>
+                                                                                {% elseif role=='ROLE_RH_USER' %}
+                                                                                    <li class="list-group-item">Utilisateur RH</li>
+                                                                                {% elseif role=='ROLE_INFO_USER' %}
+                                                                                    <li class="list-group-item">Utilisateur Informatique</li>
+                                                                                {% elseif role=='ROLE_GESTION_USER' %}
+                                                                                    <li class="list-group-item">Utilisateur Gestion</li>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                        </ol>
+                                                                    </li>
+                                                                </ul>                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

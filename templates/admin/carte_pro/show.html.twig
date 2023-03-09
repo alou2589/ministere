@@ -1,0 +1,95 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Carte Professionnelle | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Carte Professionnelle</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    {% if is_granted("ROLE_RH_ADMIN")== true %}
+                        <li>
+                            <a class="link" href="#" class="text-decoration-none float-left m-1" title="Générer Carte"> <i class="fas fa-id-card-clip text-info"></i> </a>
+                        </li>
+                        <li>
+                            <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            {% include "./admin/carte_pro/delete.html.twig" %}
+                        </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_carte_pro_edit', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="link" href="{{ path('app_admin_carte_pro_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+                              {{ carte_pro.agent.Prenom}} {{ carte_pro.agent.Nom }}.
+                            </p>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10 col-xs-12 mr-2">
+                                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                                <div class="card-body p-1">
+                                                    <div class="row">
+                                                        <div class="col-lg-10 col-xs-12 mx-auto">
+                                                            <div class="p-1">
+                                                                <ul class="list-group">
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Id</strong>: {{ carte_pro.id }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item form-check form-switch">                               
+                                                                            {% if carte_pro.statusImpression == false %}
+                                                                                <p><strong>Statut Impression</strong>: <input class="form-check-input js-switch" type="checkbox" id="flexSwitchCheckDefault"></p>
+                                                                            {% else %}                               
+                                                                                <p><strong>Statut Impression</strong>: <input class="form-check-input js-switch" type="checkbox" id="flexSwitchCheckChecked" checked>                                                                                </p>
+                                                                            {% endif %}
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Nom Complet</strong>: {{ carte_pro.agent.Prenom}} {{ carte_pro.agent.Nom }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Matricule</strong>: {{ carte_pro.agent.Matricule }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Fonction</strong>: {{ carte_pro.agent.Fonction }}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Date de délivrance</strong>: {{carte_pro.DateDelivrance ? carte_pro.DateDelivrance|date('d-m-Y'):' '}}</p>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <p><strong>Date d'expiration</strong>: {{carte_pro.DateExpiration ? carte_pro.DateExpiration|date('d-m-Y'):' '}}</p>
+                                                                    </li>
+                                                                </ul>                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

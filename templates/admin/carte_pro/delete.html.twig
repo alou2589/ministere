@@ -1,0 +1,20 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel2">Confirmation de la suppression </h2>
+        <button type="button" class="close" data-dilgiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Supprimer la carte professionnelle de l'agent <strong class="text-danger"> {{carte_pro.agent.Prenom}} {{ carte_pro.agent.Nom }} {{carte_pro.agent.Matricule}} </strong>  ?</p>
+        <form method="post" action="{{ path('app_admin_carte_pro_delete', {'id': carte_pro.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ carte_pro.id) }}">
+            <a href="{{ path('app_admin_carte_pro_show', {'id':carte_pro.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
+            <button class="btn btn-danger">Supprimer <i class="fas fa-trash-alt"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

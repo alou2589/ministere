@@ -1,0 +1,35 @@
+
+
+        <div class="row" style="display: inline-block;">
+        <div class="top_tiles">
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+            <div class="tile-stats">
+              <div class="icon"><i class="fas fa-users"></i></div>
+              <div class="count">{{agents|length}}</div>
+              <h3>Agents</h3>
+              <p>Total Agent.</p>
+            </div>
+          </div>
+          {% for type_structure in type_structures %}
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+              <div class="tile-stats">
+                <div class="icon"><i class="fa fa-city"></i></div>
+                <div class="count">{{type_structure.Structures|length}}</div>
+                <h3>{{type_structure.NomTypeStructure}}</h3>
+                <p>Total {{type_structure.NomTypeStructure}}.</p>
+              </div>
+            </div>
+            
+          {% endfor %}
+          {% for type_sous_structure in type_sous_structures %}  
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+              <div class="tile-stats">
+                <div class="icon"><i class="fa fa-building"></i></div>
+                <div class="count">{{type_sous_structure.sousStructures|length}}</div>
+                <h3>{{type_sous_structure.NomTypeSousStructure}}</h3>
+                <p>Total {{type_sous_structure.NomTypeSousStructure}}.</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>

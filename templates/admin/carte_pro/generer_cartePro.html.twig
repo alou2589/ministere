@@ -1,0 +1,48 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Carte Professionnelle | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2> 
+                    Carte Professionnelle <button class="btn btn-default" onclick="imprimer('mycardPro')"  ><i class="fa fa-print"></i> </button>
+                </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    {% if is_granted("ROLE_RH_ADMIN")== true %}
+                        <li>
+                            <a class="link" href="#" class="text-decoration-none float-left m-1" title="Générer Carte"> <i class="fas fa-id-card-clip text-info"></i> </a>
+                        </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_carte_pro_delete', {'id': carte_pro.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_carte_pro_edit', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="link" href="{{ path('app_admin_carte_pro_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content justify-content-center" id="mycardPro"> 
+                <div class="row">
+                    <div class="col-md-11 mx-auto text-dark">
+                        {% include "./admin/carte_pro/carteProAgent.html.twig" %}
+                    </div>
+                </div>
+
+               </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

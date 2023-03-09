@@ -1,0 +1,20 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel2">Confirlmation de la suppression </h4>
+        <button type="button" class="close" data-dilgiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Supprimer de <strong class="text-danger"> {{type_agent.NomTypeAgent}} </strong>  ?</p>
+        <form method="post" action="{{ path('app_admin_type_agent_delete', {'id': type_agent.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ type_agent.id) }}">
+            <a href="{{ path('app_admin_type_agent_show', {'id':type_agent.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
+            <button class="btn btn-danger">Supprimer <i class="fas fa-trash-alt"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

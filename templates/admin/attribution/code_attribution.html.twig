@@ -1,0 +1,44 @@
+<div class="row">
+<div class="col-md-12">
+  <div class="">
+    <div class="x_content">
+      <div class="row">
+      <div class="col-md-6   widget widget_tally_box">
+      <div class="x_panel fixed_height_390 shadow-1 bg-light border-info border-rounded">
+        <div class="x_title">
+          <h2>Attribution</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <div style="text-align: center; margin-bottom: 17px">
+            <img src="{{attribution.QrCodeAttribution}}" alt="" width="100">
+          </div>
+          <div class="divider"></div>
+
+          <ul class="legend list-unstyled">
+          <li>
+            <span class="brief">Informations</span>
+            <br>
+            <br>
+          </li>
+            <li>
+              <p>
+                <span class="icon"><i class="fa fa-id-card dark"></i></span> <span class="name">{{attribution.agent.prenom}} {{attribution.agent.nom}} - {{attribution.agent.matricule}}</span>
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="icon"><i class="fas fa-sitemap blue"></i></span> <span class="name">{{attribution.matos.typeMatos.nomTypeMatos}}</span>
+              </p>
+            </li>
+            <li>
+              <p>
+                <span class="icon"><i class="fa fa-calendar-alt green"></i></span> <span class="name">{{attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y'):' '}}</span>
+              </p>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New HistoriqueRH{% endblock %}
+
+{% block body %}
+    <h1>Create new HistoriqueRH</h1>
+
+    {{ include('admin/historique_rh/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_historique_r_h_index') }}">back to list</a>
+{% endblock %}

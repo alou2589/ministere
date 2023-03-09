@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HistoriqueRH index{% endblock %}
+
+{% block body %}
+    <h1>HistoriqueRH index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_action</th>
+                <th>Type_action</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for historique_r_h in historique_r_hs %}
+            <tr>
+                <td>{{ historique_r_h.id }}</td>
+                <td>{{ historique_r_h.dateAction ? historique_r_h.dateAction|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ historique_r_h.typeAction }}</td>
+                <td>
+                    <a href="{{ path('app_admin_historique_r_h_show', {'id': historique_r_h.id}) }}">show</a>
+                    <a href="{{ path('app_admin_historique_r_h_edit', {'id': historique_r_h.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_historique_r_h_new') }}">Create new</a>
+{% endblock %}
