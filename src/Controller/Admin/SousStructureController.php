@@ -23,7 +23,7 @@ class SousStructureController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_sous_structure_new', methods: ['GET', 'POST'])]
-    #[IsGranted("ROLE_RH_ADMIN")]
+    //#[IsGranted("ROLE_RH_ADMIN")]
     public function new(Request $request, SousStructureRepository $sousStructureRepository): Response
     {
         $sousStructure = new SousStructure();

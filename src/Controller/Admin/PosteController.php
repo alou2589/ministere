@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/poste')]
-#[IsGranted("ROLE_RH_ADMIN")]
+//#[IsGranted("ROLE_RH_ADMIN")]
 class PosteController extends AbstractController
 {
     #[Route('/', name: 'app_admin_poste_index', methods: ['GET'])]

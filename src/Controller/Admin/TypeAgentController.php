@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/type_agent')]
-#[IsGranted("ROLE_RH_ADMIN")]
+//#[IsGranted("ROLE_RH_ADMIN")]
 class TypeAgentController extends AbstractController
 {
     #[Route('/', name: 'app_admin_type_agent_index', methods: ['GET'])]

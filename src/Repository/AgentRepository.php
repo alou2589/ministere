@@ -6,6 +6,7 @@ use App\Entity\Agent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use DoctrineExtensions\Query\Postgresql;
+use DoctrineExtensions\Query\Mysql;
 
 /**
  * @extends ServiceEntityRepository<Agent>
@@ -52,7 +53,7 @@ class AgentRepository extends ServiceEntityRepository
     public function agentByYear()
     {
         $query = $this->createQueryBuilder('a')
-            ->select("DATE_PART('year',a.date_prise_service) as date_record, COUNT(a) as nb_agents")
+            ->select("YEAR('year',a.date_prise_service) as date_record, COUNT(a) as nb_agents")
             ->groupBy('date_record')
         ;
         return $query->getQuery()->getResult();

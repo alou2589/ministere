@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\StatutAgent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use DoctrineExtensions\Query\Mysql;
 
 /**
  * @extends ServiceEntityRepository<StatutAgent>
@@ -42,7 +43,7 @@ class StatutAgentRepository extends ServiceEntityRepository
     public function agentByYear()
     {
         $query = $this->createQueryBuilder('s')
-            ->select("DATE_PART('year',s.date_prise_service) AS date_record, COUNT(s) AS nb_agents")
+            ->select("YEAR(s.date_prise_service) AS date_record, COUNT(s) AS nb_agents")
             ->groupBy('date_record')
         ;
         return $query->getQuery()->getResult();

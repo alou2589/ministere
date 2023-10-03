@@ -7,6 +7,7 @@ use App\Entity\Materiel;
 use App\Form\MaterielType;
 use App\Form\MatosAttributionFormType;
 use App\Repository\AttributionRepository;
+use App\Service\QrCodeService;
 use App\Repository\MaterielRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -84,7 +85,7 @@ class MaterielController extends AbstractController
 
     }
     #[Route('/{id}/new_attribution', name: 'app_admin_materiel_attribution', methods:['GET','POST'])]
-    public function add_attribution(Request $request,Materiel $materiel, AttributionRepository $attributionRepository)
+    public function add_attribution(Request $request,Materiel $materiel, AttributionRepository $attributionRepository, QrCodeService $qrCodeService)
     {
         $attribution = new Attribution();
         $form = $this->createForm(MatosAttributionFormType::class, $attribution);
@@ -92,8 +93,10 @@ class MaterielController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $attribution->setMatos($materiel);
-            $attributionRepository->save($attribution, true);
+            $qr_code = $qrCodeService->qrcode_matos($attribution->getMatos()->getId(), $attribution->getId());
 
+            $attribution->setQrCodeAttribution((string)$qr_code);
+            $attributionRepository->save($attribution, true);
             return $this->redirectToRoute('app_admin_attribution_index', [], Response::HTTP_SEE_OTHER);
         }
 

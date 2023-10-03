@@ -23,7 +23,7 @@ class StructureController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_structure_new', methods: ['GET', 'POST'])]
-    #[IsGranted("ROLE_RH_ADMIN")]
+    //#[IsGranted("ROLE_RH_ADMIN")]
     public function new(Request $request, StructureRepository $structureRepository): Response
     {
         $structure = new Structure();

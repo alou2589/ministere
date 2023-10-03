@@ -18,7 +18,7 @@ class QrCodeService
 
     public function qrcode($recherche, $nom_qr)
     {
-        $url="https://2c14-41-214-50-13.eu.ngrok.io/admin/agent/";
+        $url="https://192.168.115.96:8000/admin/agent/";
         $path= dirname(__DIR__,2).'/public/assets/';
         $result=$this->builder
         ->data($url.$recherche)
@@ -39,7 +39,7 @@ class QrCodeService
 
     public function qrcode_matos($reference, $matos_qr)
     {
-        $url="https://2c14-41-214-50-13.eu.ngrok.io/admin/materiel/";
+        $url="https://192.168.115.96:8000/admin/materiel/";
         $path= dirname(__DIR__,2).'/public/assets/';
         $result=$this->builder
         ->data($url.$reference)

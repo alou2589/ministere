@@ -83,6 +83,7 @@ class StatInformatiqueController extends AbstractController
         return $this->render('admin/stat_informatique/index.html.twig', [
             'chartTM' => $chartTM, 
             'chartMM'=>$chartMM,
+            'chartAY'=>$chartAY,
         ]);
     }
 }

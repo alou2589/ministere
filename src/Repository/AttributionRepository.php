@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Attribution;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use DoctrineExtensions\Query\Postgresql;
+use DoctrineExtensions\Query\Mysql;
 
 /**
  * @extends ServiceEntityRepository<Attribution>
@@ -43,7 +43,7 @@ class AttributionRepository extends ServiceEntityRepository
     public function attribByYear()
     {
         $query = $this->createQueryBuilder('a')
-            ->select("DATE_PART('year',a.date_attribution) as annee_attrib, COUNT(a) as nb_attribution")
+            ->select("YEAR(a.date_attribution) as annee_attrib, COUNT(a) as nb_attribution")
             ->groupBy('annee_attrib')
         ;
         return $query->getQuery()->getResult();

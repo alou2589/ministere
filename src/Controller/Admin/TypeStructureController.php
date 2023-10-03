@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/type_structure')]
-#[IsGranted("ROLE_SUPER_ADMIN")]
+//#[IsGranted("ROLE_SUPER_ADMIN")]
 class TypeStructureController extends AbstractController
 {
     #[Route('/', name: 'app_admin_type_structure_index', methods: ['GET'])]
