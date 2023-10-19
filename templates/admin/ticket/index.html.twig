@@ -1,45 +1,68 @@
-{% extends 'base.html.twig' %}
+{% extends './admin/adminbase.html.twig' %}
 
-{% block title %}Ticket index{% endblock %}
+{% block title %}Technicien | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Ticket index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Description_proprietaire</th>
-                <th>Date_declaration</th>
-                <th>Observation_technicien</th>
-                <th>Solution_apportée</th>
-                <th>Date_sortie</th>
-                <th>Status_ticket</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ticket in tickets %}
-            <tr>
-                <td>{{ ticket.id }}</td>
-                <td>{{ ticket.descriptionProprietaire }}</td>
-                <td>{{ ticket.dateDeclaration ? ticket.dateDeclaration|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ ticket.observationTechnicien }}</td>
-                <td>{{ ticket.solutionApportée }}</td>
-                <td>{{ ticket.dateSortie ? ticket.dateSortie|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ ticket.statusTicket }}</td>
-                <td>
-                    <a href="{{ path('app_admin_ticket_show', {'id': ticket.id}) }}">show</a>
-                    <a href="{{ path('app_admin_ticket_edit', {'id': ticket.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_admin_ticket_new') }}">Create new</a>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Ticket</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_admin_ticket_new') }}" title="Créer ticket" ><i class="fas fa-fw fa-plus-circle"></i></a>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <p class="text-muted font-13 m-b-30">
+                                Liste des tickets
+                                </p>
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Id</th>
+                                            <th class="text-center">Info propriétaire</th>
+                                            <th class="text-center">Date déclaration</th>
+                                            <th class="text-center">Information</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for ticket in tickets %}
+                                        <tr>
+                                            <td class="text-center">{{ ticket.statusTicket }}</td>
+                                            <td class="text-center">{{ ticket.id }}</td>
+                                            <td class="text-center">{{ ticket.descriptionProprietaire }}</td>
+                                            <td class="text-center">{{ ticket.dateDeclaration ? ticket.dateDeclaration|date('Y-m-d H:i:s') : '' }}</td>
+                                            <td class="text-center">
+                                        <a href="{{ path('app_admin_ticket_show', {'id': ticket.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% else %}
+                                            <tr>
+                                              <td class="text-center" colspan="5">
+                                                <a href="{{ path('app_admin_ticket_new') }}" class="btn btn-primary" title="Ajout Technicien" >Créer Ticket <i class="fas fa-fw fa-plus-circle"></i></a>
+                                              </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -2,15 +2,17 @@
 
 namespace App\Controller\Admin;
 
+use Symfony\UX\Chartjs\Model\Chart;
+use App\Repository\MessagesRepository;
 use App\Repository\AttributionRepository;
 use App\Repository\MarqueMatosRepository;
+use App\Repository\NotificationRepository;
 use App\Repository\TypeMaterielRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[IsGranted("ROLE_INFO_ADMIN")]
 class StatInformatiqueController extends AbstractController
@@ -58,8 +60,10 @@ class StatInformatiqueController extends AbstractController
    }
 
     #[Route('/admin/stat_informatique', name: 'app_admin_stat_informatique')]
-    public function index(TypeMaterielRepository $typeMaterielRepository,MarqueMatosRepository $marqueMatosRepository,AttributionRepository $attributionRepository, ChartBuilderInterface $cahertbuilderAY, ChartBuilderInterface $chartbuilderTM, ChartBuilderInterface $chartbuilderMM): Response
+    public function index(TypeMaterielRepository $typeMaterielRepository,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository,MarqueMatosRepository $marqueMatosRepository,AttributionRepository $attributionRepository, ChartBuilderInterface $cahertbuilderAY, ChartBuilderInterface $chartbuilderTM, ChartBuilderInterface $chartbuilderMM): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         $typeMateriels = $typeMaterielRepository->findAll();
         $marqueMatos = $marqueMatosRepository->findAll();
         $attribByYears = $attributionRepository->attribByYear();
@@ -84,6 +88,8 @@ class StatInformatiqueController extends AbstractController
             'chartTM' => $chartTM, 
             'chartMM'=>$chartMM,
             'chartAY'=>$chartAY,
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 }

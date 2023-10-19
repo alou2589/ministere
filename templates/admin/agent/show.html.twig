@@ -8,13 +8,14 @@
 
         <div class="x_content bs-example-popovers">
             {% if carte_pro == null %}
+                
                 <div class="alert alert-secondary alert-completer " role="alert">
-                    <strong>Info Carte Pro</strong> Veuillez générer la Carte Professionnelle <a class="link" href="{{ path('app_admin_carte_pro_new') }}"  class="text-decoration-none float-left m-1" title="Imprimer Carte Professionnelle"> <i class="fas fa-id-card text-info"></i> </a>
+                    <strong>Carte Professionnelle: </strong>Veuillez cliquez sur ce lien 👉🏽 <a class="link" href="{{ path('app_admin_carte_pro_new') }}"  class="text-decoration-none float-left m-1" title="Imprimer Carte Professionnelle"> <i class="fas fa-id-card text-info"></i> </a>
                 </div>   
             {% endif %} 
             {% if statut_agent == null %}      
                 <div class="alert alert-secondary alert-completer " role="alert">
-                    <strong>Info Statut Agent</strong> Veuillez générer la Carte Professionnelle <a class="link" href="{{ path('app_admin_carte_pro_new') }}"  class="text-decoration-none float-left m-1" title="Classer l'agent"> <i class="fas fa-clipboard-list text-info"></i> </a>
+                    <strong>Statut Agent: </strong> Veuillez cliquez sur ce lien 👉🏽 <a class="link" href="{{ path('app_admin_statut_agent_new') }}"  class="text-decoration-none float-left m-1" title="Classer l'agent"> <i class="fas fa-clipboard-list text-info"></i> </a>
                 </div>    
             {% endif %}
 

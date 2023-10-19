@@ -2,20 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Materiel;
-use App\Entity\Technicien;
 use App\Entity\Ticket;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TicketType extends AbstractType
+class EditTicketType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,7 +24,7 @@ class TicketType extends AbstractType
                 'class' => Technicien::class,
                 'label'=>'Affecté au technicien',
                 'choice_label' => function ($technicien) {
-                    return $technicien->getInfoTechnicien()->getAgent()->getPrenom() . ' ' . $technicien->getInfoTechnicien()->getAgent()->getNom().' '.$technicien->getInfoTechnicien()->getAgent()->getMatricule();
+                    return $technicien->getAgent()->getPrenom() . ' ' . $technicien->getInfoTechnicien()->getNom().' '.$technicien->getInfoTechnicien()->getMatricule();
                 }
             ])
             ->add('description_proprietaire', TextareaType::class, [
@@ -42,11 +34,29 @@ class TicketType extends AbstractType
                 'widget' => 'single_text',
                 'attr' => ['class' => 'js-datepicker'],
                 ])
+            ->add('observation_technicien', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
+            ->add('solution_apportee', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
+            ])
+            ->add('date_sortie', DateTimeType::class, [ 
+                'widget' => 'single_text',
+                'attr' => ['class' => 'js-datepicker'],
+                ])
             ->add('type_urgence', ChoiceType::class, [
                 'choices'=>[
-                    'Trés Urgent'=>'Trés Urgent',
-                    'Urgent'=>'Urgent',
-                    'Normal'=>'Normal',
+                    'En Panne'=>'En Panne',
+                    'Réparé'=>'Réparé',
+                    'Amorti'=>'Amorti',
+                ],
+                'attr'=>['class'=>'js-example-basic-single']
+            ])
+            ->add('status_ticket', ChoiceType::class, [
+                'choices' => [
+                    'Valider' => 'Valider',
+                    'En Cours' => 'En Cours',
+                    'Clôturer' => 'Clôturer',
                 ],
                 'attr'=>['class'=>'js-example-basic-single']
             ])

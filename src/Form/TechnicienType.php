@@ -19,7 +19,7 @@ class TechnicienType extends AbstractType
             ->add('info_technicien', EntityType::class, [
                 'class'=>User::class,
                 'choice_label' => function($user){
-                    if (in_array("ROLE_TECH", $user->getRoles()) and $user->getTechniciens()->toArray()==null) {
+                    if (in_array("ROLE_TECH", $user->getRoles()) && $user->getTechniciens()->toArray()==null) {
                         # code...
                         return $user->getAgent()->getPrenom() . ' ' . $user->getAgent()->getNom();
                     }

@@ -4,16 +4,18 @@ namespace App\Controller\Admin;
 
 use App\Entity\StatutAgent;
 use App\Repository\AgentRepository;
-use App\Repository\SousStructureRepository;
-use App\Repository\StatutAgentRepository;
+use Symfony\UX\Chartjs\Model\Chart;
+use App\Repository\MessagesRepository;
 use App\Repository\StructureRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\StatutAgentRepository;
+use App\Repository\NotificationRepository;
+use App\Repository\SousStructureRepository;
+use Symfony\UX\Chartjs\Builder\ChartBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\UX\Chartjs\Builder\ChartBuilder;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/stat_personnel')]
 #[IsGranted("ROLE_RH_ADMIN")]
@@ -62,13 +64,15 @@ class StatPersonnelController extends AbstractController
    }
 
    #[Route('/service_agents', name: 'app_admin_stat_personnel_service')]
-   public function index(ChartBuilderInterface $chartBuilderRY,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartBuilderSD,ChartBuilderInterface $chartBuilderAS,
-    AgentRepository $agentRepository,StatutAgentRepository $statutRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository): Response 
+   public function index(ChartBuilderInterface $chartBuilderRY,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartBuilderSD,ChartBuilderInterface $chartBuilderAS,
+    AgentRepository $agentRepository,StatutAgentRepository $statutRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository): Response 
       { 
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         $sousStructures=$sousStructureRepository->findAll();
         $structures=$structureRepository->findAll();
         $agents = $agentRepository->findAll();
-        $agentByYears = $statutRepository->agentByYear();
+        $agentByYears = $agentRepository->agentByYear();
         $masculins[]=count($agentRepository->findBy(['genre'=>'homme']));
         $feminins[]=count($agentRepository->findBy(['genre'=>'femme']));
         foreach ($structures as $structure) {
@@ -83,7 +87,7 @@ class StatPersonnelController extends AbstractController
          }
          foreach ($agentByYears as $agentByYear) {
             # code...
-            $year[] = $agentByYear['date_record'];
+            $year[] = $agentByYear['tranche_age'];
             $nb_recrus[] = $agentByYear['nb_agents'];
          }
          foreach($sousStructures as $sousStructure) {
@@ -91,10 +95,10 @@ class StatPersonnelController extends AbstractController
             $ss_name[]=$sousStructure->getNomSousStructure();
             $ss_agents[]=count($sousStructure->getAgents());
          }
-        $chartSA = self::statistiques($chartBuilderSA, Chart::TYPE_PIE,$ss_name, $ss_agents,'Agent Par Sous Structure', $sousStructures );
-        $chartDA = self::statistiques($chartBuilderDA, Chart::TYPE_PIE, $s_name, $nbagents, 'Agents par Structure', $structures);
+        $chartSA = self::statistiques($chartBuilderSA, Chart::TYPE_BAR,$ss_name, $ss_agents,'Agent Par Sous Structure', $sousStructures );
+        $chartDA = self::statistiques($chartBuilderDA, Chart::TYPE_BAR, $s_name, $nbagents, 'Agents par Structure', $structures);
         $chartSD = self::statistiques($chartBuilderSD, Chart::TYPE_PIE, $s_name, $s_ss, 'SousStructure par Structure', $structures);
-        $chartRY = self::statistiques($chartBuilderRY, Chart::TYPE_BAR, $year, $nb_recrus, 'Agent par Année', $agentByYears);
+        $chartRY = self::statistiques($chartBuilderRY, Chart::TYPE_BAR, $year, $nb_recrus, "Tranche d'âge", $agentByYears);
         $chartAS = self::statistiques($chartBuilderAS, Chart::TYPE_PIE, ['Homme', 'Femme'], [$masculins, $feminins], 'Agents par Genre', $agents);
          
          return $this->render('admin/stat_personnel/index.html.twig', [ 
@@ -103,6 +107,9 @@ class StatPersonnelController extends AbstractController
                 'chartSD' => $chartSD, 
                 'chartAS' => $chartAS, 
                 'chartRY' => $chartRY, 
+                'notifications' => $notifications,
+                'messages' => $messages,
+                'agentByYears' => $agentByYears,
             ]); 
       } 
 }

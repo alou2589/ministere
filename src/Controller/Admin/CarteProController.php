@@ -2,39 +2,47 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\CartePro;
-use App\Form\CarteProType;
-use App\Repository\CarteProRepository;
-use App\Service\QrCodeService;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Entity\CartePro;
+use App\Form\CarteProType;
+use App\Service\QrCodeService;
+use App\Repository\CarteProRepository;
+use App\Repository\MessagesRepository;
 use Endroid\QrCode\Label\Font\OpenSans;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Repository\NotificationRepository;
+use function PHPUnit\Framework\fileExists;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-use function PHPUnit\Framework\fileExists;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/admin/carte_pro')]
 #[IsGranted("ROLE_RH_ADMIN")]
 class CarteProController extends AbstractController
 {
     #[Route('/', name: 'app_admin_carte_pro_index', methods: ['GET'])]
-    public function index(CarteProRepository $carteProRepository): Response
+    public function index(CarteProRepository $carteProRepository,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         return $this->render('admin/carte_pro/index.html.twig', [
             'carte_pros' => $carteProRepository->findAll(),
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 
     #[Route('/new', name: 'app_admin_carte_pro_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CarteProRepository $carteProRepository, QrCodeService $qrCodeService, SluggerInterface $slugger): Response
+    public function new(Request $request,MessagesRepository $messagesRepository, CarteProRepository $carteProRepository, QrCodeService $qrCodeService, SluggerInterface $slugger,NotificationRepository $notificationRepository): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         $cartePro = new CartePro();
         $qr_code = null;
         $form = $this->createForm(CarteProType::class, $cartePro);
@@ -80,28 +88,40 @@ class CarteProController extends AbstractController
         return $this->render('admin/carte_pro/new.html.twig', [
             'carte_pro' => $cartePro,
             'form' => $form,
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 
     #[Route('/{id}', name: 'app_admin_carte_pro_show', methods: ['GET'])]
-    public function show(CartePro $cartePro): Response
+    public function show(CartePro $cartePro,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         return $this->render('admin/carte_pro/show.html.twig', [
             'carte_pro' => $cartePro,
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 
     #[Route('/{id}/showcode', name: 'app_admin_carte_pro_show_code', methods: ['GET'])]
-    public function showcode(CartePro $cartePro)
+    public function showcode(CartePro $cartePro,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository)
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         return $this->render('admin/carte_pro/generer_cartePro.html.twig',[
             'carte_pro'=>$cartePro,
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_admin_carte_pro_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, CartePro $cartePro, CarteProRepository $carteProRepository): Response
+    public function edit(Request $request,MessagesRepository $messagesRepository, CartePro $cartePro, CarteProRepository $carteProRepository,NotificationRepository $notificationRepository): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         $form = $this->createForm(CarteProType::class, $cartePro);
         $form->handleRequest($request);
 
@@ -113,13 +133,17 @@ class CarteProController extends AbstractController
 
         return $this->render('admin/carte_pro/edit.html.twig', [
             'carte_pro' => $cartePro,
+            'notifications' => $notifications,
             'form' => $form,
+            'messages' => $messages,
         ]);
     }
 
     #[Route('/{id}/delete', name: 'app_admin_carte_pro_delete', methods: ['GET','POST'])]
-    public function delete(Request $request, CartePro $cartePro, CarteProRepository $carteProRepository, CacheManager $cacheManager): Response
+    public function delete(Request $request,MessagesRepository $messagesRepository, CartePro $cartePro, CarteProRepository $carteProRepository, CacheManager $cacheManager,NotificationRepository $notificationRepository): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         if ($this->isCsrfTokenValid('delete'.$cartePro->getId(), $request->request->get('_token'))) {
             $photo_agent = $cartePro->getPhotoAgent();
             $cheminQrCode = '/Users/alassanetambedou/Desktop/ministere/public/assets/qr-code/'. $cartePro->getId().'.png';
@@ -134,6 +158,8 @@ class CarteProController extends AbstractController
         }
         return $this->render('admin/carte_pro/delete.html.twig',[
             'carte_pro'=>$cartePro,
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 }

@@ -53,8 +53,8 @@ class AgentRepository extends ServiceEntityRepository
     public function agentByYear()
     {
         $query = $this->createQueryBuilder('a')
-            ->select("YEAR('year',a.date_prise_service) as date_record, COUNT(a) as nb_agents")
-            ->groupBy('date_record')
+            ->select(" COUNT(a) AS nb_agents,(CASE WHEN (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))<30 THEN 'Moins de 30ans' WHEN (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))>=30 AND (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))<40 THEN 'Entre 30 et 40ans' WHEN (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))>=40 AND (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))<50 THEN 'Entre 40 et 50ans' WHEN (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))>=50 AND (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))<60 THEN 'Entre 50 et 60ans' WHEN (YEAR(CURRENT_DATE())-YEAR(a.date_naissance))>60 THEN 'Plus de 60ans' ELSE 'Error' END) AS tranche_age ")
+            ->groupBy('tranche_age')
         ;
         return $query->getQuery()->getResult();
     }

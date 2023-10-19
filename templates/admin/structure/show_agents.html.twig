@@ -54,14 +54,15 @@
                                     <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
                                 </td>
                             </tr>
-                        {% else %}
-                            <tr>
-                              <td class="text-center" colspan="7">
-                                <a href="{{ path('app_admin_agent_new') }}" class="btn btn-primary" title="Ajout Agent" >Ajouter Agent <i class="fas fa-fw fa-plus-circle"></i></a>
-                              </td>
-                            </tr>
                             
-                        {% endfor %}
+                      {% endfor %}
+                      {% else %}
+                          <tr>
+                            <td class="text-center" colspan="7">
+                              <a href="{{ path('app_admin_agent_new') }}" class="btn btn-primary" title="Ajout Agent" >Ajouter Agent <i class="fas fa-fw fa-plus-circle"></i></a>
+                            </td>
+                          </tr>
+                    {% endfor %}
                     </tbody>
                   </table>
                 </div>

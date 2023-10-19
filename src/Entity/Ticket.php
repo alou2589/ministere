@@ -34,7 +34,7 @@ class Ticket
     private ?string $observation_technicien = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $solution_apportée = null;
+    private ?string $solution_apportee = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_sortie = null;
@@ -121,14 +121,14 @@ class Ticket
         return $this;
     }
 
-    public function getSolutionApportée(): ?string
+    public function getSolutionApportee(): ?string
     {
-        return $this->solution_apportée;
+        return $this->solution_apportee;
     }
 
-    public function setSolutionApportée(string $solution_apportée): self
+    public function setSolutionApportee(string $solution_apportee): self
     {
-        $this->solution_apportée = $solution_apportée;
+        $this->solution_apportee = $solution_apportee;
 
         return $this;
     }

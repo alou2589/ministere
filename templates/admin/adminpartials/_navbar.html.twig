@@ -7,7 +7,7 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="{{asset('assets/images/img.jpg')}}" alt="">                      
+                      <i class="fa fa-user" aria-hidden="true"></i>                     
                       {% if app.User %}
                         {{app.user.Username|lower}}
                       {% else %}
@@ -18,68 +18,45 @@
                       <a class="dropdown-item"  href="javascript:;"> Profil</a>
                       <a class="dropdown-item"  href="javascript:;">Settings</a>
                       <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="{{ path('app_logout') }}"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a>
+                      <a class="dropdown-item" style="color: red;"  href="{{ path('app_logout') }}"><i class="fa fa-sign-out pull-right"></i> Se déconnecter</a>
                     </div>
                   </li>
   
                   <li role="presentation" class="nav-item dropdown open">
+
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
+                      <i class="fa fa-bell-o"></i>
+                      {% if notifications %}
+                        <span class="badge bg-green">{{ notifications|length }}</span>
+                      {% endif %}
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{asset('assets/images/img.jpg')}}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{asset('assets/images/img.jpg')}}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{asset('assets/images/img.jpg')}}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="{{asset('assets/images/img.jpg')}}" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
+                      {% if notifications %}
+                        {% for notification in notifications %}
+                          <li class="nav-item">
+                            <a href=# class="dropdown-item">
+                                <span>{{notification.titre}}</span>
+                                <span class="time">{{notification.dateNotification|date('d-m-Y H:i')}}</span>
+                              </span>
+                              <span class="message">
+                                {{notification.contenu}}
+                              </span>
+                            </a>
+                          </li>
+                        {% endfor %}
+                      {% else %}
+                        <li class="nav-item">
+                          <a href=# class="dropdown-item">
+                            <span class="message">
+                                Pas de notification
+                            </span>
+                          </a>
+                        </li>
+                      {% endif %}
                       <li class="nav-item">
                         <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
+                          <a href=# class="dropdown-item">
+                            <strong>Voir toutes les notifications</strong>
                             <i class="fa fa-angle-right"></i>
                           </a>
                         </div>
