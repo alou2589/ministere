@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TicketRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TicketRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
+//#[UniqueEntity(fields: ['matos'], message: 'Ce ticket est déjà ajouté !')]
 class Ticket
 {
     #[ORM\Id]

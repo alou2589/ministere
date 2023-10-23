@@ -1,0 +1,70 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Maintenance | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Maintenance</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_admin_maintenance_new') }}" title="Ajout Maintenance" ><i class="fas fa-fw fa-plus-circle"></i></a>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <p class="text-muted font-13 m-b-30">
+                                  Liste des maintenances 
+                                </p>
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Id</th>
+                                            <th class="text-center">Matériel</th>
+                                            <th class="text-center">Entrée</th>
+                                            <th class="text-center">Sortie</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Informations</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for maintenance in maintenances %}
+                                        <tr>
+                                            <td class="text-center">{{ maintenance.id }}</td>
+                                            <td class="text-center">{{ maintenance.matos.marqueMatos.nomMarqueMatos}} {{ maintenance.matos.modeleMatos }} - {{ maintenance.matos.snMatos }} </td>
+                                            <td class="text-center">{{ maintenance.dateMaintenance ? maintenance.dateMaintenance|date('Y-m-d') : '' }}</td>
+                                            <td class="text-center">{{ maintenance.dateSortie ? maintenance.dateSortie|date('Y-m-d') : '' }}</td>
+                                            <td class="text-center">{{ maintenance.statusMatos }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ path('app_admin_maintenance_show', {'id': maintenance.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <a href="{{ path('app_admin_maintenance_new') }}" class="btn btn-primary" title="Ajout Maintenance" >Ajouter maintenance <i class="fas fa-fw fa-plus-circle"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

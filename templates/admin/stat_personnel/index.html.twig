@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Chart JS Graph Examples | Gentelella Alela! by Colorlib</title>
+    <title>Administration | Ministère</title>
     {% block stylesheets %}
       {{ encore_entry_link_tags('app') }}
       <!-- Bootstrap -->
@@ -38,7 +38,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Chart Js <small>Some examples to get you started</small></h3>
+                <h3>Personnel <small>Statistiques</small></h3>
               </div>
 
               <div class="title_right">
@@ -75,6 +75,9 @@
             <div class="row">
               <div class="col-md-6 col-sm-6">
                 {% include "./admin/stat_personnel/agentByAnnee.html.twig" %}
+              </div>
+              <div class="col-md-6 col-sm-6">
+                {% include "./admin/stat_personnel/evolutionAgent.html.twig" %}
               </div>
             </div>
           </div>

@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieMaterielRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use App\Repository\CategorieMaterielRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CategorieMaterielRepository::class)]
+#[UniqueEntity(fields: ['nom_categorie_matos'], message: 'Cette catégorie existe déjà !')]
 class CategorieMateriel
 {
     #[ORM\Id]

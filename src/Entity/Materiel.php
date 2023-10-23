@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\MaterielRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MaterielRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: MaterielRepository::class)]
+#[UniqueEntity(fields: ['sn_matos'], message: 'Ce numéro de série existe déjà !')]
 class Materiel
 {
     #[ORM\Id]
@@ -48,11 +50,17 @@ class Materiel
     #[ORM\Column(type: Types::TEXT)]
     private ?string $info_matos = null;
 
+    #[ORM\OneToMany(mappedBy: 'matos', targetEntity: Maintenance::class, orphanRemoval: true)]
+    private Collection $maintenances;
+
+
+
 
     public function __construct()
     {
         $this->attributions = new ArrayCollection();
         $this->tickets = new ArrayCollection();
+        $this->maintenances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,5 +215,37 @@ class Materiel
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Maintenance>
+     */
+    public function getMaintenances(): Collection
+    {
+        return $this->maintenances;
+    }
+
+    public function addMaintenance(Maintenance $maintenance): static
+    {
+        if (!$this->maintenances->contains($maintenance)) {
+            $this->maintenances->add($maintenance);
+            $maintenance->setMatos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaintenance(Maintenance $maintenance): static
+    {
+        if ($this->maintenances->removeElement($maintenance)) {
+            // set the owning side to null (unless already changed)
+            if ($maintenance->getMatos() === $this) {
+                $maintenance->setMatos(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }

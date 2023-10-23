@@ -43,8 +43,8 @@ class AttributionRepository extends ServiceEntityRepository
     public function attribByYear()
     {
         $query = $this->createQueryBuilder('a')
-            ->select("YEAR(a.date_attribution) as annee_attrib, COUNT(a) as nb_attribution")
-            ->groupBy('annee_attrib')
+            ->select("COUNT(a) AS nb_attribution, (CASE WHEN YEAR(CURRENT_DATE())-YEAR(a.date_attribution)<3 THEN 'Moins de 3ans' WHEN YEAR(CURRENT_DATE())-YEAR(a.date_attribution)>=3 AND YEAR(CURRENT_DATE())-YEAR(a.date_attribution)<5 THEN 'Entre 3 et 5ans' WHEN YEAR(CURRENT_DATE())-YEAR(a.date_attribution)>5 THEN 'Plus de 5ans' ELSE 'Error' END) AS duree_utilisation")
+            ->groupBy('duree_utilisation')
         ;
         return $query->getQuery()->getResult();
     }

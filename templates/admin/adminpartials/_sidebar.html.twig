@@ -91,6 +91,7 @@
                             <ul class="nav child_menu">
                               <li class="sub_menu"><a href="{{ path('app_admin_technicien_index') }}">Technicien</a></li>
                               <li class="sub_menu"><a href="{{ path('app_admin_ticket_index') }}">Ticket</a></li>
+                              <li class="sub_menu"><a href="{{ path('app_admin_maintenance_index') }}">Maintenance</a></li>
                             </ul>
                           </li>
                         </ul>
@@ -218,6 +219,7 @@
                       <ul class="nav child_menu">
                         <li class="sub_menu"><a href="{{ path('app_admin_technicien_index') }}">Technicien</a></li>
                         <li class="sub_menu"><a href="{{ path('app_admin_ticket_index') }}">Ticket</a></li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_maintenance_index') }}">Maintenance</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -246,23 +248,22 @@
                 </li>
               </ul>
 
-                  {% elseif is_granted("ROLE_GESTION_ADMIN")== true %}
-                    <ul class="nav side-menu">
-                        <li><a><i class="fa fa-dashboard"></i> Tableau de Bord <span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li><a href="#">Tableau de Bord</a></li>
-                          </ul>
-                        </li>
-                        <li><a><i class="fa fa-city"></i> Personnel<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li><a href="{{ path('app_admin_structure_index') }}">Structure</a></li>
-                            <li><a href="{{ path('app_admin_sous_structure_index') }}">Sous Structure</a></li>
-                            <li><a href="{{ path('app_admin_agent_index') }}">Agent</a></li>
-                          </ul>
-                        </li>
-                    </ul>
-
-                  {% endif %}
+              {% elseif is_granted("ROLE_GESTION_ADMIN")== true %}
+                <ul class="nav side-menu">
+                    <li><a><i class="fa fa-dashboard"></i> Tableau de Bord <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="#">Tableau de Bord</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-city"></i> Personnel<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="{{ path('app_admin_structure_index') }}">Structure</a></li>
+                        <li><a href="{{ path('app_admin_sous_structure_index') }}">Sous Structure</a></li>
+                        <li><a href="{{ path('app_admin_agent_index') }}">Agent</a></li>
+                      </ul>
+                    </li>
+                </ul>
+              {% endif %}
               </div>
 
             </div>

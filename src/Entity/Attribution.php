@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: AttributionRepository::class)]
+#[UniqueEntity(fields: ['matos'], message: 'Ce matériel est déjà attribué !')]
 class Attribution
 {
     #[ORM\Id]

@@ -65,7 +65,7 @@ class StatPersonnelController extends AbstractController
 
    #[Route('/service_agents', name: 'app_admin_stat_personnel_service')]
    public function index(ChartBuilderInterface $chartBuilderRY,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartBuilderSD,ChartBuilderInterface $chartBuilderAS,
-    AgentRepository $agentRepository,StatutAgentRepository $statutRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository): Response 
+    AgentRepository $agentRepository,StatutAgentRepository $statutAgentRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository, ChartBuilderInterface $chartbuilderSTA): Response 
       { 
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
@@ -75,6 +75,8 @@ class StatPersonnelController extends AbstractController
         $agentByYears = $agentRepository->agentByYear();
         $masculins[]=count($agentRepository->findBy(['genre'=>'homme']));
         $feminins[]=count($agentRepository->findBy(['genre'=>'femme']));
+        $statutAgents=$statutAgentRepository->statutAgentByYear();
+
         foreach ($structures as $structure) {
             # code...
             $s_name[] = $structure->getNomStructure();
@@ -84,6 +86,11 @@ class StatPersonnelController extends AbstractController
                # code...
                $nbagents[] = $s_agent['agents'];
             }
+         }
+         foreach ($statutAgents as $statutAgent) {
+             # code...
+             $sta_name[] = $statutAgent['date_record'];
+             $sta_count[] = $statutAgent['nb_agents'];
          }
          foreach ($agentByYears as $agentByYear) {
             # code...
@@ -100,13 +107,16 @@ class StatPersonnelController extends AbstractController
         $chartSD = self::statistiques($chartBuilderSD, Chart::TYPE_PIE, $s_name, $s_ss, 'SousStructure par Structure', $structures);
         $chartRY = self::statistiques($chartBuilderRY, Chart::TYPE_BAR, $year, $nb_recrus, "Tranche d'âge", $agentByYears);
         $chartAS = self::statistiques($chartBuilderAS, Chart::TYPE_PIE, ['Homme', 'Femme'], [$masculins, $feminins], 'Agents par Genre', $agents);
-         
+        $chartSTA = self::statistiques($chartbuilderSTA, Chart::TYPE_LINE,$sta_name, $sta_count, 'Evolution Agent',$sta_count);
+ 
          return $this->render('admin/stat_personnel/index.html.twig', [ 
                 'chartSA' => $chartSA, 
                 'chartDA' => $chartDA, 
                 'chartSD' => $chartSD, 
                 'chartAS' => $chartAS, 
                 'chartRY' => $chartRY, 
+                'chartSTA'=>$chartSTA,
+                'sta_name'=>$sta_name,
                 'notifications' => $notifications,
                 'messages' => $messages,
                 'agentByYears' => $agentByYears,
