@@ -57,16 +57,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-10 col-xs-12 mr-2">
+                                        <div class="col-md-6 col-xs-12">
                                             <div class="card o-hidden border-0 shadow-lg my-5">
                                                 <div class="card-body p-1">
                                                     <div class="row">
                                                         <div class="col-lg-10 col-xs-12 mx-auto">
                                                             <div class="p-1">
+                                                                <h2>Informations Personnelles</h2>
                                                                 <ul class="list-group">
-                                                                    <li class="list-group-item">
-                                                                        <p><strong>Id</strong>: {{ agent.id }}</p>
-                                                                    </li>
                                                                     <li class="list-group-item">
                                                                         <p><strong>Nom Complet</strong>: {{ agent.Prenom}} {{ agent.Nom }}</p>
                                                                     </li>
@@ -91,16 +89,72 @@
                                                                     <li class="list-group-item">
                                                                         <p><strong>Service/Cellule/Bureau</strong>: {{ agent.sousStructure.NomSousStructure }}</p>
                                                                     </li>
+                                                                </ul>                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                                <div class="card-body p-1">
+                                                    <div class="row">
+                                                        <div class="col-lg-10 col-xs-12 mx-auto">
+                                                            <div class="p-1">
+                                                                <h2>Informations Supplémentaires</h2>
+                                                                <ul class="list-group">
                                                                     <li class="list-group-item">
-                                                                        <p>
-                                                                            <strong>Informations Supplémentaires</strong>: <br>
-                                                                            {% if carte_pro %}
-                                                                                <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Imprimer Carte Professionnelle"> <i class="fas fa-print text-info"></i> </a>
-                                                                            {% endif %}
-                                                                        </p>
+                                                                            <strong>Carte Professionnelle :</strong><br>
+                                                                            
+                                                                            {% if carte_pro == null %}
+                                                                                <strong>Veuillez cliquez sur ce lien 👉🏽 </strong> <a class="link" href="{{ path('app_admin_carte_pro_new') }}"  class="text-decoration-none float-left m-1" title="Imprimer Carte Professionnelle"> <i class="fas fa-id-card text-info"></i> </a>
+                                                                            {% else %}
+                                                                                <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Imprimer Carte Professionnelle"> <i class="fas fa-id-card-clip text-info"></i> </a>
+                                                                            {% endif %} 
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <strong>Statut Agent : </strong><br> 
+                                                                        {% if statut_agent == null %}      
+                                                                            <strong>Veuillez cliquez sur ce lien 👉🏽 </strong> <a class="link" href="{{ path('app_admin_statut_agent_new') }}"  class="text-decoration-none float-left m-1" title="Classer l'agent"> <i class="fas fa-clipboard-list text-info"></i> </a>
+                                                                        {% else %}
+                                                                            <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Statut de l'agent"> <i class="fas fa-print text-info"></i> </a>
+                                                                        {% endif %}
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <strong>Matériels Informatiques :</strong> <br><br>
+                                                                        {% if attributions == null %}
+                                                                            <strong>Pas de matériel :</strong><a class="link" href="{{ path('app_admin_attribution_new')}}"  class="text-decoration-none float-left m-1" title="Attribuer un matériel"> <i class="fas fa-print text-info"></i></a>
+                                                                        {% else %}
+                                                                            {% for attribution in attributions %}
+                                                                                <p>
+                                                                                    <a class="link text-info" href="{{ path('app_admin_attribution_show', {'id': attribution.id}) }}"  class="text-decoration-none float-left m-1" title="Afficher les détails"> {{attribution.matos.typeMatos.nomTypeMatos}} {{attribution.matos.marqueMatos.nomMarqueMatos}} {{attribution.matos.modeleMatos}} - {{attribution.matos.snMatos}} </a>
+                                                                                </p>
+                                                                            {% endfor %}
+                                                                        {% endif %}
                                                                     </li>
                                                                 </ul>                            
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="card o-hidden border-0 shadow-lg my-5">
+                                            <div class="card-body p-1">
+                                                <div class="row">
+                                                    <div class="col-lg-10 col-xs-12 mx-auto">
+                                                        <div class="p-1">
+                                                            <h2>Historique de l'agent</h2>
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item">
+                                                                    <p><strong>Nom Complet</strong>: {{ agent.Prenom}} {{ agent.Nom }}</p>
+                                                                </li>
+                                                            </ul>                            
                                                         </div>
                                                     </div>
                                                 </div>

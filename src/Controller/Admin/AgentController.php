@@ -6,6 +6,7 @@ use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Entity\HistoriqueRH;
 use App\Repository\AgentRepository;
+use App\Repository\AttributionRepository;
 use App\Repository\CarteProRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\StatutAgentRepository;
@@ -61,15 +62,17 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_agent_show', methods: ['GET'])]
-    public function show(Agent $agent,MessagesRepository $messagesRepository, CarteProRepository $carteProRepository, StatutAgentRepository $statutAgentRepository,NotificationRepository $notificationRepository): Response
+    public function show(Agent $agent,MessagesRepository $messagesRepository,AttributionRepository $attributionRepository, CarteProRepository $carteProRepository, StatutAgentRepository $statutAgentRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $cartePro = $carteProRepository->findOneBy(['agent' => $agent->getId()]);
+        $attributions=$attributionRepository->findBy(['agent'=> $agent->getId()]);
         $statutAgent = $statutAgentRepository->findOneBy(['agent' => $agent->getId()]);
         return $this->render('admin/agent/show.html.twig', [
             'agent' => $agent,
             'statut_agent' => $statutAgent,
+            'attributions' => $attributions,
             'notifications' => $notifications,
             'carte_pro' => $cartePro,
             'messages' => $messages,

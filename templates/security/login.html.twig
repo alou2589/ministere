@@ -30,6 +30,9 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
+            <div class="p-1">
+              <h3><img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="100"></h3>
+            </div>
             <form method="post">
               {% if error %}
                   <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -37,11 +40,12 @@
           
               {% if app.user %}
                   <div class="mb-3">
-                      You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                      {{ app.user == null }}
                   </div>
               {% endif %}
-          
-                <h1>Connexion</h1>
+              
+              
+                
                 <label for="inputEmail">Email</label>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
                 <label for="inputPassword">Password</label>
@@ -49,11 +53,29 @@
           
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
           
-                <button class="btn btn-lg btn-primary" type="submit"> Sign in</button>
+                <button class="btn btn-lg btn-dark" type="submit"> Connexion</button>
             </form>
+            <div class="clearfix"></div>
+
+            <div class="separator">
+
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+                <h1><i class="fa fa-paw"></i> GRM </h1>
+                <div class="pull-right">
+                  Ministère du Commerce de la Consommation et des PME <img src="{{asset('assets/images/logo.png')}}" width="20" alt=""> Designed By Alou 
+                </div>
+              </div>
+            </div>
           </section>
         </div>
+        
+      
+      
       </div>
+      
     </div>
   </body>
 </html>
