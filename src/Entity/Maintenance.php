@@ -26,7 +26,7 @@ class Maintenance
     #[ORM\Column(length: 255)]
     private ?string $status_matos = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_sortie = null;
 
     public function getId(): ?int

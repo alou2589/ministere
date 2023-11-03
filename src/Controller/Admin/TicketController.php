@@ -2,18 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Maintenance;
 use App\Entity\Ticket;
-use App\Entity\Notification;
 use App\Entity\Messages;
 use App\Form\TicketType;
-use App\Repository\MessagesRepository;
+use App\Entity\Notification;
+use App\Repository\MaintenanceRepository;
 use App\Repository\TicketRepository;
+use App\Repository\MessagesRepository;
 use App\Repository\NotificationRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/ticket')]
 #[IsGranted("ROLE_INFO_ADMIN")]
@@ -32,7 +34,7 @@ class TicketController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_ticket_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,MessagesRepository $messagesRepository, TicketRepository $ticketRepository,NotificationRepository $notificationRepository): Response
+    public function new(Request $request,MessagesRepository $messagesRepository,MaintenanceRepository $maintenanceRepository, TicketRepository $ticketRepository,NotificationRepository $notificationRepository): Response
     {
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
@@ -47,6 +49,14 @@ class TicketController extends AbstractController
             $ticket->setStatutMatos("En Panne");
             $ticket->setDateSortie(new \DateTime());
             $ticketRepository->save($ticket, true);
+            $maintenance=new Maintenance();
+            
+            $maintenance->setMatos($ticket->getMatos());
+            $maintenance->setDateMaintenance($ticket->getDateDeclaration());
+            $maintenance->setStatusMatos($ticket->getStatutMatos());
+            
+            $maintenanceRepository->save($maintenance,true);
+            
             $notif=new Notification();
             $notif->setTicket($ticket);
             $notif->setTitre("Titre N°".$ticket->getId());
@@ -99,6 +109,12 @@ class TicketController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ticketRepository->save($ticket, true);
+            
+            $maintenance=new Maintenance();
+            
+            $maintenance->setMatos($ticket->getMatos());
+            $maintenance->setDateMaintenance($ticket->getDateDeclaration());
+            $maintenance->setStatusMatos($ticket->getStatutMatos());
 
             return $this->redirectToRoute('app_admin_ticket_index', [], Response::HTTP_SEE_OTHER);
         }

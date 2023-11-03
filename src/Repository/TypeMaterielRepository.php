@@ -37,6 +37,49 @@ class TypeMaterielRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }  
+    
+    public function laptops()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where("t.nom_type_matos='Ordinateur Portable' ")
+        ;
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    public function desktops()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where("t.nom_type_matos ='Ordinateur Fixe' ")
+        ;
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    public function aios()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where("t.nom_type_matos ='All In One' ")
+        ;
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    public function printerColors()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where("t.nom_type_matos ='Imprimante Couleur' ")
+        ;
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    public function pinterNBs()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where("t.nom_type_matos ='Imprimante Noir et Blanc' ")
+        ;
+        return $query->getQuery()->getOneOrNullResult();
+    }
+    public function photocopieuses()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where("t.nom_type_matos ='Photocopieuse Multifonction' ")
+        ;
+        return $query->getQuery()->getOneOrNullResult();
     }
 
 //    /**

@@ -1,0 +1,76 @@
+
+
+    <div class="row">
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-laptop text-secondary"></i></div>
+          <div class="count">
+            {{ laptops|length }}
+          </div>
+          <h3>Ordinateur Portable</h3>
+          <p>Total Ordinateur Portables.</p>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-desktop text-primary"></i></div>
+          <div class="count">
+            {{ desktops|length + aios|length }}
+          </div>
+          <h3>Ordinateur Fixe</h3>
+          <p>Total Ordinateur Fixe.</p>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-print text-dark"></i></div>
+          <div class="count">
+            {{ printerColors|length + printerNBs|length + photocopieuses|length}}
+          </div>
+          <h3>Imprimante & Photocopieuse</h3>
+          <p>Total Imprimante & Photocopieuse.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-fingerprint text-success"></i></div>
+          <div class="count">
+            {{ attributions|length }}
+          </div>
+          <h3>Matériels attribués</h3>
+          <p>Total Attribution.</p>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-database text-info"></i></div>
+          <div class="count">
+            {{ attributions|length }}
+          </div>
+          <h3>Matériels en stock</h3>
+          <p>Total Attribution.</p>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-skull-crossbones text-danger"></i></div>
+          <div class="count">
+            {{ maintenances_amortis|length }}
+          </div>
+          <h3>Matériels Amortis</h3>
+          <p>Total Amorti.</p>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats">
+          <div class="icon"><i class="fas fa-exclamation-triangle text-warning"></i></div>
+          <div class="count">
+            {{ maintenances_pannes|length }}
+          </div>
+          <h3>Matériels En Pannes</h3>
+          <p>Total Amorti.</p>
+        </div>
+      </div>
+    </div>

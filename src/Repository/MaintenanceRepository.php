@@ -21,6 +21,24 @@ class MaintenanceRepository extends ServiceEntityRepository
         parent::__construct($registry, Maintenance::class);
     }
 
+    public function save(Maintenance $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Maintenance $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return Maintenance[] Returns an array of Maintenance objects
 //     */

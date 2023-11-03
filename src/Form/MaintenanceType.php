@@ -22,7 +22,7 @@ class MaintenanceType extends AbstractType
             ])
             ->add('status_matos', ChoiceType::class, [
                 'choices' => [
-                    'En Cours' => 'En Cours',
+                    'En Cours' => 'En Panne',
                     'Effectuer' => 'Effectuer',
                     'Amorti' => 'Amorti',
                 ],
