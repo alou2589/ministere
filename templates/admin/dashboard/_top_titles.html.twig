@@ -1,15 +1,32 @@
 
 
-        <div class="row" style="display: inline-block;">
-        <div class="top_tiles">
-          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
-            <div class="tile-stats">
-              <div class="icon"><i class="fas fa-users"></i></div>
-              <div class="count">{{agents|length}}</div>
-              <h3>Agents</h3>
-              <p>Total Agent.</p>
-            </div>
+      <div class="row">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+          <div class="tile-stats">
+            <div class="icon"><i class="fas fa-users text-success"></i></div>
+            <div class="count">{{agents|length}}</div>
+            <h3>Agents</h3>
+            <p>Total Agent.</p>
           </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+          <div class="tile-stats">
+            <div class="icon"><i class="fas fa-male text-dark"></i></div>
+            <div class="count">{{hommes|length}}</div>
+            <h3>Hommes</h3>
+            <p>Total Homme.</p>
+          </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+          <div class="tile-stats">
+            <div class="icon"><i class="fas fa-female text-info"></i></div>
+            <div class="count">{{femmes|length}}</div>
+            <h3>Femmes</h3>
+            <p>Total Femme.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
           {% for type_structure in type_structures %}
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
               <div class="tile-stats">
@@ -21,6 +38,8 @@
             </div>
             
           {% endfor %}
+      </div>
+      <div class="row">
           {% for type_sous_structure in type_sous_structures %}  
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
               <div class="tile-stats">
@@ -31,5 +50,4 @@
               </div>
             </div>
           {% endfor %}
-        </div>
       </div>

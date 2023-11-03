@@ -57,6 +57,11 @@ class StatutAgentType extends AbstractType
                 'label' => 'Date Prise de Service',
                 'attr' => ['class' => 'js-datepicker'],
                 ])
+            ->add('date_debut_ministere', DateType::class, [ 
+                'widget' => 'single_text',
+                'label' => 'Date début Ministère',
+                'attr' => ['class' => 'js-datepicker'],
+                ])
             ->add('date_avancement', DateType::class, [ 
                 'widget' => 'single_text',
                 'label' => 'Date dernier Avancement',

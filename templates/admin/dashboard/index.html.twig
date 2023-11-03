@@ -10,6 +10,7 @@
 
     <title>Tableau de Bord | Ministère </title>
       {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
       <!-- Bootstrap -->
       <link href="{{asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
       <!-- Font Awesome -->
@@ -61,6 +62,7 @@
 
 
     {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
     <script src="https://kit.fontawesome.com/112362d990.js" crossorigin="anonymous"></script>  
     <!-- jQuery -->
     <script src="{{asset('assets/vendors/jquery/dist/jquery.min.js')}}"></script>

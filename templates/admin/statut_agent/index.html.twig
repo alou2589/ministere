@@ -34,8 +34,8 @@
                             <th></th>
                             <th class="text-center">Id</th>
                             <th class="text-center">Agent</th>
-                            <th class="text-center">Grade</th>
-                            <th class="text-center">Echelon</th>
+                            <th class="text-center">Prise de Service</th>
+                            <th class="text-center">Début Ministère</th>
                             <th class="text-center">Hierarchie</th>
                             <th class="text-center">Information</th>
                         </tr>
@@ -52,8 +52,8 @@
                             </td>
                             <td class="text-center">{{ statut_agent.id }}</td>
                             <td class="text-center">{{ statut_agent.agent.Prenom }} {{ statut_agent.agent.Nom }} - {{ statut_agent.agent.Matricule }} </td>
-                            <td class="text-center">{{statut_agent.grade }}</td>
-                            <td class="text-center">{{statut_agent.echellon }}</td>
+                            <td class="text-center">{{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</td>
+                            <td class="text-center">{{statut_agent.DateDebutMinistere ? statut_agent.DateDebutMinistere|date('d-m-Y'):' '}}</td>
                             <td class="text-center">{{statut_agent.hierarchie }}</td>
                             <td class="text-center">
                                 <a href="{{ path('app_admin_statut_agent_show', {'id': statut_agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>

@@ -35,6 +35,9 @@ class StatutAgent
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_avancement = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_debut_ministere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +111,18 @@ class StatutAgent
     public function setDateAvancement(\DateTimeInterface $date_avancement): self
     {
         $this->date_avancement = $date_avancement;
+
+        return $this;
+    }
+
+    public function getDateDebutMinistere(): ?\DateTimeInterface
+    {
+        return $this->date_debut_ministere;
+    }
+
+    public function setDateDebutMinistere(?\DateTimeInterface $date_debut_ministere): static
+    {
+        $this->date_debut_ministere = $date_debut_ministere;
 
         return $this;
     }
