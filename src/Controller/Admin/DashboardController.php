@@ -68,7 +68,7 @@ class DashboardController extends AbstractController
     #[Route('/admin/dashboard_info', name: 'app_admin_dashboard_info')]
     public function dash_info(MaterielRepository $materielRepository,MaintenanceRepository $maintenanceRepository,TypeMaterielRepository $typeMaterielRepository,
     MessagesRepository $messagesRepository,NotificationRepository $notificationRepository,MarqueMatosRepository $marqueMatosRepository,AttributionRepository $attributionRepository, ChartBuilderInterface $cahertbuilderAY,
-    ChartBuilderInterface $chartbuilderTM, ChartBuilderInterface $chartbuilderMM, ChartBuilderInterface $chartbuilderSM): Response
+    ChartBuilderInterface $chartbuilderTM,ChartBuilderInterface $chartbuilderMY ,ChartBuilderInterface $chartbuilderMM, ChartBuilderInterface $chartbuilderSM): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
@@ -80,14 +80,14 @@ class DashboardController extends AbstractController
         $photocopieuse=$typeMaterielRepository->photocopieuses();
         $attributions=$attributionRepository->findAll();
         $materiels=$materielRepository->findAll();
+        $matosByYears=$materielRepository->matosByYear();
         
         $typeMateriels = $typeMaterielRepository->findAll();
         $marqueMatos = $marqueMatosRepository->findAll();
         $attribByYears = $attributionRepository->attribByYear();
-        $materiels=$materielRepository->findAll();
         $maintenances_amortis=$maintenanceRepository->findBy(['status_matos'=> 'Amorti']);
         $maintenances_pannes=$maintenanceRepository->findBy(['status_matos'=> 'En Panne']);
-        $m_count = array('Amorti' => count($maintenances_amortis),'Normal'=>count($materiels)-count($maintenances_amortis) );
+        $m_count = array('Amorti' => count($maintenances_amortis),'En Panne'=>count($maintenances_pannes), 'Normal'=>count($materiels)-(count($maintenances_amortis)+count($maintenances_pannes)) );
         
         foreach ($typeMateriels as $typeMateriel) {
             $tm_name[] = $typeMateriel->getNomTypeMatos();
@@ -104,10 +104,16 @@ class DashboardController extends AbstractController
             $attribByYear_name[] = $attribByYear['duree_utilisation'];
             $attribByYear_count[] = $attribByYear['nb_attribution'];
         }
+        foreach ($matosByYears as $matosByYear) {
+            # code...
+            $matosByYear_name[] = $matosByYear['date_record'];
+            $matosByYear_count[] = $matosByYear['nb_matos'];
+        }
+        $chartMY = self::statistiques($chartbuilderMY, Chart::TYPE_LINE,$matosByYear_name, $matosByYear_count,'Évolution par Année', $materiels );
         $chartTM = self::statistiques($chartbuilderTM, Chart::TYPE_PIE,$tm_name, $tm_matos,'Matériels Par Type', $typeMateriels );
         $chartMM = self::statistiques($chartbuilderMM, Chart::TYPE_PIE, $mm_name,$mm_matos, 'Matériel par Marque', $marqueMatos);
         $chartAY = self::statistiques($cahertbuilderAY, Chart::TYPE_BAR, $attribByYear_name, $attribByYear_count, 'Attribution par année',$attribByYears );
-        $chartSM = self::statistiques($chartbuilderSM, Chart::TYPE_BAR,['Amorti', 'Normal'], $m_count, 'Etat du parc',$m_count);
+        $chartSM = self::statistiques($chartbuilderSM, Chart::TYPE_BAR,['Amorti', 'En Panne', 'Normal'], $m_count, 'Etat du parc',$materiels);
 
         return $this->render('admin/dashboard/info_index.html.twig', [
             'laptops' => $laptop->getMateriels(), 
@@ -120,6 +126,7 @@ class DashboardController extends AbstractController
             'materiels' => $materiels, 
             'maintenances_amortis' => $maintenances_amortis, 
             'maintenances_pannes' => $maintenances_pannes, 
+            'chartMY' => $chartMY, 
             'chartTM' => $chartTM, 
             'chartMM'=>$chartMM,
             'chartAY'=>$chartAY,

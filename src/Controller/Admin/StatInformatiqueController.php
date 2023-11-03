@@ -74,7 +74,8 @@ class StatInformatiqueController extends AbstractController
         $attribByYears = $attributionRepository->attribByYear();
         $materiels=$materielRepository->findAll();
         $maintenances_amortis=$maintenanceRepository->findBy(['status_matos'=> 'Amorti']);
-        $m_count = array('Amorti' => count($maintenances_amortis),'Normal'=>count($materiels)-count($maintenances_amortis) );
+        $maintenances_pannes=$maintenanceRepository->findBy(['status_matos'=> 'En Panne']);
+        $m_count = array('Amorti' => count($maintenances_amortis),'En Panne'=>count($maintenances_pannes),'Normal'=>count($materiels)-count($maintenances_amortis)-count($maintenances_pannes) );
         
         foreach ($typeMateriels as $typeMateriel) {
             $tm_name[] = $typeMateriel->getNomTypeMatos();
