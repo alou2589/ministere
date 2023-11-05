@@ -7,6 +7,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\MaterielRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\StructureRepository;
+use App\Repository\TypeAgentRepository;
 use App\Repository\AttributionRepository;
 use App\Repository\MaintenanceRepository;
 use App\Repository\MarqueMatosRepository;
@@ -137,11 +138,12 @@ class DashboardController extends AbstractController
     }
     #[Route('/admin/dashboard_perso', name: 'app_admin_dashboard_perso')]
     public function dash_perso(NotificationRepository $notificationRepository,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderRY, ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartbuilderSTA ,ChartBuilderInterface $chartBuilderAS,AgentRepository $agentRepository, StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository, 
-                        StatutAgentRepository $statutAgentRepository,TypeStructureRepository $typeStructureRepository, TypeSousStructureRepository $typeSousStructureRepository): Response
+                        StatutAgentRepository $statutAgentRepository,TypeAgentRepository $typeAgentRepository,TypeStructureRepository $typeStructureRepository, TypeSousStructureRepository $typeSousStructureRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $agents = $agentRepository->findAll();
+        $typeAgents=$typeAgentRepository->findAll();
         $agentByYears = $agentRepository->agentByYear();
         $femmes=$agentRepository->findBy(['genre'=>'femme']);
         $hommes=$agentRepository->findBy(['genre'=>'homme']);
@@ -150,6 +152,12 @@ class DashboardController extends AbstractController
         $structures = $structureRepository->findAll();
         $sousStructures = $sousStructureRepository->findAll();
         $statutAgents=$statutAgentRepository->statutAgentByYear();
+        
+        foreach ($typeAgents as $typeAgent) {
+            # code...
+            $type_name[]=$typeAgent->getNomTypeAgent();
+            $type_count[]=count($typeAgent->getAgents());
+        }
         
         foreach ($structures as $structure) {
             # code...
@@ -180,15 +188,16 @@ class DashboardController extends AbstractController
         
         $chartSA = self::statistiques($chartBuilderSA, Chart::TYPE_BAR,$ss_name, $ss_agents,'Agent Par Sous Structure', $sousStructures );
         $chartDA = self::statistiques($chartBuilderDA, Chart::TYPE_BAR, $s_name, $nbagents, 'Agents par Structure', $structures);
-        $chartAS = self::statistiques($chartBuilderAS, Chart::TYPE_PIE, ['Homme', 'Femme'], [count($hommes), count($femmes)], 'Agents par Genre', $agents);
+        $chartAS = self::statistiques($chartBuilderAS, Chart::TYPE_DOUGHNUT, ['Homme', 'Femme'], [count($hommes), count($femmes)], 'Agents par Genre', $agents);
         $chartSTA = self::statistiques($chartbuilderSTA, Chart::TYPE_LINE,$sta_name, $sta_count, 'Evolution Agent',$sta_count);
-        $chartRY = self::statistiques($chartBuilderRY, Chart::TYPE_PIE, $year, $nb_recrus, "Tranche d'âge", $agentByYears);
+        $chartRY = self::statistiques($chartBuilderRY, Chart::TYPE_DOUGHNUT, $year, $nb_recrus, "Tranche d'âge", $agentByYears);
 
 
         return $this->render('admin/dashboard/perso_index.html.twig', [
             'agents' => $agents,
             'hommes' => $hommes,
             'femmes' => $femmes,
+            'typeAgents' => $typeAgents,
             'chartSA' => $chartSA,
             'chartDA' => $chartDA,
             'chartAS' => $chartAS,

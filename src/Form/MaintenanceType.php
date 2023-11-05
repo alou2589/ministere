@@ -22,7 +22,8 @@ class MaintenanceType extends AbstractType
             ])
             ->add('status_matos', ChoiceType::class, [
                 'choices' => [
-                    'En Cours' => 'En Panne',
+                    'En Panne' => 'En Panne',
+                    'En Maintenance' => 'En Miantenance',
                     'Effectuer' => 'Effectuer',
                     'Amorti' => 'Amorti',
                 ],
@@ -35,8 +36,12 @@ class MaintenanceType extends AbstractType
             ->add('matos', EntityType::class, [
                 'class' => Materiel::class,
                 'choice_label' => function ($materiel) {
-                    if($materiel->getAttributions()->toArray()==null){
+                    if($materiel->getMaintenances()->toArray()==null){
                         return $materiel->getSnMatos() .' '. $materiel->getMarqueMatos()->getNomMarquematos() .' '. $materiel->getModeleMatos();
+                    }
+                    else {
+                        # code...
+                        return null;
                     }
                 },
                 'attr' => ['class' => 'js-example-basic-single']

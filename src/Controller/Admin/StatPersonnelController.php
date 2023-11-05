@@ -10,6 +10,7 @@ use App\Repository\StructureRepository;
 use App\Repository\StatutAgentRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\SousStructureRepository;
+use App\Repository\TypeAgentRepository;
 use Symfony\UX\Chartjs\Builder\ChartBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,13 +65,14 @@ class StatPersonnelController extends AbstractController
    }
 
    #[Route('/service_agents', name: 'app_admin_stat_personnel_service')]
-   public function index(ChartBuilderInterface $chartBuilderRY,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartBuilderSD,ChartBuilderInterface $chartBuilderAS,
-    AgentRepository $agentRepository,StatutAgentRepository $statutAgentRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository, ChartBuilderInterface $chartbuilderSTA): Response 
+   public function index(ChartBuilderInterface $chartBuilderRY, ChartBuilderInterface $chartBuilderAT,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartBuilderSD,ChartBuilderInterface $chartBuilderAS,
+    AgentRepository $agentRepository,TypeAgentRepository $typeAgentRepository,StatutAgentRepository $statutAgentRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository, ChartBuilderInterface $chartbuilderSTA): Response 
       { 
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $sousStructures=$sousStructureRepository->findAll();
         $structures=$structureRepository->findAll();
+        $typeAgents=$typeAgentRepository->findAll();
         $agents = $agentRepository->findAll();
         $agentByYears = $agentRepository->agentByYear();
         $masculins[]=count($agentRepository->findBy(['genre'=>'homme']));
@@ -87,6 +89,12 @@ class StatPersonnelController extends AbstractController
                $nbagents[] = $s_agent['agents'];
             }
          }
+         
+         foreach ($typeAgents as $typeAgent) {
+            # code...
+            $type_name[]=$typeAgent->getNomTypeAgent();
+            $type_count[]=count($typeAgent->getAgents());
+         }
          foreach ($statutAgents as $statutAgent) {
              # code...
              $sta_name[] = $statutAgent['date_record'];
@@ -102,6 +110,7 @@ class StatPersonnelController extends AbstractController
             $ss_name[]=$sousStructure->getNomSousStructure();
             $ss_agents[]=count($sousStructure->getAgents());
          }
+        $chartAT = self::statistiques($chartBuilderAT, Chart::TYPE_PIE,$type_name, $type_count,'Agent Par Statut', $agents);
         $chartSA = self::statistiques($chartBuilderSA, Chart::TYPE_BAR,$ss_name, $ss_agents,'Agent Par Sous Structure', $sousStructures );
         $chartDA = self::statistiques($chartBuilderDA, Chart::TYPE_BAR, $s_name, $nbagents, 'Agents par Structure', $structures);
         $chartSD = self::statistiques($chartBuilderSD, Chart::TYPE_PIE, $s_name, $s_ss, 'SousStructure par Structure', $structures);
@@ -111,6 +120,7 @@ class StatPersonnelController extends AbstractController
  
          return $this->render('admin/stat_personnel/index.html.twig', [ 
                 'chartSA' => $chartSA, 
+                'chartAT' => $chartAT, 
                 'chartDA' => $chartDA, 
                 'chartSD' => $chartSD, 
                 'chartAS' => $chartAS, 

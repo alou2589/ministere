@@ -1,30 +1,42 @@
 
 
       <div class="row">
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
-          <div class="tile-stats">
-            <div class="icon"><i class="fas fa-users text-success"></i></div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+          <div class="tile-stats bg-success text-white">
+            <div class="icon"><i class="fas fa-users text-white"></i></div>
             <div class="count">{{agents|length}}</div>
-            <h3>Agents</h3>
+            <h3 class=" text-white">Agents</h3>
             <p>Total Agent.</p>
           </div>
         </div>
         <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
-          <div class="tile-stats">
-            <div class="icon"><i class="fas fa-male text-dark"></i></div>
+          <div class="tile-stats bg-dark text-white">
+            <div class="icon"><i class="fas fa-male text-white"></i></div>
             <div class="count">{{hommes|length}}</div>
-            <h3>Hommes</h3>
+            <h3 class=" text-white">Hommes</h3>
             <p>Total Homme.</p>
           </div>
         </div>
         <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
-          <div class="tile-stats">
-            <div class="icon"><i class="fas fa-female text-info"></i></div>
+          <div class="tile-stats bg-info text-white">
+            <div class="icon"><i class="fas fa-female text-white"></i></div>
             <div class="count">{{femmes|length}}</div>
-            <h3>Femmes</h3>
+            <h3 class="text-white">Femmes</h3>
             <p>Total Femme.</p>
           </div>
         </div>
+      </div>
+      <div class="row">
+        {% for typeAgent in typeAgents %}
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+            <div class="tile-stats bg-primary">
+              <div class="icon"><i class="fas fa-user text-white"></i></div>
+              <div class="count text-white">{{typeAgent.agents|length}}</div>
+              <h3 class="text-white">{{typeAgent.nomTypeAgent}}</h3>
+              <p class="text-white">Total {{typeAgent.nomTypeAgent}}.</p>
+            </div>
+          </div>
+        {% endfor %}
       </div>
       <div class="row">
           {% for type_structure in type_structures %}
