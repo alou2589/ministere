@@ -79,6 +79,9 @@ class DashboardController extends AbstractController
         $printerColor=$typeMaterielRepository->printerColors();
         $printerNB=$typeMaterielRepository->printerColors();
         $photocopieuse=$typeMaterielRepository->photocopieuses();
+        $laptopAttribs=$attributionRepository->laptopAttrib();
+        $laptopAmortis=$maintenanceRepository->matosStatus('Ordinateur Portable','Amorti');
+        $laptopEnPannes=$maintenanceRepository->matosStatus('Ordinateur Portable','En Panne');
         $attributions=$attributionRepository->findAll();
         $materiels=$materielRepository->findAll();
         $matosByYears=$materielRepository->matosByYear();
@@ -117,7 +120,10 @@ class DashboardController extends AbstractController
         $chartSM = self::statistiques($chartbuilderSM, Chart::TYPE_BAR,['Amorti', 'En Panne', 'Normal'], $m_count, 'Etat du parc',$materiels);
 
         return $this->render('admin/dashboard/info_index.html.twig', [
-            'laptops' => $laptop->getMateriels(), 
+            'laptops' => $laptop->getMateriels(),
+            'laptopAttribs'=>$laptopAttribs,
+            'laptopAmortis'=>$laptopAmortis,
+            'laptopEnPannes'=>$laptopEnPannes,
             'desktops' => $desktop->getMateriels(), 
             'aios' => $aio->getMateriels(), 
             'printerColors' => $printerColor->getMateriels(), 

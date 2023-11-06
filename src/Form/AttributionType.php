@@ -27,7 +27,7 @@ class AttributionType extends AbstractType
                 'class' => Materiel::class,
                 'choice_label' => function ($materiel) {
                     if($materiel->getAttributions()->toArray()==null){
-                        return $materiel->getTypematos()->getNomTypeMatos() .' '. $materiel->getMarqueMatos()->getNomMarquematos() .' '. $materiel->getModeleMatos();
+                        return $materiel->getTypematos()->getNomTypeMatos() .' '. $materiel->getMarqueMatos()->getNomMarquematos() .' '. $materiel->getModeleMatos().'-'.$materiel->getSnMatos();
                     }
                 },
                 'attr' => ['class' => 'js-example-basic-single']

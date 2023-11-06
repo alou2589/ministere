@@ -1,16 +1,62 @@
 
-
     <div class="row">
+    {# Total #}
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
-        <div class="tile-stats bg-success text-white">
+        <div class="tile-stats bg-primary text-white">
           <div class="icon"><i class="fas fa-laptop text-white"></i></div>
           <div class="count text-white">
             {{ laptops|length }}
           </div>
-          <h3 class=" text-white">Ordinateur Portable</h3>
+          <h3 class=" text-white">Total</h3>
           <p class=" text-white">Total Ordinateur Portables.</p>
         </div>
       </div>
+    {# Attribués #}
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-success text-white">
+          <div class="icon"><i class="fas fa-fingerprint text-white"></i></div>
+          <div class="count text-white">
+            {{ laptopAttribs|length }}
+          </div>
+          <h3 class=" text-white">Attribution</h3>
+          <p class=" text-white">Total Ordinateur Portables.</p>
+        </div>
+      </div>
+    {# En Stock #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-info text-white">
+          <div class="icon"><i class="fas fa-database text-white"></i></div>
+          <div class="count text-white">
+            {{ laptops|length - laptopAttribs|length }}
+          </div>
+          <h3 class="text-white">En Stock</h3>
+          <p>Total O. Portable.</p>
+        </div>
+      </div>
+    {# Amortis #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-danger text-white">
+          <div class="icon"><i class="fas fa-skull-crossbones text-white"></i></div>
+          <div class="count text-white">
+            {{ laptopAmortis|length }}
+          </div>
+          <h3 class="text-white">Amortis</h3>
+          <p>Total O. Portable.</p>
+        </div>
+      </div>
+    {# En Pannes #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-warning text-dark">
+          <div class="icon"><i class="fas fa-exclamation-triangle text-dark"></i></div>
+          <div class="count text-dark">
+            {{ laptopEnPannes|length }}
+          </div>
+          <h3 class="text-dark">En Pannes</h3>
+          <p>Total O. Portable.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
         <div class="tile-stats bg-primary ">
           <div class="icon"><i class="fas fa-desktop text-white"></i></div>
@@ -47,7 +93,7 @@
         <div class="tile-stats bg-info text-white">
           <div class="icon"><i class="fas fa-database text-white"></i></div>
           <div class="count text-white">
-            {{ attributions|length }}
+            {{ materiels|length - attributions|length }}
           </div>
           <h3 class="text-white">Matériels en stock</h3>
           <p>Total Attribution.</p>

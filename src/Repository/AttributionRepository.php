@@ -48,6 +48,14 @@ class AttributionRepository extends ServiceEntityRepository
         ;
         return $query->getQuery()->getResult();
     }
+    
+    
+    public function laptopAttrib(){
+        $query = $this->createQueryBuilder('a')
+            ->where("a.matos IN(SELECT m.id FROM App\Entity\Materiel m WHERE m.type_matos IN (SELECT t.id FROM App\Entity\TypeMateriel t WHERE t.nom_type_matos='Ordinateur Portable'))")
+            ;
+        return $query->getQuery()->getResult();
+    }
 //    /**
 //     * @return Attribution[] Returns an array of Attribution objects
 //     */

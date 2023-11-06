@@ -43,7 +43,7 @@ class StatutAgentRepository extends ServiceEntityRepository
     public function statutAgentByYear()
     {
         $query = $this->createQueryBuilder('s')
-            ->select("SUBSTRING(s.date_prise_service, 1,4) AS date_record, COUNT(s) AS nb_agents")
+            ->select("SUBSTRING(s.date_debut_ministere, 1,4) AS date_record, COUNT(s) AS nb_agents")
             ->groupBy('date_record')
         ;
         return $query->getQuery()->getResult();

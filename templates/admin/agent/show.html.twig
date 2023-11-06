@@ -118,7 +118,7 @@
                                                                         {% if statut_agent == null %}      
                                                                             <strong>Veuillez cliquez sur ce lien 👉🏽 </strong> <a class="link" href="{{ path('app_admin_statut_agent_new') }}"  class="text-decoration-none float-left m-1" title="Classer l'agent"> <i class="fas fa-clipboard-list text-info"></i> </a>
                                                                         {% else %}
-                                                                            <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Statut de l'agent"> <i class="fas fa-print text-info"></i> </a>
+                                                                            <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': statut_agent.id}) }}"  class="text-decoration-none float-left m-1" title="Statut de l'agent"> <i class="fas fa-print text-info"></i> </a>
                                                                         {% endif %}
                                                                     </li>
                                                                     <li class="list-group-item">

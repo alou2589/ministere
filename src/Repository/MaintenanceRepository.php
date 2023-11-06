@@ -38,6 +38,15 @@ class MaintenanceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    public function matosStatus($typeMatos, $statusMatos){
+        $query = $this->createQueryBuilder('mt')
+            ->where("mt.matos IN(SELECT m.id FROM App\Entity\Materiel m WHERE m.type_matos IN (SELECT t.id FROM App\Entity\TypeMateriel t WHERE t.nom_type_matos= :typeMatos ))")
+            ->andWhere("mt.status_matos= :statusMatos ")
+            ->setParameters(["typeMatos"=> $typeMatos, "statusMatos"=>$statusMatos]);
+            ;
+        return $query->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Maintenance[] Returns an array of Maintenance objects
