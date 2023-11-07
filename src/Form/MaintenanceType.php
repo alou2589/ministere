@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MaintenanceType extends AbstractType
 {
@@ -23,11 +24,14 @@ class MaintenanceType extends AbstractType
             ->add('status_matos', ChoiceType::class, [
                 'choices' => [
                     'En Panne' => 'En Panne',
-                    'En Maintenance' => 'En Miantenance',
+                    'En Maintenance' => 'En Maintenance',
                     'Effectuer' => 'Effectuer',
                     'Amorti' => 'Amorti',
                 ],
                 'attr'=>['class'=>'js-example-basic-single']
+            ])
+            ->add('detail_maintenance', TextareaType::class, [
+                'attr' => ['class' => 'tinymce'],
             ])
             ->add('date_sortie', DateType::class, [ 
                 'widget' => 'single_text',

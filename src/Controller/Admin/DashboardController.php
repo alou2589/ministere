@@ -79,9 +79,32 @@ class DashboardController extends AbstractController
         $printerColor=$typeMaterielRepository->printerColors();
         $printerNB=$typeMaterielRepository->printerColors();
         $photocopieuse=$typeMaterielRepository->photocopieuses();
-        $laptopAttribs=$attributionRepository->laptopAttrib();
+        //Ordinateur Portable
+        $laptopAttribs=$attributionRepository->matosAttrib('Ordinateur Portable');
         $laptopAmortis=$maintenanceRepository->matosStatus('Ordinateur Portable','Amorti');
         $laptopEnPannes=$maintenanceRepository->matosStatus('Ordinateur Portable','En Panne');
+        //Ordniateur Fixe
+        $desktopAttribs=$attributionRepository->matosAttrib('Ordinateur Fixe');
+        $desktopAmortis=$maintenanceRepository->matosStatus('Ordinateur Fixe','Amorti');
+        $desktopEnPannes=$maintenanceRepository->matosStatus('Ordinateur Fixe','En Panne');
+        //All In One
+        $aioAttribs=$attributionRepository->matosAttrib('All In One');
+        $aioAmortis=$maintenanceRepository->matosStatus('All In One','Amorti');
+        $aioEnPannes=$maintenanceRepository->matosStatus('All In One','En Panne');
+        
+        //Imprimante NB & Colors & Photocopieuse
+        $printerColorAttribs=$attributionRepository->matosAttrib('Imprimante Couleur');
+        $printerColorAmortis=$maintenanceRepository->matosStatus('Imprimante Couleur','Amorti');
+        $printerColorEnPannes=$maintenanceRepository->matosStatus('Imprimante Couleur','En Panne');
+        
+        $printerNBAttribs=$attributionRepository->matosAttrib('Imprimante Noir et Blanc');
+        $printerNBAmortis=$maintenanceRepository->matosStatus('Imprimante Noir et Blanc','Amorti');
+        $printerNBEnPannes=$maintenanceRepository->matosStatus('Imprimante Noir et Blanc','En Panne');
+        
+        $photocopieuseAttribs=$attributionRepository->matosAttrib('Photocpieuse');
+        $photocopieuseAmortis=$maintenanceRepository->matosStatus('Photocpieuse','Amorti');
+        $photocopieuseEnPannes=$maintenanceRepository->matosStatus('Photocpieuse','En Panne');
+        
         $attributions=$attributionRepository->findAll();
         $materiels=$materielRepository->findAll();
         $matosByYears=$materielRepository->matosByYear();
@@ -124,8 +147,23 @@ class DashboardController extends AbstractController
             'laptopAttribs'=>$laptopAttribs,
             'laptopAmortis'=>$laptopAmortis,
             'laptopEnPannes'=>$laptopEnPannes,
-            'desktops' => $desktop->getMateriels(), 
+            'desktops' => $desktop->getMateriels(),
+            'desktopAttribs'=>$desktopAttribs,
+            'desktopAmortis'=>$desktopAmortis,
+            'desktopEnPannes'=>$desktopEnPannes, 
             'aios' => $aio->getMateriels(), 
+            'aioAttribs'=>$aioAttribs,
+            'aioAmortis'=>$aioAmortis,
+            'aioEnPannes'=>$aioEnPannes, 
+            'printerColorAttribs'=>$printerColorAttribs,
+            'printerColorAmortis'=>$printerColorAmortis,
+            'printerColorEnPannes'=>$printerColorEnPannes, 
+            'printerNBAttribs'=>$printerNBAttribs,
+            'printerNBAmortis'=>$printerNBAmortis,
+            'printerNBEnPannes'=>$printerNBEnPannes, 
+            'photocopieuseAttribs'=>$photocopieuseAttribs,
+            'photocopieuseAmortis'=>$photocopieuseAmortis,
+            'photocopieuseEnPannes'=>$photocopieuseEnPannes, 
             'printerColors' => $printerColor->getMateriels(), 
             'printerNBs' => $printerNB->getMateriels(), 
             'photocopieuses' => $photocopieuse->getMateriels(), 

@@ -29,6 +29,9 @@ class Maintenance
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_sortie = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $detail_maintenance = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +81,18 @@ class Maintenance
     public function setDateSortie(\DateTimeInterface $date_sortie): static
     {
         $this->date_sortie = $date_sortie;
+
+        return $this;
+    }
+
+    public function getDetailMaintenance(): ?string
+    {
+        return $this->detail_maintenance;
+    }
+
+    public function setDetailMaintenance(?string $detail_maintenance): static
+    {
+        $this->detail_maintenance = $detail_maintenance;
 
         return $this;
     }

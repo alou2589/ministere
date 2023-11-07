@@ -1,4 +1,4 @@
-
+  {# ORDINATEUR PORTABLE #}
     <div class="row">
     {# Total #}
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
@@ -56,67 +56,119 @@
         </div>
       </div>
     </div>
+    {# ORDINATEUR FIXE & ALL-IN-ONE #}
     <div class="row">
+    {# Total #}
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
         <div class="tile-stats bg-primary ">
           <div class="icon"><i class="fas fa-desktop text-white"></i></div>
           <div class="count text-white">
             {{ desktops|length + aios|length }}
           </div>
-          <h3 class=" text-white">Ordinateur Fixe</h3>
+          <h3 class=" text-white">Total</h3>
           <p class="text-white">Total Ordinateur Fixe.</p>
         </div>
       </div>
-      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
-        <div class="tile-stats bg-dark">
-          <div class="icon"><i class="fas fa-print text-white"></i></div>
-          <div class="count text-white">
-            {{ printerColors|length + printerNBs|length + photocopieuses|length}}
-          </div>
-          <h3 class="text-white">Imprimante & Photocopieuse</h3>
-          <p class="text-white">Total Imprimante & Photocopieuse.</p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
+    {# Attribués #}
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
         <div class="tile-stats bg-success text-white">
           <div class="icon"><i class="fas fa-fingerprint text-white"></i></div>
-          <div class="count">
-            {{ attributions|length }}
+          <div class="count text-white">
+            {{ desktopAttribs|length + aioAttribs|length }}
           </div>
-          <h3 class="text-white">Matériels attribués</h3>
-          <p class="text-white">Total Attribution.</p>
+          <h3 class="text-white">Attribués</h3>
+          <p class="text-white">Total Ordinateur Fixe attribués.</p>
         </div>
       </div>
-      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+    {# En stock #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
         <div class="tile-stats bg-info text-white">
           <div class="icon"><i class="fas fa-database text-white"></i></div>
           <div class="count text-white">
-            {{ materiels|length - attributions|length }}
+            {{ desktops|length + aios|length - desktopAttribs|length - aioAttribs|length }}
           </div>
-          <h3 class="text-white">Matériels en stock</h3>
-          <p>Total Attribution.</p>
+          <h3 class="text-white">En Stock</h3>
+          <p class="text-white">Total Ordinateur Fixe en stock.</p>
         </div>
       </div>
+    {# Amortis #}
       <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
         <div class="tile-stats bg-danger text-white">
           <div class="icon"><i class="fas fa-skull-crossbones text-white"></i></div>
           <div class="count text-white">
-            {{ maintenances_amortis|length }}
+            {{ desktopAmortis|length + aioAmortis|length }}
           </div>
-          <h3 class="text-white">Matériels Amortis</h3>
-          <p>Total Amorti.</p>
+          <h3 class="text-white">Amortis</h3>
+          <p>Total O. Fixe.</p>
         </div>
       </div>
+    {# En Pannes #}
       <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
         <div class="tile-stats bg-warning text-dark">
           <div class="icon"><i class="fas fa-exclamation-triangle text-dark"></i></div>
-          <div class="count">
-            {{ maintenances_pannes|length }}
+          <div class="count text-dark">
+            {{ desktopEnPannes|length + aioEnPannes|length }}
           </div>
-          <h3 class="text-dark">Matériels En Pannes</h3>
-          <p>Total Amorti.</p>
+          <h3 class="text-dark">En Pannes</h3>
+          <p>Total O. Fixe.</p>
+        </div>
+      </div>
+    </div>
+    {# ORDINATEUR FIXE & ALL-IN-ONE #}
+    <div class="row">
+    {# Total #}
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-primary ">
+          <div class="icon"><i class="fas fa-desktop text-white"></i></div>
+          <div class="count text-white">
+            {{ desktops|length + aios|length }}
+          </div>
+          <h3 class=" text-white">Total</h3>
+          <p class="text-white">Total Ordinateur Fixe.</p>
+        </div>
+      </div>
+    {# Attribués #}
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-success text-white">
+          <div class="icon"><i class="fas fa-fingerprint text-white"></i></div>
+          <div class="count text-white">
+            {{ desktopAttribs|length + aioAttribs|length }}
+          </div>
+          <h3 class="text-white">Attribués</h3>
+          <p class="text-white">Total Ordinateur Fixe attribués.</p>
+        </div>
+      </div>
+    {# En stock #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-info text-white">
+          <div class="icon"><i class="fas fa-database text-white"></i></div>
+          <div class="count text-white">
+            {{ desktops|length + aios|length - desktopAttribs|length - aioAttribs|length }}
+          </div>
+          <h3 class="text-white">En Stock</h3>
+          <p class="text-white">Total Ordinateur Fixe en stock.</p>
+        </div>
+      </div>
+    {# Amortis #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-danger text-white">
+          <div class="icon"><i class="fas fa-skull-crossbones text-white"></i></div>
+          <div class="count text-white">
+            {{ desktopAmortis|length + aioAmortis|length }}
+          </div>
+          <h3 class="text-white">Amortis</h3>
+          <p>Total O. Fixe.</p>
+        </div>
+      </div>
+    {# En Pannes #}
+      <div class="animated flipInY col-lg-2 col-md-3 col-sm-6 ">
+        <div class="tile-stats bg-warning text-dark">
+          <div class="icon"><i class="fas fa-exclamation-triangle text-dark"></i></div>
+          <div class="count text-dark">
+            {{ desktopEnPannes|length + aioEnPannes|length }}
+          </div>
+          <h3 class="text-dark">En Pannes</h3>
+          <p>Total O. Fixe.</p>
         </div>
       </div>
     </div>

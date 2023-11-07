@@ -50,9 +50,10 @@ class AttributionRepository extends ServiceEntityRepository
     }
     
     
-    public function laptopAttrib(){
+    public function matosAttrib($typeMatos){
         $query = $this->createQueryBuilder('a')
-            ->where("a.matos IN(SELECT m.id FROM App\Entity\Materiel m WHERE m.type_matos IN (SELECT t.id FROM App\Entity\TypeMateriel t WHERE t.nom_type_matos='Ordinateur Portable'))")
+            ->where("a.matos IN(SELECT m.id FROM App\Entity\Materiel m WHERE m.type_matos IN (SELECT t.id FROM App\Entity\TypeMateriel t WHERE t.nom_type_matos= :typeMatos))")
+            ->setParameter('typeMatos', $typeMatos)
             ;
         return $query->getQuery()->getResult();
     }
