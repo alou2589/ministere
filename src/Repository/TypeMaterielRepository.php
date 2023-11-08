@@ -67,7 +67,7 @@ class TypeMaterielRepository extends ServiceEntityRepository
         ;
         return $query->getQuery()->getOneOrNullResult();
     }
-    public function pinterNBs()
+    public function printerNBs()
     {
         $query = $this->createQueryBuilder('t')
             ->where("t.nom_type_matos ='Imprimante Noir et Blanc' ")

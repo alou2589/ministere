@@ -77,7 +77,7 @@ class DashboardController extends AbstractController
         $desktop=$typeMaterielRepository->desktops();
         $aio=$typeMaterielRepository->aios();
         $printerColor=$typeMaterielRepository->printerColors();
-        $printerNB=$typeMaterielRepository->printerColors();
+        $printerNB=$typeMaterielRepository->printerNBs();
         $photocopieuse=$typeMaterielRepository->photocopieuses();
         //Ordinateur Portable
         $laptopAttribs=$attributionRepository->matosAttrib('Ordinateur Portable');
@@ -101,9 +101,9 @@ class DashboardController extends AbstractController
         $printerNBAmortis=$maintenanceRepository->matosStatus('Imprimante Noir et Blanc','Amorti');
         $printerNBEnPannes=$maintenanceRepository->matosStatus('Imprimante Noir et Blanc','En Panne');
         
-        $photocopieuseAttribs=$attributionRepository->matosAttrib('Photocpieuse');
-        $photocopieuseAmortis=$maintenanceRepository->matosStatus('Photocpieuse','Amorti');
-        $photocopieuseEnPannes=$maintenanceRepository->matosStatus('Photocpieuse','En Panne');
+        $photocopieuseAttribs=$attributionRepository->matosAttrib('Photocpieuse Multifonction');
+        $photocopieuseAmortis=$maintenanceRepository->matosStatus('Photocpieuse Multifonction','Amorti');
+        $photocopieuseEnPannes=$maintenanceRepository->matosStatus('Photocpieuse Multifonction','En Panne');
         
         $attributions=$attributionRepository->findAll();
         $materiels=$materielRepository->findAll();
@@ -154,16 +154,20 @@ class DashboardController extends AbstractController
             'aios' => $aio->getMateriels(), 
             'aioAttribs'=>$aioAttribs,
             'aioAmortis'=>$aioAmortis,
-            'aioEnPannes'=>$aioEnPannes, 
+            'aioEnPannes'=>$aioEnPannes,
+            
             'printerColorAttribs'=>$printerColorAttribs,
             'printerColorAmortis'=>$printerColorAmortis,
             'printerColorEnPannes'=>$printerColorEnPannes, 
+            
             'printerNBAttribs'=>$printerNBAttribs,
             'printerNBAmortis'=>$printerNBAmortis,
             'printerNBEnPannes'=>$printerNBEnPannes, 
+            
             'photocopieuseAttribs'=>$photocopieuseAttribs,
             'photocopieuseAmortis'=>$photocopieuseAmortis,
             'photocopieuseEnPannes'=>$photocopieuseEnPannes, 
+            
             'printerColors' => $printerColor->getMateriels(), 
             'printerNBs' => $printerNB->getMateriels(), 
             'photocopieuses' => $photocopieuse->getMateriels(), 
