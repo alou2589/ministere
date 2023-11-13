@@ -1,75 +1,36 @@
-{% extends './admin/adminbase.html.twig' %}
 
-{% block title %}Structure | {{ parent() }}{% endblock %}
-
-{% block body %}
-    <div class="row">
-      <div class="col-md-12 col-sm-12 ">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>{{structure.NomStructure}}</h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li>
-                  <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-              </li>
-              <li>
-                  <a href="{{ path('app_admin_structure_show', {'id': structure.id}) }}" title="{{ structure.NomStructure }}" ><i class="fas fa-fw fa-home"></i></a>
-              </li>
-              <li>
-                  <a class="close-link"><i class="fa fa-close"></i></a>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="card-box table-responsive">
-                    <p class="text-muted font-13 m-b-30">
-                        Liste des Agents / <strong class="text-primary">{{structure.NomStructure}}</strong> 
-                    </p>
-                  <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Id</th>
-                            <th class="text-center">Prenom</th>
-                            <th class="text-center">Nom</th>
-                            <th class="text-center">Genre</th>
-                            <th class="text-center">Matricule</th>
-                            <th class="text-center">Service/Cellule/Bureau</th>
-                            <th class="text-center">Information</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for sous_structure in structure.sousStructures %}
-                        {% for agent in sous_structure.agents %}
-                            <tr>
-                                <td class="text-center">{{ agent.id }}</td>
-                                <td class="text-center">{{ agent.Prenom }}</td>
-                                <td class="text-center">{{agent.Nom}}</td>
-                                <td class="text-center">{{agent.Genre}}</td>
-                                <td class="text-center">{{agent.Matricule}}</td>
-                                <td class="text-center">{{agent.sousStructure.NomSousStructure}}</td>
-                                <td class="text-center">
-                                    <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
-                                </td>
-                            </tr>
-                            
-                      {% endfor %}
-                      {% else %}
-                          <tr>
-                            <td class="text-center" colspan="7">
-                              <a href="{{ path('app_admin_agent_new') }}" class="btn btn-primary" title="Ajout Agent" >Ajouter Agent <i class="fas fa-fw fa-plus-circle"></i></a>
-                            </td>
-                          </tr>
-                    {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-{% endblock %}
+<table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+  <thead>
+      <tr>
+          <th class="text-center">Id</th>
+          <th class="text-center">Prenom</th>
+          <th class="text-center">Nom</th>
+          <th class="text-center">Genre</th>
+          <th class="text-center">Matricule</th>
+          <th class="text-center">Service/Cellule/Bureau</th>
+          <th class="text-center">Information</th>
+      </tr>
+  </thead>
+  <tbody>
+  {% for sous_structure in structure.sousStructures %}
+      {% for agent in sous_structure.agents %}
+          <tr>
+              <td class="text-center">{{ agent.id }}</td>
+              <td class="text-center">{{ agent.Prenom }}</td>
+              <td class="text-center">{{agent.Nom}}</td>
+              <td class="text-center">{{agent.Genre}}</td>
+              <td class="text-center">{{agent.Matricule}}</td>
+              <td class="text-center">{{agent.sousStructure.NomSousStructure}}</td>
+              <td class="text-center">
+                  <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+              </td>
+          </tr>
+      {% else %}
+          <tr>
+              <td class="text-center" colspan="7">Pas de données</td>
+          </tr>
+          
+    {% endfor %}
+  {% endfor %}
+  </tbody>
+</table>
