@@ -1,0 +1,8 @@
+
+{% if carte_pro == null %}   
+    <div class="alert alert-secondary alert-completer " role="alert">
+        <strong>Carte Professionnelle: </strong>Veuillez cliquez sur ce lien 👉🏽 <a class="link" href="{{ path('app_admin_carte_pro_new') }}"  class="text-decoration-none float-left m-1" title="Imprimer Carte Professionnelle"> <i class="fas fa-id-card text-info"></i> </a>
+    </div> 
+{% else %}
+    {% include "./admin/agent/carteProAgent.html.twig" %}
+{% endif %} 

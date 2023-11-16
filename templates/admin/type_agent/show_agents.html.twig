@@ -1,7 +1,8 @@
 
 <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
-    <thead>
+  <thead>
       <tr>
+          <th class="text-center">Id</th>
           <th class="text-center">Prenom</th>
           <th class="text-center">Nom</th>
           <th class="text-center">Genre</th>
@@ -11,9 +12,9 @@
       </tr>
   </thead>
   <tbody>
-  {% for sous_structure in structure.sousStructures %}
-      {% for agent in sous_structure.agents %}
+      {% for agent in type_agent.agents %}
           <tr>
+              <td class="text-center">{{ agent.id }}</td>
               <td class="text-center">{{ agent.Prenom }}</td>
               <td class="text-center">{{agent.Nom}}</td>
               <td class="text-center">{{agent.Genre}}</td>
@@ -25,10 +26,9 @@
           </tr>
       {% else %}
           <tr>
-              <td class="text-center" colspan="6">Pas de données</td>
+              <td class="text-center" colspan="7">Pas de données</td>
           </tr>
           
     {% endfor %}
-  {% endfor %}
   </tbody>
 </table>

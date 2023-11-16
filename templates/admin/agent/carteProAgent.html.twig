@@ -1,0 +1,96 @@
+<!-- Recto -->
+<div class="row">
+  <div class="x_content">
+      <div class="col-md-8 col-sm-8  profile_details">
+        <div class="well profile_view recto shadow-1 border-success" style="background-image:url('{{asset('assets/images/logo-opacity.png')}}');">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/images/logo-mini.png')}}" alt="" width="70" ></div>
+              <div class="col-md-8 text-center">
+                <p><strong>REPUBLIQUE DU SENEGAL</strong>
+                  <br>
+                  Ministère du Commerce de la Consommation et des PME
+                </p>
+              </div>
+              <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/images/flag.png')}}" alt="" width="70" ></div>
+
+            </div>
+            <div class="row">
+              <div class="left col-sm-6">
+                <p>Prénom:  <br><strong>{{carte_pro.agent.Prenom}}</strong>  </p>
+                <p>Nom:  <br><strong>{{carte_pro.agent.Nom}}</strong>   </p>
+                <p>Matricule:  <br> <strong>{{carte_pro.agent.Matricule}}</strong>  </p>
+                <p>Fonction:  <br><strong>{{carte_pro.agent.Fonction}} </strong>  </p>
+                <p>Service:  <br> <strong>{{carte_pro.agent.sousStructure.NomSousStructure}}</strong>  </p>
+                  <br>
+              </div>
+              <div class="right col-sm-6 text-center">
+                <div class="photo_agent">
+                  <img src="{{asset('assets/photoAgent/'~ carte_pro.PhotoAgent)| imagine_filter('my_image')}}" alt="photo_agent" class="img-fluid" width="100" ><br>
+                </div>
+                <br>  
+                <br>
+                <img src="{{carte_pro.QrcodeAgent}}" alt="" width="75"></li>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!-- Verso -->
+<!-- Recto -->
+<div class="row">
+  <div class="x_content">
+      <div class="col-md-8 col-sm-8  profile_details">
+        <div class="well profile_view recto shadow-1 border-success" style="background-image:url('{{asset('assets/images/logo-opacity.png')}}');">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/images/logo-mini.png')}}" alt="" width="70" ></div>
+              <div class="col-md-8 text-center">
+                <p><strong>REPUBLIQUE DU SENEGAL</strong>
+                  <br>
+                  Ministère du Commerce de la Consommation et des PME
+                </p>
+              </div>
+              <div class="col-md-2 mx-auto"><img class="img-fluid" src="{{asset('assets/images/flag.png')}}" alt="" width="70" ></div>
+
+            </div>
+            <div class="row">
+              <div class="left col-sm-6">
+                <p>Date de Délivrance:<br><strong>{{ carte_pro.dateDelivrance ? carte_pro.dateDelivrance|date('d-m-Y') : '' }}</strong> </p>
+                <p>Date de Délivrance:<br><strong>{{ carte_pro.dateExpiration ? carte_pro.dateExpiration|date('d-m-Y') : '' }}</strong></p>
+                <p>Durée Validité: <br><strong> 4 ans </strong></p>
+              </div>
+              <div class="right col-sm-6 text-center">
+                <img src="{{asset('assets/images/stamp.png')}}" alt="" class="img-circle" width="100"><br>
+                <img src="{{asset('assets/images/cachet.png')}}" alt="" class="img-fluid" width="100">
+                <br>
+                <img src="{{asset('assets/images/sign.png')}}" alt="" width="50"></li>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <small class="text-dark brief">Contact: 
+                  <img src="{{asset('assets/images/phone.png')}}" alt="" width="15"> 
+                  <strong>338692129</strong>
+                  <img src="{{asset('assets/images/mail.png')}}" alt="" width="15"> 
+                  <strong>commerce@commerce.gouv.sn</strong>
+                  <img src="{{asset('assets/images/loc.png')}}" alt="" width="15"> 
+                  <strong> Diamniadio</strong>
+                </small> 
+                <br>
+                <small class=" text-dark brief">La carte est la propriété du Ministère du Commerce de la Consommation et des PME</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+

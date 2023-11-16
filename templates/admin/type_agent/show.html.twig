@@ -1,79 +1,65 @@
 {% extends './admin/adminbase.html.twig' %}
 
-{% block title %}Type d'Agent | {{ parent() }}{% endblock %}
+{% block title %}Structure | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="row">
-      <div class="col-md-12 col-sm-12 ">
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
-          <div class="x_title">
-            <h2>Type d'Agent</h2>
-            <ul class="nav navbar-right panel_toolbox">
-                <li>
-                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li>
-                    <a class="link" href="#" class="text-decoration-none float-left m-1" title="Liste des Structure"><i class="fas fa-list text-info"></i> </a> 
-                </li>
-                <li>
-                    <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
-                    {% include "./admin/type_agent/delete.html.twig" %}
-                </li>
-                <li>
-                    <a class="link" href="{{ path('app_admin_type_agent_edit', {'id': type_agent.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
-                </li>
-                <li>
-                    <a class="link" href="{{ path('app_admin_type_agent_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
-                </li>
-                <li>
-                    <a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-            </ul>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card-box table-responsive">
-                        <p class="text-muted font-13 m-b-30">
-                        {{ type_agent.NomTypeAgent}}.
-                        </p>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-12 mr-2">
-                                        <div class="card o-hidden border-0 shadow-lg my-5">
-                                            <div class="card-body p-1">
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-xs-12 mx-auto">
-                                                        <div class="p-1">
-                                                            <ul class="list-group">
-                                                                <li class="list-group-item">
-                                                                    <p><strong>Id</strong>: {{ type_agent.id }}</p>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <p><strong>Type d'Agent</strong>: {{ type_agent.NomTypeAgent }}</p>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <p><strong>Description</strong>:</p>
-                                                                    {{ type_agent.Description|raw }}
-                                                                </li>
-                                                            </ul>                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> {{type_agent.NomTypeAgent}} </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    {% if is_granted("ROLE_RH_ADMIN")== true %}
+                        <li>
+                            <a class="link" href="{{ path('app_admin_type_agent_delete', {'id': type_agent.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_type_agent_edit', {'id': type_agent.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="link" href="{{ path('app_admin_type_agent_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fsa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Agents</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <p><strong>Id</strong>: {{ type_agent.id }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Nom</strong>: {{ type_agent.NomTypeAgent }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Description</strong>: {{ type_agent.Description|raw }}</p>
+                            </li>
+                        </ul>    
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        
+                        {% include "./admin/type_agent/show_agents.html.twig" %}
                     </div>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
+    
 {% endblock %}
-

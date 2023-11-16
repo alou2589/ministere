@@ -1,0 +1,17 @@
+{% if statut_agent == null %}      
+    <div class="alert alert-secondary alert-completer " role="alert">
+        <strong>Statut Agent: </strong> Veuillez cliquez sur ce lien 👉🏽 <a class="link" href="{{ path('app_admin_statut_agent_new') }}"  class="text-decoration-none float-left m-1" title="Classer l'agent"> <i class="fas fa-clipboard-list text-info"></i> </a>
+    </div>    
+{% else %}    
+    <ul class="list-group">
+        <li class="list-group-item">
+            <p><strong>Hiérarchie</strong>: {{statut_agent.hierarchie}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Date de prise de service</strong>: {{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Date dernier avancement</strong>: {{statut_agent.DateAvancement ? statut_agent.DateAvancement|date('Y'):' '}}</p>
+        </li>
+    </ul>  
+{% endif %}
