@@ -20,9 +20,7 @@ class UserType extends AbstractType
             ->add('agent', EntityType::class, [
                 'class' => Agent::class,
                 'choice_label' => function (Agent $agent) {
-                    if ($agent->getUsers()->toArray()==null) {
-                        return $agent->getPrenom().' '.$agent->getNom().' '.$agent->getMatricule();
-                    }
+                    return $agent->getPrenom().' '.$agent->getNom().' '.$agent->getMatricule();
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])

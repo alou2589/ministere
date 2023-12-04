@@ -18,7 +18,7 @@ class QrCodeService
 
     public function qrcode($recherche, $nom_qr)
     {
-        $url="https://192.168.115.96:8000/admin/agent/";
+        $url="agent/";
         $path= dirname(__DIR__,2).'/public/assets/';
         $result=$this->builder
         ->data($url.$recherche)

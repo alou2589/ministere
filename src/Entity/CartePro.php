@@ -35,6 +35,7 @@ class CartePro
     #[ORM\Column(length: 255)]
     private ?string $status_impression = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,4 +112,5 @@ class CartePro
 
         return $this;
     }
+
 }

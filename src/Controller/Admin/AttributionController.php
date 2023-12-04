@@ -76,7 +76,7 @@ class AttributionController extends AbstractController
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
-        return $this->render('admin/attribution/showcode.html.twig',[
+        return $this->render('admin/attribution/code_attribution.html.twig',[
             'attribution'=>$attribution,
             'notifications' => $notifications,
             'messages' => $messages,

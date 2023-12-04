@@ -36,7 +36,6 @@
                             <th class="text-center">Agent</th>
                             <th class="text-center">Matériel </th>
                             <th class="text-center">Date d'attribution</th>
-                            <th class="text-center">Aperçue</th>
                             <th class="text-center">Information</th>
                         </tr>
                     </thead>
@@ -63,9 +62,6 @@
                             <td class="text-center">{{ attribution.agent.Prenom }} {{ attribution.agent.Nom }} - {{ attribution.agent.Matricule }} </td>
                             <td class="text-center">{{ attribution.matos.typeMatos.NomTypeMatos }} {{ attribution.matos.marqueMatos.NomMarqueMatos }}</td>
                             <td class="text-center">{{attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y'):' '}}</td>
-                            <td class="text-center">
-                              <a href="{{ path('app_admin_attribution_showcode', {'id':attribution.id}) }}"> <i class="fas fa-qrcode text-info"></i></a>
-                            </td>   
                             <td class="text-center">
                                 <a href="{{ path('app_admin_attribution_show', {'id': attribution.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
                             </td>   

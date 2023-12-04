@@ -146,7 +146,7 @@ class CarteProController extends AbstractController
         $notifications= $notificationRepository->findBy(['status'=>false]);
         if ($this->isCsrfTokenValid('delete'.$cartePro->getId(), $request->request->get('_token'))) {
             $photo_agent = $cartePro->getPhotoAgent();
-            $cheminQrCode = '/Users/alassanetambedou/Desktop/ministere/public/assets/qr-code/'. $cartePro->getId().'.png';
+            $cheminQrCode = '/Users/alassanetambedou/ministere/public/assets/qr-code/'. $cartePro->getId().'.png';
             $cheminPhoto=$this->getParameter("photoAgent_directory").'/'.$photo_agent;
             if (file_exists($cheminPhoto)) {
                 unlink($cheminPhoto);

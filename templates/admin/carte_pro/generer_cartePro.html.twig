@@ -37,10 +37,13 @@
               <div class="x_content justify-content-center" id="mycardPro"> 
                 <div class="row">
                     <div class="col-md-11 mx-auto text-dark">
-                        {% include "./admin/carte_pro/carteProAgent.html.twig" %}
+                       {% if carte_pro.agent.typeAgent.nomTypeAgent == "Volontaire" %}
+                            {% include "./admin/carte_pro/carteProVolontaire.html.twig" %}
+                        {% else %}
+                            {% include "./admin/carte_pro/carteProAgent.html.twig" %}
+                       {% endif %}
                     </div>
                 </div>
-
                </div>
             </div>
         </div>
