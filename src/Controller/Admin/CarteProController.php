@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Service\AesEncryptDecrypt;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\CartePro;
@@ -39,7 +40,7 @@ class CarteProController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_carte_pro_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,MessagesRepository $messagesRepository, CarteProRepository $carteProRepository, QrCodeService $qrCodeService, SluggerInterface $slugger,NotificationRepository $notificationRepository): Response
+    public function new(Request $request,MessagesRepository $messagesRepository, CarteProRepository $carteProRepository, QrCodeService $qrCodeService,AesEncryptDecrypt $aesEncryptDecrypt, SluggerInterface $slugger,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
@@ -78,8 +79,8 @@ class CarteProController extends AbstractController
                 $cartePro->setPhotoAgent($newFilename);
             }
 
-            $cartePro->setQrcodeAgent((string)$qr_code);
-            $cartePro->setStatusImpression(false);
+            $cartePro->setQrcodeAgent($aesEncryptDecrypt->encrypt((string)$qr_code));
+            $cartePro->setStatusImpression("0");
             $carteProRepository->save($cartePro, true);
 
             return $this->redirectToRoute('app_admin_carte_pro_index', [], Response::HTTP_SEE_OTHER);
@@ -94,24 +95,28 @@ class CarteProController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_carte_pro_show', methods: ['GET'])]
-    public function show(CartePro $cartePro,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
+    public function show(CartePro $cartePro,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository,AesEncryptDecrypt $aesEncryptDecrypt): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
+        $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro->getQrcodeAgent());
         return $this->render('admin/carte_pro/show.html.twig', [
             'carte_pro' => $cartePro,
             'notifications' => $notifications,
+            'qrCodeAgent'=>$qrCodeAgent,
             'messages' => $messages,
         ]);
     }
 
     #[Route('/{id}/showcode', name: 'app_admin_carte_pro_show_code', methods: ['GET'])]
-    public function showcode(CartePro $cartePro,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository)
+    public function showcode(CartePro $cartePro,MessagesRepository $messagesRepository,AesEncryptDecrypt $aesEncryptDecrypt, NotificationRepository $notificationRepository)
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
+        $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro->getQrcodeAgent());
         return $this->render('admin/carte_pro/generer_cartePro.html.twig',[
             'carte_pro'=>$cartePro,
+            'qrCodeAgent'=>$qrCodeAgent,
             'notifications' => $notifications,
             'messages' => $messages,
         ]);

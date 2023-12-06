@@ -6,22 +6,27 @@ use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\Builder\BuilderInterface;
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use App\Service\AesEncryptDecrypt;
 
 class QrCodeService
 {
     protected $builder;
+    protected AesEncryptDecrypt $aesEncryptDecrypt;
 
-    public function __construct(BuilderInterface $builder)
+    public function __construct(BuilderInterface $builder, AesEncryptDecrypt $aesEncryptDecrypt)
     {
         $this->builder=$builder;
+        $this->aesEncryptDecrypt=$aesEncryptDecrypt;
+        
     }
 
     public function qrcode($recherche, $nom_qr)
     {
+        
         $url="agent/";
         $path= dirname(__DIR__,2).'/public/assets/';
         $result=$this->builder
-        ->data($url.$recherche)
+        ->data($this->aesEncryptDecrypt->encrypt($url.$recherche))
         ->encoding(new Encoding('UTF-8'))
         ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
         ->size(400)
@@ -39,7 +44,7 @@ class QrCodeService
 
     public function qrcode_matos($reference, $matos_qr)
     {
-        $url="https://192.168.115.96:8000/admin/materiel/";
+        $url="materiel/";
         $path= dirname(__DIR__,2).'/public/assets/';
         $result=$this->builder
         ->data($url.$reference)

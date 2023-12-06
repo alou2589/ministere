@@ -13,9 +13,11 @@
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     {% if is_granted("ROLE_RH_ADMIN")== true %}
-                        <li>
-                            <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-print text-info"></i> </a>
-                        </li>
+                        {% if carte_pro.statusImpression == "0"  %}
+                            <li>
+                                <a class="link" href="{{ path('app_admin_carte_pro_show_code', {'id': carte_pro.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-print text-info"></i> </a>
+                            </li>   
+                        {% endif %}
                         <li>
                             <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
                             {% include "./admin/carte_pro/delete.html.twig" %}
