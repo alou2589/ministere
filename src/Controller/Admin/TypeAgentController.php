@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\TypeAgent;
 use App\Form\TypeAgentType;
+use App\Repository\AgentRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\TypeAgentRepository;
 use App\Repository\NotificationRepository;
@@ -14,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/type_agent')]
-//#[IsGranted("ROLE_RH_ADMIN")]
+#[IsGranted("ROLE_RH_ADMIN")]
 class TypeAgentController extends AbstractController
 {
     #[Route('/', name: 'app_admin_type_agent_index', methods: ['GET'])]
@@ -53,14 +54,20 @@ class TypeAgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_type_agent_show', methods: ['GET'])]
-    public function show(TypeAgent $typeAgent,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
+    public function show(AgentRepository $agentRepository, TypeAgent $typeAgent,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
+        
+        $hommes=$agentRepository->findBy(['genre'=>'homme', 'type_agent'=> $typeAgent]);
+        $femmes=$agentRepository->findBy(['genre'=>'femme', 'type_agent'=> $typeAgent]);
+        
         return $this->render('admin/type_agent/show.html.twig', [
             'type_agent' => $typeAgent,
             'notifications' => $notifications,
             'messages' => $messages,
+            'hommes' => $hommes,
+            'femmes' => $femmes,
         ]);
     }
 

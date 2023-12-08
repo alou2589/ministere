@@ -39,24 +39,8 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <p><strong>Id</strong>: {{ sous_structure.id }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Nom</strong>: {{ sous_structure.NomSousStructure }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Structure</strong>: {{ sous_structure.structure.NomStructure }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Type de sous-structure</strong>: {{ sous_structure.TypeSousStructure.NomTypeSousStructure }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Description</strong>: {{ sous_structure.DescriptionSousStructure|raw }}</p>
-                            </li>
-                        </ul>    
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">   
+                        {% include "./admin/sous_structure/show_infos.html.twig" %}
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         {% include "./admin/sous_structure/show_agents.html.twig" %}

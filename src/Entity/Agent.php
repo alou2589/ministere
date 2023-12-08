@@ -63,12 +63,16 @@ class Agent
     #[ORM\OneToMany(mappedBy: 'agent', targetEntity: Attribution::class, orphanRemoval: true)]
     private Collection $attributions;
 
+    #[ORM\OneToMany(mappedBy: 'agent', targetEntity: FichiersAgent::class, orphanRemoval: true)]
+    private Collection $fichiersAgents;
+
     public function __construct()
     {
         $this->statutAgents = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->cartePros = new ArrayCollection();
         $this->attributions = new ArrayCollection();
+        $this->fichiersAgents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -316,6 +320,36 @@ class Agent
             // set the owning side to null (unless already changed)
             if ($attribution->getAgent() === $this) {
                 $attribution->setAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FichiersAgent>
+     */
+    public function getFichiersAgents(): Collection
+    {
+        return $this->fichiersAgents;
+    }
+
+    public function addFichiersAgent(FichiersAgent $fichiersAgent): static
+    {
+        if (!$this->fichiersAgents->contains($fichiersAgent)) {
+            $this->fichiersAgents->add($fichiersAgent);
+            $fichiersAgent->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichiersAgent(FichiersAgent $fichiersAgent): static
+    {
+        if ($this->fichiersAgents->removeElement($fichiersAgent)) {
+            // set the owning side to null (unless already changed)
+            if ($fichiersAgent->getAgent() === $this) {
+                $fichiersAgent->setAgent(null);
             }
         }
 

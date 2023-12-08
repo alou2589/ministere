@@ -1,0 +1,55 @@
+
+                  <ul class="nav side-menu">
+                <li><a><i class="fa fa-dashboard"></i> Tableau de Bord <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{path('app_admin_dashboard_perso') }}">Tableau de Bord</a></li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-users"></i> Personnel<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a>Structure<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="{{ path('app_admin_structure_index') }}">Structure</a>
+                        </li>
+                        <li><a href="{{ path('app_admin_sous_structure_index') }}">Sous Structure</a>
+                        </li>
+                        <li><a href="{{ path('app_admin_poste_index') }}">Poste</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a>Agent <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{ path('app_admin_agent_index') }}">Agent</a>
+                        </li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_carte_pro_index') }}">Carte Professionnelle</a>
+                        </li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_statut_agent_index') }}">Statut Agent</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a>Fichier <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        </li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_type_fichier_index') }}">Type de Fichier</a>
+                        </li>
+                        <li class="sub_menu"><a href="#">Dossiers Agent</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>   
+                <li><a><i class="fas fa-chart-line"></i> Statistiques<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{ path('app_admin_stat_personnel_service') }}">Statistiques Personnel</a></li>
+                  </ul>                      
+                </li>
+                <li>
+                  <a>
+                    <i class="fa fa-envelope-o"></i> Messagerie 
+                    <span class="badge bg-green">{{ messages|length }}</span><span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                    <li><a href="#">Messages</a></li>
+                  </ul>
+                </li>
+              </ul>

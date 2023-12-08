@@ -11,6 +11,7 @@ use App\Repository\CarteProRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\StatutAgentRepository;
 use App\Repository\NotificationRepository;
+use App\Service\AesEncryptDecrypt;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,11 +63,12 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_agent_show', methods: ['GET'])]
-    public function show(Agent $agent,MessagesRepository $messagesRepository,AttributionRepository $attributionRepository, CarteProRepository $carteProRepository, StatutAgentRepository $statutAgentRepository,NotificationRepository $notificationRepository): Response
+    public function show(AesEncryptDecrypt $aesEncryptDecrypt,Agent $agent,MessagesRepository $messagesRepository,AttributionRepository $attributionRepository, CarteProRepository $carteProRepository, StatutAgentRepository $statutAgentRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $cartePro = $carteProRepository->findOneBy(['agent' => $agent->getId()]);
+        $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro->getQrcodeAgent());
         $attributions=$attributionRepository->findBy(['agent'=> $agent->getId()]);
         $statutAgent = $statutAgentRepository->findOneBy(['agent' => $agent->getId()]);
         return $this->render('admin/agent/show.html.twig', [
@@ -75,6 +77,7 @@ class AgentController extends AbstractController
             'attributions' => $attributions,
             'notifications' => $notifications,
             'carte_pro' => $cartePro,
+            'qrCodeAgent' => $qrCodeAgent,
             'messages' => $messages,
         ]);
     }

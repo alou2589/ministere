@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\SousStructure;
 use App\Form\SousStructureType;
+use App\Repository\AgentRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\SousStructureRepository;
@@ -53,14 +54,18 @@ class SousStructureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_sous_structure_show', methods: ['GET'])]
-    public function show(SousStructure $sousStructure,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
+    public function show(AgentRepository $agentRepository,SousStructure $sousStructure,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
+        $hommes=$agentRepository->findBy(['sous_structure'=>$sousStructure, 'genre'=>'homme']);
+        $femmes=$agentRepository->findBy(['sous_structure'=>$sousStructure, 'genre'=>'femme']);
         return $this->render('admin/sous_structure/show.html.twig', [
             'sous_structure' => $sousStructure,
             'notifications' => $notifications,
             'messages' => $messages,
+            'hommes' => $hommes,
+            'femmes' => $femmes,
         ]);
     }
 
