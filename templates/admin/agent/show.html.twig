@@ -45,6 +45,9 @@
                     <li class="nav-item">
                       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Parc Informatique</a>
                     </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Fichiers</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -86,6 +89,10 @@
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         
                         {% include "./admin/agent/show_informatique.html.twig" %}
+                    </div>
+                    <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+                        
+                        {% include "./admin/agent/show_files.html.twig" %}
                     </div>
                 </div>
             </div>

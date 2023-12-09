@@ -21,11 +21,12 @@ class FichiersAgent
     #[ORM\JoinColumn(nullable: false)]
     private ?Agent $agent = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom_fichier = null;
 
     #[ORM\Column(length: 255)]
     private ?string $numero_dossier = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fichier = null;
 
     public function getId(): ?int
     {
@@ -56,18 +57,6 @@ class FichiersAgent
         return $this;
     }
 
-    public function getNomFichier(): ?string
-    {
-        return $this->nom_fichier;
-    }
-
-    public function setNomFichier(string $nom_fichier): static
-    {
-        $this->nom_fichier = $nom_fichier;
-
-        return $this;
-    }
-
     public function getNumeroDossier(): ?string
     {
         return $this->numero_dossier;
@@ -76,6 +65,18 @@ class FichiersAgent
     public function setNumeroDossier(string $numero_dossier): static
     {
         $this->numero_dossier = $numero_dossier;
+
+        return $this;
+    }
+
+    public function getFichier(): ?string
+    {
+        return $this->fichier;
+    }
+
+    public function setFichier(?string $fichier): static
+    {
+        $this->fichier = $fichier;
 
         return $this;
     }

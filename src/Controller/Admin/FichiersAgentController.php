@@ -11,6 +11,7 @@ use App\Repository\NotificationRepository;
 use App\Repository\FichiersAgentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +43,8 @@ class FichiersAgentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $fichiersagentRepository->save($fichiersAgent, true);
-            $agentFile = $form->get('nom_fichier')->getData();
+            /** @var UploadedFile $agentFile */
+            $agentFile = $form->get('fichier')->getData();
 
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
@@ -64,8 +66,9 @@ class FichiersAgentController extends AbstractController
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
-                $fichiersAgent->setNomFichier($newFilename);
+                $fichiersAgent->setFichier($newFilename);
             }
+            $fichiersagentRepository->save($fichiersAgent, true);
 
             return $this->redirectToRoute('app_admin_fichiers_agent_index', [], Response::HTTP_SEE_OTHER);
         }

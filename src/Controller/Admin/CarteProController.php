@@ -2,24 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Service\AesEncryptDecrypt;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Entity\CartePro;
 use App\Form\CarteProType;
 use App\Service\QrCodeService;
+use App\Service\AesEncryptDecrypt;
 use App\Repository\CarteProRepository;
 use App\Repository\MessagesRepository;
-use Endroid\QrCode\Label\Font\OpenSans;
 use App\Repository\NotificationRepository;
-use function PHPUnit\Framework\fileExists;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
