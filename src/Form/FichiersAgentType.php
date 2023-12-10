@@ -31,7 +31,7 @@ class FichiersAgentType extends AbstractType
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])
-            ->add('numero_dossier')
+            ->add('nom_fichier')
             ->add('fichier', FileType::class, [
                 'label' =>false,
     

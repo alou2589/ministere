@@ -23,7 +23,7 @@ class FichiersAgent
 
 
     #[ORM\Column(length: 255)]
-    private ?string $numero_dossier = null;
+    private ?string $nom_fichier = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fichier = null;
@@ -57,14 +57,14 @@ class FichiersAgent
         return $this;
     }
 
-    public function getNumeroDossier(): ?string
+    public function getNomFichier(): ?string
     {
-        return $this->numero_dossier;
+        return $this->nom_fichier;
     }
 
-    public function setNumeroDossier(string $numero_dossier): static
+    public function setNomFichier(string $nom_fichier): static
     {
-        $this->numero_dossier = $numero_dossier;
+        $this->nom_fichier = $nom_fichier;
 
         return $this;
     }
