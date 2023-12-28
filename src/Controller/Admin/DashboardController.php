@@ -69,7 +69,7 @@ class DashboardController extends AbstractController
     #[Route('/admin/dashboard_info', name: 'app_admin_dashboard_info')]
     public function dash_info(MaterielRepository $materielRepository,MaintenanceRepository $maintenanceRepository,TypeMaterielRepository $typeMaterielRepository,
     MessagesRepository $messagesRepository,NotificationRepository $notificationRepository,MarqueMatosRepository $marqueMatosRepository,AttributionRepository $attributionRepository, ChartBuilderInterface $cahertbuilderAY,
-    ChartBuilderInterface $chartbuilderTM,ChartBuilderInterface $chartbuilderMY ,ChartBuilderInterface $chartbuilderMM, ChartBuilderInterface $chartbuilderSM): Response
+    ChartBuilderInterface $chartbuilderTM,ChartBuilderInterface $chartbuilderDY,ChartBuilderInterface $chartbuilderMY ,ChartBuilderInterface $chartbuilderMM, ChartBuilderInterface $chartbuilderSM): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
@@ -79,14 +79,19 @@ class DashboardController extends AbstractController
         $printerColor=$typeMaterielRepository->printerColors();
         $printerNB=$typeMaterielRepository->printerNBs();
         $photocopieuse=$typeMaterielRepository->photocopieuses();
+        
         //Ordinateur Portable
         $laptopAttribs=$attributionRepository->matosAttrib('Ordinateur Portable');
         $laptopAmortis=$maintenanceRepository->matosStatus('Ordinateur Portable','Amorti');
         $laptopEnPannes=$maintenanceRepository->matosStatus('Ordinateur Portable','En Panne');
+        $laptopsByYears=$materielRepository->matosByYear("Ordinateur Portable");
+        
         //Ordniateur Fixe
         $desktopAttribs=$attributionRepository->matosAttrib('Ordinateur Fixe');
         $desktopAmortis=$maintenanceRepository->matosStatus('Ordinateur Fixe','Amorti');
         $desktopEnPannes=$maintenanceRepository->matosStatus('Ordinateur Fixe','En Panne');
+        $desktopsByYears=$materielRepository->matosByYear(["Ordinateur Fixe","All In One"]);
+        
         //All In One
         $aioAttribs=$attributionRepository->matosAttrib('All In One');
         $aioAmortis=$maintenanceRepository->matosStatus('All In One','Amorti');
@@ -107,7 +112,6 @@ class DashboardController extends AbstractController
         
         $attributions=$attributionRepository->findAll();
         $materiels=$materielRepository->findAll();
-        $matosByYears=$materielRepository->matosByYear();
         
         $typeMateriels = $typeMaterielRepository->findAll();
         $marqueMatos = $marqueMatosRepository->findAll();
@@ -131,12 +135,18 @@ class DashboardController extends AbstractController
             $attribByYear_name[] = $attribByYear['duree_utilisation'];
             $attribByYear_count[] = $attribByYear['nb_attribution'];
         }
-        foreach ($matosByYears as $matosByYear) {
+        foreach ($laptopsByYears as $laptopsByYear) {
             # code...
-            $matosByYear_name[] = $matosByYear['date_record'];
-            $matosByYear_count[] = $matosByYear['nb_matos'];
+            $laptopsByYear_name[] = $laptopsByYear['date_record'];
+            $laptopsByYear_count[] = $laptopsByYear['nb_matos'];
         }
-        $chartMY = self::statistiques($chartbuilderMY, Chart::TYPE_LINE,$matosByYear_name, $matosByYear_count,'Évolution par Année', $materiels );
+        foreach ($desktopsByYears as $desktopsByYear) {
+            # code...
+            $desktopsByYear_name[] = $desktopsByYear['date_record'];
+            $desktopsByYear_count[] = $desktopsByYear['nb_matos'];
+        }
+        $chartLY = self::statistiques($chartbuilderMY, Chart::TYPE_LINE,$laptopsByYear_name, $laptopsByYear_count,'Évolution par Année', $materiels );
+        $chartDY = self::statistiques($chartbuilderDY, Chart::TYPE_LINE,$desktopsByYear_name, $desktopsByYear_count,'Évolution par Année', $materiels );
         $chartTM = self::statistiques($chartbuilderTM, Chart::TYPE_PIE,$tm_name, $tm_matos,'Matériels Par Type', $typeMateriels );
         $chartMM = self::statistiques($chartbuilderMM, Chart::TYPE_PIE, $mm_name,$mm_matos, 'Matériel par Marque', $marqueMatos);
         $chartAY = self::statistiques($cahertbuilderAY, Chart::TYPE_BAR, $attribByYear_name, $attribByYear_count, 'Attribution par année',$attribByYears );
@@ -175,7 +185,8 @@ class DashboardController extends AbstractController
             'materiels' => $materiels, 
             'maintenances_amortis' => $maintenances_amortis, 
             'maintenances_pannes' => $maintenances_pannes, 
-            'chartMY' => $chartMY, 
+            'chartLY' => $chartLY, 
+            'chartDY' => $chartDY, 
             'chartTM' => $chartTM, 
             'chartMM'=>$chartMM,
             'chartAY'=>$chartAY,

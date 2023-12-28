@@ -82,10 +82,14 @@ class FichiersAgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_fichiers_agent_show', methods: ['GET'])]
-    public function show(FichiersAgent $fichiersAgent): Response
+    public function show(FichiersAgent $fichiersAgent,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
+        $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
+        $notifications= $notificationRepository->findBy(['status'=>false]);
         return $this->render('admin/fichiers_agent/show.html.twig', [
             'fichiers_agent' => $fichiersAgent,
+            'notifications' => $notifications,
+            'messages' => $messages,
         ]);
     }
 

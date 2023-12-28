@@ -38,10 +38,12 @@ class MaterielRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function matosByYear()
+    public function matosByYear($nom_type_matos=[])
     {
         $query = $this->createQueryBuilder('m')
             ->select("SUBSTRING(m.date_reception, 1,4) AS date_record, COUNT(m) AS nb_matos")
+            ->where('m.type_matos IN (SELECT t.id FROM App\Entity\TypeMateriel t WHERE t.nom_type_matos IN (:nom_type_matos))')
+            ->setParameter('nom_type_matos',$nom_type_matos)
             ->groupBy('date_record')
         ;
         return $query->getQuery()->getResult();

@@ -90,7 +90,7 @@ class CarteProController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_carte_pro_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_admin_carte_pro_show', methods: ['GET'])]
     public function show(CartePro $cartePro,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository,AesEncryptDecrypt $aesEncryptDecrypt): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
