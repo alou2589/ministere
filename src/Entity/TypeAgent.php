@@ -24,12 +24,12 @@ class TypeAgent
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'type_agent', targetEntity: Agent::class, orphanRemoval:true)]
-    private Collection $agents;
+    #[ORM\OneToMany(mappedBy: 'type_agent', targetEntity: StatutAgent::class)]
+    private Collection $statutAgents;
 
     public function __construct()
     {
-        $this->agents = new ArrayCollection();
+        $this->statutAgents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,29 +62,29 @@ class TypeAgent
     }
 
     /**
-     * @return Collection<int, Agent>
+     * @return Collection<int, StatutAgent>
      */
-    public function getAgents(): Collection
+    public function getStatutAgents(): Collection
     {
-        return $this->agents;
+        return $this->statutAgents;
     }
 
-    public function addAgent(Agent $agent): self
+    public function addStatutAgent(StatutAgent $statutAgent): static
     {
-        if (!$this->agents->contains($agent)) {
-            $this->agents->add($agent);
-            $agent->setTypeAgent($this);
+        if (!$this->statutAgents->contains($statutAgent)) {
+            $this->statutAgents->add($statutAgent);
+            $statutAgent->setTypeAgent($this);
         }
 
         return $this;
     }
 
-    public function removeAgent(Agent $agent): self
+    public function removeStatutAgent(StatutAgent $statutAgent): static
     {
-        if ($this->agents->removeElement($agent)) {
+        if ($this->statutAgents->removeElement($statutAgent)) {
             // set the owning side to null (unless already changed)
-            if ($agent->getTypeAgent() === $this) {
-                $agent->setTypeAgent(null);
+            if ($statutAgent->getTypeAgent() === $this) {
+                $statutAgent->setTypeAgent(null);
             }
         }
 

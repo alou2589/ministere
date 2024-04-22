@@ -7,21 +7,19 @@
           <th class="text-center">Nom</th>
           <th class="text-center">Genre</th>
           <th class="text-center">Matricule</th>
-          <th class="text-center">Service/Cellule/Bureau</th>
           <th class="text-center">Information</th>
       </tr>
   </thead>
   <tbody>
-      {% for agent in type_agent.agents %}
+      {% for statut_agent in type_agent.statutAgents %}
           <tr>
-              <td class="text-center">{{ agent.id }}</td>
-              <td class="text-center">{{ agent.Prenom }}</td>
-              <td class="text-center">{{agent.Nom}}</td>
-              <td class="text-center">{{agent.Genre}}</td>
-              <td class="text-center">{{agent.Matricule}}</td>
-              <td class="text-center">{{agent.sousStructure.NomSousStructure}}</td>
+              <td class="text-center">{{ statut_agent.agent.id }}</td>
+              <td class="text-center">{{ statut_agent.agent.Prenom }}</td>
+              <td class="text-center">{{statut_agent.agent.Nom}}</td>
+              <td class="text-center">{{statut_agent.agent.Genre}}</td>
+              <td class="text-center">{{statut_agent.Matricule}}</td>
               <td class="text-center">
-                  <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                  <a href="{{ path('app_admin_statut_agent_show', {'id': statut_agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
               </td>
           </tr>
       {% else %}

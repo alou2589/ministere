@@ -17,16 +17,15 @@ class FichiersAgent
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeFichier $type_fichier = null;
 
-    #[ORM\ManyToOne(inversedBy: 'fichiersAgents')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Agent $agent = null;
-
-
     #[ORM\Column(length: 255)]
     private ?string $nom_fichier = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $fichier = null;
+
+    #[ORM\ManyToOne(inversedBy: 'fichiersAgents')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?StatutAgent $statut_agent = null;
 
     public function getId(): ?int
     {
@@ -77,6 +76,18 @@ class FichiersAgent
     public function setFichier(?string $fichier): static
     {
         $this->fichier = $fichier;
+
+        return $this;
+    }
+
+    public function getStatutAgent(): ?StatutAgent
+    {
+        return $this->statut_agent;
+    }
+
+    public function setStatutAgent(?StatutAgent $statut_agent): static
+    {
+        $this->statut_agent = $statut_agent;
 
         return $this;
     }

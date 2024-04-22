@@ -32,7 +32,6 @@
                     <thead>
                         <tr>
                             <th class="text-center">Status</th>
-                            <th class="text-center">Id</th>
                             <th class="text-center">Agent</th>
                             <th class="text-center">Matériel </th>
                             <th class="text-center">Date d'attribution</th>
@@ -59,7 +58,9 @@
                             {% endif %}
                             </td>
                             <td class="text-center">{{ attribution.id }}</td>
-                            <td class="text-center">{{ attribution.agent.Prenom }} {{ attribution.agent.Nom }} - {{ attribution.agent.Matricule }} </td>
+                            <td class="text-center">
+                                {{ attribution.affectation.statutAgent.agent.Prenom }} {{ attribution.affectation.statutAgent.agent.Nom }} - {{ attribution.affectation.statutAgent.Matricule }}
+                            </td>
                             <td class="text-center">{{ attribution.matos.typeMatos.NomTypeMatos }} {{ attribution.matos.marqueMatos.NomMarqueMatos }}</td>
                             <td class="text-center">{{attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y'):' '}}</td>
                             <td class="text-center">

@@ -14,7 +14,8 @@
                     </li>
                     {% if is_granted("ROLE_RH_ADMIN")== true %}
                         <li>
-                            <a class="link" href="{{ path('app_admin_agent_delete', {'id': agent.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            {% include "./admin/agent/delete.html.twig" %}
                         </li>
                         <li>
                             <a class="link" href="{{ path('app_admin_agent_edit', {'id': agent.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
@@ -62,44 +63,37 @@
                                 <p><strong>Genre</strong>: {{ agent.Genre }}</p>
                             </li>
                             <li class="list-group-item">
-                                <p><strong>Type d'Agent</strong>: {{ agent.typeAgent.NomTypeAgent }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Matricule</strong>: {{ agent.Matricule }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Fonction</strong>: {{ agent.Fonction }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Poste</strong>: {{ agent.poste.NomPoste }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Service/Cellule/Bureau</strong>: {{ agent.sousStructure.NomSousStructure }}</p>
+                                <p><strong>Téléphone</strong>: {{ agent.Telephone }}</p>
                             </li>
                         </ul>         
                     </div>
+
                     <div class="tab-pane fade" id="statut" role="tabpanel" aria-labelledby="statut-tab">
-                        
-                        {% include "./admin/agent/show_statut_agent.html.twig" %}
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        
-                        {% include "./admin/agent/show_carte_pro.html.twig" %}
-                    </div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        
-                        {% include "./admin/agent/show_informatique.html.twig" %}
-                    </div>
-                    <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
-                        
-                        {% include "./admin/agent/show_files.html.twig" %}
-                    </div>
+
+                    {% include "./admin/agent/show_statut_agent.html.twig" %}
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    {% include "./admin/agent/show_carte_pro.html.twig" %}
+                </div>
+
+
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                    {% include "./admin/agent/show_informatique.html.twig" %}
+                </div>
+
+                <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+
+                    {% include "./admin/agent/show_files.html.twig" %}
+                </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </div>
-    
+
 {% endblock %}
 
 

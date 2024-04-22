@@ -4,31 +4,25 @@
       <tr>
           <th class="text-center">Prenom</th>
           <th class="text-center">Nom</th>
-          <th class="text-center">Genre</th>
           <th class="text-center">Matricule</th>
-          <th class="text-center">Service/Cellule/Bureau</th>
-          <th class="text-center">Information</th>
+          <th class="text-center">Service / Cellule / Bureau</th>
       </tr>
   </thead>
   <tbody>
   {% for sous_structure in structure.sousStructures %}
-      {% for agent in sous_structure.agents %}
+      {% for affectation in sous_structure.affectations %}
           <tr>
-              <td class="text-center">{{ agent.Prenom }}</td>
-              <td class="text-center">{{agent.Nom}}</td>
-              <td class="text-center">{{agent.Genre}}</td>
-              <td class="text-center">{{agent.Matricule}}</td>
-              <td class="text-center">{{agent.sousStructure.NomSousStructure}}</td>
-              <td class="text-center">
-                  <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
-              </td>
+            <td class="text-center">{{ affectation.statutAgent.agent.Prenom }}</td>
+            <td class="text-center">{{affectation.statutAgent.agent.Nom}}</td>
+            <td class="text-center">{{affectation.statutAgent.Matricule}}</td>
+            <td class="text-center">{{affectation.sousStructure.NomSousStructure}}</td>
           </tr>
-      {% else %}
-          <tr>
-              <td class="text-center" colspan="6">Pas de données</td>
-          </tr>
-          
     {% endfor %}
+  {% else %}
+      <tr>
+          <td class="text-center" colspan="6">Pas de données</td>
+      </tr>
+
   {% endfor %}
   </tbody>
 </table>

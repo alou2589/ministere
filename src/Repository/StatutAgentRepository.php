@@ -48,6 +48,18 @@ class StatutAgentRepository extends ServiceEntityRepository
         ;
         return $query->getQuery()->getResult();
     }
+
+    public function statutAgentByGenre(string $genre, string $nom_type_agent)
+    {
+        $query = $this->createQueryBuilder('s')
+            ->where("s.agent IN(SELECT a.id FROM App\Entity\Agent a WHERE a.genre= :genre)")
+            ->andWhere("s.type_agent IN(SELECT t.id FROM App\Entity\TypeAgent t WHERE t.nom_type_agent= :nom_type_agent)")
+            ->setParameter("genre",$genre)
+            ->setParameter("nom_type_agent",$nom_type_agent)
+        ;
+        return $query->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return StatutAgent[] Returns an array of StatutAgent objects
 //     */

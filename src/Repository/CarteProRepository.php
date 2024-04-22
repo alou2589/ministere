@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Agent;
 use App\Entity\CartePro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,6 +38,15 @@ class CarteProRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function showCartePro(Agent $agent)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where("c.affectation IN(SELECT a.id FROM App\Entity\Affectation a WHERE a.statut_agent IN (SELECT s.id FROM App\Entity\StatutAgent s WHERE s.agent= :agent))")
+            ->setParameter("agent",$agent)
+        ;
+        return $query->getQuery()->getResult();
     }
 
 //    /**

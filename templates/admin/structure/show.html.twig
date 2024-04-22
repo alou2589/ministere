@@ -43,20 +43,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <p><strong>Id</strong>: {{ structure.id }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Structure</strong>: {{ structure.NomStructure }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Type de structure</strong>: {{ structure.TypeStructure.NomTypeStructure }}</p>
-                            </li>
-                            <li class="list-group-item">
-                                <p><strong>Description</strong>: {{ structure.DescriptionStructure|raw }}</p>
-                            </li>
-                        </ul>    
+                        {% include "./admin/structure/show_info.html.twig" %}
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         {% include "./admin/structure/show_services.html.twig" %}

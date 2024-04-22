@@ -17,10 +17,10 @@
                         {% include "./admin/user/delete.html.twig" %}
                     </li>
                     <li>
-                        <a class="link" href="{{ path('app_admin_user_edit', {'id': user.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}"  class="link text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
                     </li>
                     <li>
-                        <a class="link" href="{{ path('app_admin_user_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                        <a href="{{ path('app_admin_user_index') }}" class="link text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
                     </li>
                     <li>
                         <a class="close-link"><i class="fa fa-close"></i></a>
@@ -33,7 +33,7 @@
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
                             <p class="text-muted font-13 m-b-30">
-                              {{ user.agent.Prenom}} {{ user.agent.Nom }}.
+                              {{ user.affectation.statutAgent.agent.Prenom}} {{ user.affectation.statutAgent.agent.Nom }}.
                             </p>
                             <div class="card">
                                 <div class="card-body">
@@ -49,7 +49,7 @@
                                                                         <p><strong>Id</strong>: {{ user.id }}</p>
                                                                     </li>
                                                                     <li class="list-group-item">
-                                                                        <p><strong>Nom Complet</strong>: {{ user.agent.Prenom}} {{ user.agent.Nom }}</p>
+                                                                        <p><strong>Nom Complet</strong>: {{ user.affectation.statutAgent.agent.Prenom}} {{ user.affectation.statutAgent.agent.Nom }}</p>
                                                                     </li>
                                                                     <li class="list-group-item">
                                                                         <p><strong>Pseudo</strong>: {{ user.Username }}</p>

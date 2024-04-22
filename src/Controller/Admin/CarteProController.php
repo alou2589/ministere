@@ -48,7 +48,7 @@ class CarteProController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $cartePro->setQrcodeAgent((string)$qr_code);
             $carteProRepository->save($cartePro, true);
-            $qr_code = $qrCodeService->qrcode($cartePro->getAgent()->getId(), $cartePro->getId());
+            $qr_code = $qrCodeService->qrcode($cartePro->getAffectation()->getId(), $cartePro->getId());
 
             $imageFile = $form->get('photo_agent')->getData();
 
@@ -104,7 +104,7 @@ class CarteProController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/showcode', name: 'app_admin_carte_pro_show_code', methods: ['GET'])]
+    #[Route('/{id}/showcode', name: 'app_admin_carte_pro_show_code', methods: ['GET','POST'])]
     public function showcode(CartePro $cartePro,MessagesRepository $messagesRepository,AesEncryptDecrypt $aesEncryptDecrypt, NotificationRepository $notificationRepository)
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);

@@ -1,20 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FilesController!{% endblock %}
+{% block title %}Mon Parc | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/alassanetambedou/ministere/src/Controller/User/FilesController.php'|file_link(0) }}">src/Controller/User/FilesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/alassanetambedou/ministere/templates/user/files/index.html.twig'|file_link(0) }}">templates/user/files/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                {% for fichiersAgent in fichiersAgents %}
+                                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+                                        <div class="tile-stats text-dark">
+                                            <i class="fa fa-file-pdf-o fa-5x" aria-hidden="true"></i>
+                                            <br>
+                                            <strong>{{fichiersAgent.nomFichier}} </strong> <a href="#"><i class="fas fa-eye text-info" title="Visualiser document"></i></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

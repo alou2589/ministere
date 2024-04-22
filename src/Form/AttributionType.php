@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Affectation;
 use App\Entity\Agent;
 use App\Entity\Attribution;
 use App\Entity\Materiel;
@@ -16,10 +17,10 @@ class AttributionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('agent', EntityType::class, [
-                'class' => Agent::class,
-                'choice_label' => function ($agent) {
-                    return $agent->getPrenom() . ' ' . $agent->getNom() . '-' . $agent->getMatricule();
+            ->add('affectation', EntityType::class, [
+                'class' => Affectation::class,
+                'choice_label' => function ($affectation) {
+                    return $affectation->getStatutAgent()->getAgent()->getPrenom() . ' ' . $affectation->getStatutAgent()->getAgent()->getNom() . '-' . $affectation->getStatutAgent()->getMatricule();
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])

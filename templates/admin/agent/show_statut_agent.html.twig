@@ -8,6 +8,21 @@
             <p><strong>Hiérarchie</strong>: {{statut_agent.hierarchie}}</p>
         </li>
         <li class="list-group-item">
+            <p><strong>Grade</strong>: {{statut_agent.grade}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Échellon</strong>: {{statut_agent.echellon}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Type d'agent</strong>: {{statut_agent.typeAgent.nomTypeAgent}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Matricule</strong>: {{statut_agent.matricule}}</p>
+        </li>
+        <li class="list-group-item">
+            <p><strong>Fonction</strong>: {{statut_agent.fonction}}</p>
+        </li>
+        <li class="list-group-item">
             <p><strong>Date de prise de service</strong>: {{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</p>
         </li>
         <li class="list-group-item">

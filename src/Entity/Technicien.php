@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: TechnicienRepository::class)]
-#[UniqueEntity(fields: ['agent'], message: 'Cet agent existe déjà !')]
+#[UniqueEntity(fields: ['info_technicien'], message: 'Cet agent existe déjà !')]
 class Technicien
 {
     #[ORM\Id]

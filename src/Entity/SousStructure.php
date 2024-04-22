@@ -32,12 +32,12 @@ class SousStructure
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description_sous_structure = null;
 
-    #[ORM\OneToMany(mappedBy: 'sous_structure', targetEntity: Agent::class, orphanRemoval: true)]
-    private Collection $agents;
+    #[ORM\OneToMany(mappedBy: 'sous_structure', targetEntity: Affectation::class)]
+    private Collection $affectations;
 
     public function __construct()
     {
-        $this->agents = new ArrayCollection();
+        $this->affectations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,29 +94,29 @@ class SousStructure
     }
 
     /**
-     * @return Collection<int, Agent>
+     * @return Collection<int, Affectation>
      */
-    public function getAgents(): Collection
+    public function getAffectations(): Collection
     {
-        return $this->agents;
+        return $this->affectations;
     }
 
-    public function addAgent(Agent $agent): self
+    public function addAffectation(Affectation $affectation): static
     {
-        if (!$this->agents->contains($agent)) {
-            $this->agents->add($agent);
-            $agent->setSousStructure($this);
+        if (!$this->affectations->contains($affectation)) {
+            $this->affectations->add($affectation);
+            $affectation->setSousStructure($this);
         }
 
         return $this;
     }
 
-    public function removeAgent(Agent $agent): self
+    public function removeAffectation(Affectation $affectation): static
     {
-        if ($this->agents->removeElement($agent)) {
+        if ($this->affectations->removeElement($affectation)) {
             // set the owning side to null (unless already changed)
-            if ($agent->getSousStructure() === $this) {
-                $agent->setSousStructure(null);
+            if ($affectation->getSousStructure() === $this) {
+                $affectation->setSousStructure(null);
             }
         }
 

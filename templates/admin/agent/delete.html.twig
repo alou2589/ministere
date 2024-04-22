@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Supprimer <strong class="text-danger"> {{agent.Prenom}} {{ agent.Nom }} {{agent.Matricule}} </strong>  ?</p>
+        <p>Supprimer <strong class="text-danger"> {{agent.Prenom}} {{ agent.Nom }} {{agent.Telephone}} </strong>  ?</p>
         <form method="post" action="{{ path('app_admin_agent_delete', {'id': agent.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agent.id) }}">
             <div class="modal-footer">

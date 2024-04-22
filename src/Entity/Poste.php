@@ -24,12 +24,12 @@ class Poste
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description_poste = null;
 
-    #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Agent::class, orphanRemoval: true)]
-    private Collection $agents;
+    #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Affectation::class)]
+    private Collection $affectations;
 
     public function __construct()
     {
-        $this->agents = new ArrayCollection();
+        $this->affectations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,29 +62,29 @@ class Poste
     }
 
     /**
-     * @return Collection<int, Agent>
+     * @return Collection<int, Affectation>
      */
-    public function getAgents(): Collection
+    public function getAffectations(): Collection
     {
-        return $this->agents;
+        return $this->affectations;
     }
 
-    public function addAgent(Agent $agent): self
+    public function addAffectation(Affectation $affectation): static
     {
-        if (!$this->agents->contains($agent)) {
-            $this->agents->add($agent);
-            $agent->setPoste($this);
+        if (!$this->affectations->contains($affectation)) {
+            $this->affectations->add($affectation);
+            $affectation->setPoste($this);
         }
 
         return $this;
     }
 
-    public function removeAgent(Agent $agent): self
+    public function removeAffectation(Affectation $affectation): static
     {
-        if ($this->agents->removeElement($agent)) {
+        if ($this->affectations->removeElement($affectation)) {
             // set the owning side to null (unless already changed)
-            if ($agent->getPoste() === $this) {
-                $agent->setPoste(null);
+            if ($affectation->getPoste() === $this) {
+                $affectation->setPoste(null);
             }
         }
 

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Agent;
+use App\Entity\StatutAgent;
 use App\Entity\TypeFichier;
 use App\Entity\FichiersAgent;
 use Symfony\Component\Form\AbstractType;
@@ -24,10 +25,10 @@ class FichiersAgentType extends AbstractType
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])
-            ->add('agent', EntityType::class, [
-                'class' => Agent::class,
-                'choice_label' => function (Agent $agent) {
-                    return $agent->getPrenom().' '.$agent->getNom().' '.$agent->getMatricule();
+            ->add('statut_agent', EntityType::class, [
+                'class' => StatutAgent::class,
+                'choice_label' => function (StatutAgent $statutAgent) {
+                    return $statutAgent->getAgent()->getPrenom().' '.$statutAgent->getAgent()->getNom().' '.$statutAgent->getMatricule();
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])

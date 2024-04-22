@@ -15,7 +15,8 @@
                     </li>
                     {% if is_granted("ROLE_INFO_ADMIN")== true %}
                         <li>
-                            <a class="link" href="{{ path('app_admin_attribution_delete', {'id': attribution.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            <a type="button" class="link" data-toggle="modal" data-target=".bs-example-modal-lg" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            {% include "./admin/attribution/delete.html.twig" %}
                         </li>
                         <li>
                             <a class="link" href="{{ path('app_admin_attribution_edit', {'id': attribution.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
@@ -49,7 +50,7 @@
                                 <p><strong>Id</strong>: {{ attribution.id }}</p>
                             </li>
                             <li class="list-group-item">
-                                <p><strong>Nom Complet Agent</strong>: {{ attribution.agent.prenom }} {{attribution.agent.nom}}-{{attribution.agent.matricule}} </p>
+                                <p><strong>Nom Complet Agent</strong>: {{ attribution.affectation.statutAgent.agent.prenom }} {{attribution.affectation.statutAgent.agent.nom}}-{{attribution.affectation.statutAgent.matricule}} </p>
                             </li>
                             <li class="list-group-item">
                                 <p><strong>Marque et Modèle</strong>: {{ attribution.matos.marqueMatos.NomMarqueMatos }} {{ attribution.matos.ModeleMatos}} </p>
@@ -61,7 +62,7 @@
                                 <p><strong>Date d'attribution</strong>: {{ attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y') : '' }} </p>
                             </li>
                             <li class="list-group-item">
-                                <p><strong>Service</strong>: {{ attribution.agent.sousStructure.NomSousStructure }}</p>
+                                <p><strong>Service</strong>: {{ attribution.affectation.sousStructure.NomSousStructure }}</p>
                             </li>
                             <li class="list-group-item">
                                 <p><strong>Caractéristiques du Matériel</strong>: 

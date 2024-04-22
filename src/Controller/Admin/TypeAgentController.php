@@ -6,6 +6,7 @@ use App\Entity\TypeAgent;
 use App\Form\TypeAgentType;
 use App\Repository\AgentRepository;
 use App\Repository\MessagesRepository;
+use App\Repository\StatutAgentRepository;
 use App\Repository\TypeAgentRepository;
 use App\Repository\NotificationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,20 +55,19 @@ class TypeAgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_type_agent_show', methods: ['GET'])]
-    public function show(AgentRepository $agentRepository, TypeAgent $typeAgent,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
+    public function show(StatutAgentRepository $statutAgentRepository, TypeAgent $typeAgent,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
-        
-        $hommes=$agentRepository->findBy(['genre'=>'homme', 'type_agent'=> $typeAgent]);
-        $femmes=$agentRepository->findBy(['genre'=>'femme', 'type_agent'=> $typeAgent]);
+        $hommes=$statutAgentRepository->statutAgentByGenre("homme",$typeAgent->getNomTypeAgent());
+        $femmes=$statutAgentRepository->statutAgentByGenre("femme",$typeAgent->getNomTypeAgent());
         
         return $this->render('admin/type_agent/show.html.twig', [
             'type_agent' => $typeAgent,
             'notifications' => $notifications,
             'messages' => $messages,
-            'hommes' => $hommes,
-            'femmes' => $femmes,
+            'hommes' => count($hommes),
+            'femmes' => count($femmes),
         ]);
     }
 

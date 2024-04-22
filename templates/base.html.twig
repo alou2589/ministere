@@ -1,157 +1,163 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Administration Ministère{% endblock %}</title>
-    
-        <!-- Custom fonts for this template-->
-        {% block stylesheets %}
-            <!-- Bootstrap -->
-            <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-            <link href="{{asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-            <!-- Font Awesome -->
-            <link href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-            <!-- NProgress -->
-            <link href="{{asset('assets/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
-            <!-- iCheck -->
-            <link href="{{asset('assets/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
-            <!-- Datatables -->
-            <link href="{{asset('assets/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Administration Ministère{% endblock %}</title>
 
-            <link href="{{asset('assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    {% block stylesheets %}
+        <!-- Bootstrap -->
+        <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+        <link href="{{asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{{asset('assets/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="{{asset('assets/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+        <!-- iCheck -->
+        <link href="{{asset('assets/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+        <!-- Datatables -->
+        <link href="{{asset('assets/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
 
-            <!-- bootstrap-progressbar -->
-            <link href="{{asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
-            <!-- JQVMap -->
-            <link href="{{asset('assets/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
-            <!-- bootstrap-daterangepicker -->
-            <link href="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-            <!-- PNotify -->
-            <link href="{{asset('assets/vendors/pnotify/dist/pnotify.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/pnotify/dist/pnotify.buttons.css')}}" rel="stylesheet">
-            <link href="{{asset('assets/vendors/pnotify/dist/pnotify.nonblock.css')}}" rel="stylesheet">
-            <!-- PNotify -->
-            <script src="{{asset('assets/vendors/pnotify/dist/pnotify.js')}}"></script>
-            <script src="{{asset('assets/vendors/pnotify/dist/pnotify.buttons.js')}}"></script>
-            <script src="{{asset('assets/vendors/pnotify/dist/pnotify.nonblock.js')}}"></script>
-            <!-- Custom Theme Style -->
-            <link href="{{asset('assets/build/css/custom.min.css')}}" rel="stylesheet" />
-            <link rel="shortcut icon" href="{{asset('assets/images/logo.png')}}" />
-            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        {% endblock %}
+        <!-- bootstrap-progressbar -->
+        <link href="{{asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="{{asset('assets/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
+        <!-- bootstrap-daterangepicker -->
+        <link href="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+        <!-- Dropzone.css -->
+        <link href="{{asset('assets/vendors/dropzone/dist/min/dropzone.min.css')}}" rel="stylesheet">
+        <!-- PNotify -->
+        <link href="{{asset('assets/vendors/pnotify/dist/pnotify.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/pnotify/dist/pnotify.buttons.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/vendors/pnotify/dist/pnotify.nonblock.css')}}" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="{{asset('assets/build/css/custom.min.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/build/css/style.css')}}" rel="stylesheet" />
+        <link rel="shortcut icon" href="{{asset('assets/images/logo.png')}}" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {% endblock %}
 
-    </head>
-  <body class="nav-md footer_fixed">
-    <div class="container body">
-      <div class="main_container">
+</head>
+<body class="nav-md footer_fixed" style=" -webkit-print-color-adjust:exact;">
+<div class="container body">
+    <div class="main_container">
         <div class="col-md-3 left_col menu_fixed">
-            {% include "partials/_sidebar.html.twig" %}
+            {% include "./user/userpartials/_sidebar.html.twig" %}
         </div>
 
         <!-- top navigation -->
-            {% include "partials/_navbar.html.twig" %}
+        {% include "./user/userpartials/_navbar.html.twig" %}
         <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3><img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="100"></h3>
-              </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Go!</button>
-                    </span>
-                  </div>
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3><img src="{{ asset('assets/images/logo.png') }}" alt="Logo" width="100"></h3>
+                    </div>
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for...">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-secondary" type="button">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <div class="clearfix"></div>
+                {% block body %}{% endblock %}
             </div>
-            <div class="clearfix"></div>
-            {% block body %}{% endblock %}
-          </div>
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
-        {% include "partials/_footer.html.twig" %}
+        {% include "./user/userpartials/_footer.html.twig" %}
         <!-- /footer content -->
-      </div>
     </div>
-    {% block javascripts %}  
-        <script src="https://kit.fontawesome.com/112362d990.js" crossorigin="anonymous"></script>  
-        <!-- jQuery -->
-        <script src="{{asset('assets/vendors/jquery/dist/jquery.min.js')}}"></script>
-        <!-- Bootstrap -->
-        <script src="{{asset('assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
-        <!-- FastClick -->
-        <script src="{{asset('assets/vendors/fastclick/lib/fastclick.js')}}"></script>
-        <!-- NProgress -->
-        <script src="{{asset('assets/vendors/nprogress/nprogress.j')}}s"></script>
-        <script src="{{asset('assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-        <!-- Chart.js -->
-        <script src="{{asset('assets/vendors/Chart.js/dist/Chart.min.js')}}"></script>
-        <!-- gauge.js -->
-        <script src="{{asset('assets/vendors/gauge.js/dist/gauge.min.js')}}"></script>
-        <!-- bootstrap-progressbar -->
-        <script src="{{asset('assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-        <!-- iCheck -->
-        <script src="{{asset('assets/vendors/iCheck/icheck.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/switchery/dist/switchery.min.js')}}"></script>
-        <!-- Skycons -->
-        <script src="{{asset('assets/vendors/skycons/skycons.js')}}"></script>
-        <!-- Flot -->
-        <script src="{{asset('assets/vendors/Flot/jquery.flot.js')}}"></script>
-        <script src="{{asset('assets/vendors/Flot/jquery.flot.pie.js')}}"></script>
-        <script src="{{asset('assets/vendors/Flot/jquery.flot.time.js')}}"></script>
-        <script src="{{asset('assets/vendors/Flot/jquery.flot.stack.js')}}"></script>
-        <script src="{{asset('assets/vendors/Flot/jquery.flot.resize.js')}}"></script>
-        <!-- Flot plugins -->
-        <script src="{{asset('assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
-        <script src="{{asset('assets/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/flot.curvedlines/curvedLines.js')}}"></script>
-        <!-- DateJS -->
-        <script src="{{asset('assets/vendors/DateJS/build/date.js')}}"></script>
-        <!-- JQVMap -->
-        <script src="{{asset('assets/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
-        <script src="{{asset('assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-        <script src="{{asset('assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
-        <!-- bootstrap-daterangepicker -->
-        <script src="{{asset('assets/vendors/moment/min/moment.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-        <!-- Datatables -->
-        <script src="{{asset('assets/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
-        <script src="{{asset('assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/jszip/dist/jszip.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
-        <script src="{{asset('assets/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
-        <!-- Custom Theme Scripts -->
-        <script src="{{asset('assets/build/js/custom.min.js')}}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="{{asset('assets/build/js/select2.js')}}"></script>
-        
-    {% endblock %}
-  </body>
+</div>
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/112362d990.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/vendors/modal.js/modal.js')}} "></script>
+    <!-- jQuery -->
+    <script src="{{asset('assets/vendors/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{asset('assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{asset('assets/vendors/fastclick/lib/fastclick.js')}}"></script>
+    <!-- NProgress -->
+    <script src="{{asset('assets/vendors/nprogress/nprogress.j')}}s"></script>
+    <script src="{{asset('assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <!-- Chart.js -->
+    <script src="{{asset('assets/vendors/Chart.js/dist/Chart.min.js')}}"></script>
+    <!-- gauge.js -->
+    <script src="{{asset('assets/vendors/gauge.js/dist/gauge.min.js')}}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{asset('assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <!-- iCheck -->
+    <script src="{{asset('assets/vendors/iCheck/icheck.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/switchery/dist/switchery.min.js')}}"></script>
+    <!-- PNotify -->
+    <script src="{{asset('assets/vendors/pnotify/dist/pnotify.js')}}"></script>
+    <script src="{{asset('assets/vendors/pnotify/dist/pnotify.buttons.js')}}"></script>
+    <script src="{{asset('assets/vendors/pnotify/dist/pnotify.nonblock.js')}}"></script>
+    <!-- Skycons -->
+    <script src="{{asset('assets/vendors/skycons/skycons.js')}}"></script>
+    <!-- Flot -->
+    <script src="{{asset('assets/vendors/Flot/jquery.flot.js')}}"></script>
+    <script src="{{asset('assets/vendors/Flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{asset('assets/vendors/Flot/jquery.flot.time.js')}}"></script>
+    <script src="{{asset('assets/vendors/Flot/jquery.flot.stack.js')}}"></script>
+    <script src="{{asset('assets/vendors/Flot/jquery.flot.resize.js')}}"></script>
+    <!-- Flot plugins -->
+    <script src="{{asset('assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
+    <script src="{{asset('assets/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/flot.curvedlines/curvedLines.js')}}"></script>
+    <!-- DateJS -->
+    <script src="{{asset('assets/vendors/DateJS/build/date.js')}}"></script>
+    <!-- JQVMap -->
+    <script src="{{asset('assets/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
+    <script src="{{asset('assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+    <script src="{{asset('assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{asset('assets/vendors/moment/min/moment.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <!-- Dropzone.js -->
+    <script src="{{asset('assets/vendors/dropzone/dist/min/dropzone.min.js')}}"></script>
+    <!-- Datatables -->
+    <script src="{{asset('assets/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{asset('assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+    <script src="{{asset('assets/vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{asset('assets/build/js/custom.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{asset('assets/build/js/select2.js')}}"></script>
+    <script src="{{asset('assets/build/js/imprimer.js')}}"></script>
+
+{% endblock %}
+</body>
 </html>

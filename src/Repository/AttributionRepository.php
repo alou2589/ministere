@@ -57,6 +57,7 @@ class AttributionRepository extends ServiceEntityRepository
             ;
         return $query->getQuery()->getResult();
     }
+
 //    /**
 //     * @return Attribution[] Returns an array of Attribution objects
 //     */

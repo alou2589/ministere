@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use LDAP\Result;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -11,9 +10,9 @@ use App\Repository\NotificationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/user')]
 #[IsGranted("ROLE_INFO_ADMIN")]
@@ -42,6 +41,7 @@ class UserController extends AbstractController
         $password="passe123";
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setNbConnect(0);
+            $user->setRoles(["ROLE_USER"]);
             $user->setPassword(
                 $passwordHasher->hashPassword(
                         $user,

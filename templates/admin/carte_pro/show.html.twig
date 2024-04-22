@@ -7,7 +7,7 @@
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-info-circle"></i> {{carte_pro.agent.Prenom}} {{carte_pro.agent.Nom}} - {{carte_pro.agent.matricule}} </h2>
+                <h2><i class="fa fa-info-circle"></i> {{carte_pro.affectation.statutAgent.agent.Prenom}} {{carte_pro.affectation.statutAgent.agent.Nom}} - {{carte_pro.affectation.statutAgent.matricule}} </h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -58,13 +58,13 @@
                                 {% endif %}
                         </li>
                         <li class="list-group-item">
-                            <p><strong>Nom Complet</strong>: {{ carte_pro.agent.Prenom}} {{ carte_pro.agent.Nom }}</p>
+                            <p><strong>Nom Complet</strong>: {{ carte_pro.affectation.statutAgent.agent.Prenom}} {{ carte_pro.affectation.statutAgent.agent.Nom }}</p>
                         </li>
                         <li class="list-group-item">
-                            <p><strong>Matricule</strong>: {{ carte_pro.agent.Matricule }}</p>
+                            <p><strong>Matricule</strong>: {{ carte_pro.affectation.statutAgent.Matricule }}</p>
                         </li>
                         <li class="list-group-item">
-                            <p><strong>Fonction</strong>: {{ carte_pro.agent.Fonction }}</p>
+                            <p><strong>Fonction</strong>: {{ carte_pro.affectation.statutAgent.Fonction }}</p>
                         </li>
                         <li class="list-group-item">
                             <p><strong>Date de délivrance</strong>: {{carte_pro.DateDelivrance ? carte_pro.DateDelivrance|date('d-m-Y'):' '}}</p>
@@ -75,7 +75,7 @@
                     </ul>    
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        {% if carte_pro.agent.typeAgent.nomTypeAgent == "Volontaire" %}
+                        {% if carte_pro.affectation.statutAgent.typeAgent.nomTypeAgent == "Volontaire" %}
                              {% include "./admin/carte_pro/carteProVolontaire.html.twig" %}
                          {% else %}
                              {% include "./admin/carte_pro/carteProAgent.html.twig" %}

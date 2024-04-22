@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Parc | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Bienvenu {{ app.user.username }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="clear"></div>
+                    <div class="row">
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+                            <div class="tile-stats ">
+                                <div class="icon"><i class="fas fa-file-o text-dark "></i></div>
+                                <div class="count">3</div>
+                                <h3 class=" text-white">Fichiers</h3>
+                                <p>Total Fihciers.</p>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6">
+                            <div class="tile-stats">
+                                <div class="icon"><i class="fas fa-folder-open-o text-dark"></i></div>
+                                <div class="count">3</div>
+                                <h3 class=" text-white">Demandes</h3>
+                                <p>Total Demande.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

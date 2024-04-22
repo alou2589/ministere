@@ -20,15 +20,14 @@ class Attribution
     #[ORM\JoinColumn(nullable: false)]
     private ?Materiel $matos = null;
 
-    #[ORM\ManyToOne(inversedBy: 'attributions')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Agent $agent = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $QrCodeAttribution = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_attribution = null;
+
+    #[ORM\ManyToOne(inversedBy: 'attributions')]
+    private ?Affectation $affectation = null;
 
     public function getId(): ?int
     {
@@ -43,18 +42,6 @@ class Attribution
     public function setMatos(?Materiel $matos): self
     {
         $this->matos = $matos;
-
-        return $this;
-    }
-
-    public function getAgent(): ?Agent
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(?Agent $agent): self
-    {
-        $this->agent = $agent;
 
         return $this;
     }
@@ -79,6 +66,18 @@ class Attribution
     public function setDateAttribution(\DateTimeInterface $date_attribution): self
     {
         $this->date_attribution = $date_attribution;
+
+        return $this;
+    }
+
+    public function getAffectation(): ?Affectation
+    {
+        return $this->affectation;
+    }
+
+    public function setAffectation(?Affectation $affectation): static
+    {
+        $this->affectation = $affectation;
 
         return $this;
     }

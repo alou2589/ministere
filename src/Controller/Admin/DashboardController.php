@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\AffectationRepository;
 use App\Repository\AgentRepository;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\MaterielRepository;
@@ -196,7 +197,7 @@ class DashboardController extends AbstractController
         ]);
     }
     #[Route('/admin/dashboard_perso', name: 'app_admin_dashboard_perso')]
-    public function dash_perso(NotificationRepository $notificationRepository,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderRY, ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartbuilderSTA ,ChartBuilderInterface $chartBuilderAS,AgentRepository $agentRepository, StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository, 
+    public function dash_perso(NotificationRepository $notificationRepository,MessagesRepository $messagesRepository, AffectationRepository $affectationRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderRY, ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartbuilderSTA ,ChartBuilderInterface $chartBuilderAS,AgentRepository $agentRepository, StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,
                         StatutAgentRepository $statutAgentRepository,TypeAgentRepository $typeAgentRepository,TypeStructureRepository $typeStructureRepository, TypeSousStructureRepository $typeSousStructureRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
@@ -215,14 +216,14 @@ class DashboardController extends AbstractController
         foreach ($typeAgents as $typeAgent) {
             # code...
             $type_name[]=$typeAgent->getNomTypeAgent();
-            $type_count[]=count($typeAgent->getAgents());
+            $type_count[]=count($typeAgent->getStatutAgents());
         }
         
         foreach ($structures as $structure) {
             # code...
             $s_name[] = $structure->getNomStructure();
             $s_ss[] = count($structure->getSousStructures());
-            $s_agents = $agentRepository->agents_structure($structure->getId());
+            $s_agents = $affectationRepository->affectation_structure($structure->getId());
             foreach ($s_agents as $s_agent) {
                # code...
                $nbagents[] = $s_agent['agents'];
@@ -231,7 +232,7 @@ class DashboardController extends AbstractController
          foreach($sousStructures as $sousStructure) {
             # code...
             $ss_name[]=$sousStructure->getNomSousStructure();
-            $ss_agents[]=count($sousStructure->getAgents());
+            $ss_agents[]=count($sousStructure->getAffectations());
          }
         
         foreach ($statutAgents as $statutAgent) {

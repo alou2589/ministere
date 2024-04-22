@@ -40,10 +40,10 @@
                     </thead>
                     <tbody>
                     {% for user in users %}
-                      {% if ("ROLE_SUPER_ADMIN" in user.roles) == false %}
+                      {% if user.id != 0 %}
                       <tr>
                           <td class="text-center">{{ user.id }}</td>
-                          <td class="text-center">{{ user.agent.Prenom }} {{ user.agent.Nom }} - {{ user.agent.Matricule }} </td>
+                          <td class="text-center">{{ user.affectation.statutAgent.agent.Prenom }} {{ user.affectation.statutAgent.agent.Nom }} - {{ user.affectation.statutAgent.Matricule }} </td>
                           <td class="text-center">{{user.username}}</td>
                           <td class="text-center">{{user.Email}}</td>
                           <td class="text-center">

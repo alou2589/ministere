@@ -8,8 +8,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Supprimer le technicien <strong class="text-danger"> {{technicien.infoTechnicien.agent.Prenom}} {{technicien.infoTechnicien.agent.Nom}}-{{technicien.infoTechnicien.agent.Matricule}} </strong>  ?</p>
-        <form method="post" action="{{ path('app_admin_technicien_delete', {'id': technicien.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
+        <p>Supprimer le technicien <strong class="text-danger"> {{technicien.infoTechnicien.statutAgent.agent.Prenom}} {{technicien.infoTechnicien.statutAgent.agent.Nom}}-{{technicien.infoTechnicien.statutAgent.Matricule}} </strong>  ?</p>
+        <form method="post" action="{{ path('app_admin_technicien_delete', {'id': technicien.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir effectuer cette action ?');">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ technicien.id) }}">
             <a href="{{ path('app_admin_technicien_show', {'id':technicien.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
             <button class="btn btn-danger">Supprimer <i class="fas fa-trash-alt"></i></button>

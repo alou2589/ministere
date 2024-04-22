@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Parc | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% for materiel in materiels %}
+                                <div class="col-md-6 widget widget_tally_box">
+                                    <div class="x_panel fixed_height_450 shadow-1 bg-light border-info border-2 border-rounded">
+                                        <div class="x_title">
+                                            <h2>{{materiel.matos.marqueMatos.nomMarqueMatos}} </h2>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div style="text-align: center; margin-bottom: 17px">
+                                                {% if materiel.matos.typeMatos.nomTypeMatos == "Ordinateur Fixe" %}
+                                                    <img src="{{asset('assets/images/desktop.png')}}" alt="" width="100">
+
+                                                {% elseif materiel.matos.typeMatos.nomTypeMatos == "All In One" %}
+                                                    <img src="{{asset('assets/images/all-in-one.png')}}" alt="" width="100">
+
+                                                {% elseif materiel.matos.typeMatos.nomTypeMatos == "Ordinateur Portable" %}
+                                                    <img src="{{asset('assets/images/laptop.png')}}" alt="" width="100">
+
+                                                {% elseif materiel.matos.typeMatos.nomTypeMatos in ["Imprimante Couleur", "Imprimante Noir et Blanc"] %}
+                                                    <img src="{{asset('assets/images/printer.png')}}" alt="" width="100">
+                                                {% else %}
+                                                    <img src="{{asset('assets/images/others.png')}}" alt="" width="100">
+                                                {% endif %}
+                                                {% if materiel.matos.maintenances == null %}
+                                                    <span><i class="fas fa-check-circle text-success fa-2x"></i></span>
+                                                {% else %}
+                                                    {% for maintenance in materiel.matos.maintenances %}
+                                                        {% if loop.last %}
+                                                            {% if maintenance.statusMatos == "Amorti" %}
+                                                                <span><i class="fas fa-check-circle text-danger fa-2x"></i></span>
+                                                            {% endif %}
+                                                            {% if maintenance.statusMatos == "En Panne" %}
+                                                                <span><i class="fas fa-exclamation-triangle text-warning fa-2x"></i></span>
+                                                            {% endif %}
+                                                            {% if maintenance.statusMatos == "Effectuer" %}
+                                                                <span><i class="fas fa-check-circle text-success fa-2x"></i></span>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div style="text-align: center; margin-bottom: 17px">
+                                                <img src="{{materiel.QrCodeAttribution}}" alt="" width="100">
+                                            </div>
+                                            <div class="divider"></div>
+                                            <ul class="legend list-unstyled">
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="icon"><i class="fa fa-info-circle dark"></i></span> <span class="name"><strong>Voir Plus </strong></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

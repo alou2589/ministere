@@ -40,15 +40,6 @@ class AgentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function agents_structure($structure)
-    {
-        $query = $this->createQueryBuilder('a')
-            ->select("COUNT(a) as agents")
-            ->where("a.sous_structure IN( SELECT s_s.id FROM App\Entity\SousStructure s_s WHERE s_s.structure IN(SELECT s.id FROM App\Entity\Structure s WHERE s.id= :val ))")
-            ->setParameter('val', $structure);
-        
-        return $query->getQuery()->getResult();
-    }
 
     public function agentByYear()
     {

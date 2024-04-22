@@ -32,10 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Agent $agent = null;
-
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
@@ -53,6 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'expediteur', targetEntity: Messages::class, orphanRemoval: true)]
     private Collection $expediteurs;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Affectation $affectation = null;
+
 
     public function __construct()
     {
@@ -130,18 +131,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getAgent(): ?Agent
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(?Agent $agent): self
-    {
-        $this->agent = $agent;
-
-        return $this;
     }
 
     public function getUsername(): ?string
@@ -286,4 +275,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getAffectation(): ?Affectation
+    {
+        return $this->affectation;
+    }
+
+    public function setAffectation(?Affectation $affectation): static
+    {
+        $this->affectation = $affectation;
+
+        return $this;
+    }
+
 }

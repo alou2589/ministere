@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FichiersAgent;
+use App\Entity\StatutAgent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,7 @@ class FichiersAgentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
 
 //    /**
 //     * @return FichiersAgent[] Returns an array of FichiersAgent objects

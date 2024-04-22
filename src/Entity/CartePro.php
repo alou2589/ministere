@@ -8,17 +8,12 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CarteProRepository::class)]
-#[UniqueEntity(fields: ['agent'], message: 'Cet agent existe déjà !')]
 class CartePro
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'cartePros')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Agent $agent = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_delivrance = null;
@@ -35,22 +30,15 @@ class CartePro
     #[ORM\Column(length: 255)]
     private ?string $status_impression = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cartePros')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Affectation $affectation = null;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAgent(): ?Agent
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(?Agent $agent): self
-    {
-        $this->agent = $agent;
-
-        return $this;
     }
 
     public function getDateDelivrance(): ?\DateTimeInterface
@@ -112,5 +100,18 @@ class CartePro
 
         return $this;
     }
+
+    public function getAffectation(): ?Affectation
+    {
+        return $this->affectation;
+    }
+
+    public function setAffectation(?Affectation $affectation): static
+    {
+        $this->affectation = $affectation;
+
+        return $this;
+    }
+
 
 }

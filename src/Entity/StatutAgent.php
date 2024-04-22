@@ -3,22 +3,20 @@
 namespace App\Entity;
 
 use App\Repository\StatutAgentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StatutAgentRepository::class)]
-#[UniqueEntity(fields: ['agent'], message: 'Cet agent existe déjà !')]
+#[UniqueEntity(fields: ['agent', 'matricule'], message: 'Cet agent existe déjà !')]
 class StatutAgent
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'statutAgents')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Agent $agent = null;
 
     #[ORM\Column(length: 255)]
     private ?string $echellon = null;
@@ -38,21 +36,35 @@ class StatutAgent
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_debut_ministere = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $matricule = null;
+
+    #[ORM\OneToMany(mappedBy: 'statut_agent', targetEntity: Affectation::class)]
+    private Collection $affectations;
+
+    #[ORM\ManyToOne(inversedBy: 'statutAgents')]
+    private ?TypeAgent $type_agent = null;
+
+
+    #[ORM\OneToMany(mappedBy: 'statut_agent', targetEntity: FichiersAgent::class, orphanRemoval: true)]
+    private Collection $fichiersAgents;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fonction = null;
+
+    #[ORM\ManyToOne(inversedBy: 'statutAgents')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Agent $agent = null;
+
+    public function __construct()
+    {
+        $this->affectations = new ArrayCollection();
+        $this->fichiersAgents = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAgent(): ?Agent
-    {
-        return $this->agent;
-    }
-
-    public function setAgent(?Agent $agent): self
-    {
-        $this->agent = $agent;
-
-        return $this;
     }
 
     public function getEchellon(): ?string
@@ -123,6 +135,115 @@ class StatutAgent
     public function setDateDebutMinistere(?\DateTimeInterface $date_debut_ministere): static
     {
         $this->date_debut_ministere = $date_debut_ministere;
+
+        return $this;
+    }
+
+    public function getMatricule(): ?string
+    {
+        return $this->matricule;
+    }
+
+    public function setMatricule(string $matricule): static
+    {
+        $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Affectation>
+     */
+    public function getAffectations(): Collection
+    {
+        return $this->affectations;
+    }
+
+    public function addAffectation(Affectation $affectation): static
+    {
+        if (!$this->affectations->contains($affectation)) {
+            $this->affectations->add($affectation);
+            $affectation->setStatutAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffectation(Affectation $affectation): static
+    {
+        if ($this->affectations->removeElement($affectation)) {
+            // set the owning side to null (unless already changed)
+            if ($affectation->getStatutAgent() === $this) {
+                $affectation->setStatutAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTypeAgent(): ?TypeAgent
+    {
+        return $this->type_agent;
+    }
+
+    public function setTypeAgent(?TypeAgent $type_agent): static
+    {
+        $this->type_agent = $type_agent;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, FichiersAgent>
+     */
+    public function getFichiersAgents(): Collection
+    {
+        return $this->fichiersAgents;
+    }
+
+    public function addFichiersAgent(FichiersAgent $fichiersAgent): static
+    {
+        if (!$this->fichiersAgents->contains($fichiersAgent)) {
+            $this->fichiersAgents->add($fichiersAgent);
+            $fichiersAgent->setStatutAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichiersAgent(FichiersAgent $fichiersAgent): static
+    {
+        if ($this->fichiersAgents->removeElement($fichiersAgent)) {
+            // set the owning side to null (unless already changed)
+            if ($fichiersAgent->getStatutAgent() === $this) {
+                $fichiersAgent->setStatutAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFonction(): ?string
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(?string $fonction): static
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    public function getAgent(): ?Agent
+    {
+        return $this->agent;
+    }
+
+    public function setAgent(?Agent $agent): static
+    {
+        $this->agent = $agent;
 
         return $this;
     }

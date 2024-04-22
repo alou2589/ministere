@@ -1,19 +1,19 @@
 {% extends './admin/adminbase.html.twig' %}
 
-{% block title %}Attribution | {{ parent() }}{% endblock %}
+{% block title %}Affectation | {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="row">
       <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Attribution</h2>
+            <h2>affectation</h2>
             <ul class="nav navbar-right panel_toolbox">
               <li>
                   <a class="link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li>
-                  <a href="{{ path('app_admin_attribution_new') }}" title="Ajout Attribution" ><i class="fas fa-fw fa-plus-circle"></i></a>
+                  <a href="{{ path('app_admin_affectation_new') }}" title="Ajout Affectation" ><i class="fas fa-fw fa-plus-circle"></i></a>
               </li>
               <li>
                   <a class="close-link"><i class="fa fa-close"></i></a>
@@ -26,50 +26,35 @@
               <div class="col-sm-12">
                 <div class="card-box table-responsive">
                   <p class="text-muted font-13 m-b-30">
-                    Liste des attributions 
+                    Liste des affectations 
                   </p>
                   <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Id</th>
                             <th class="text-center">Agent</th>
+                            <th class="text-center">Matricule</th>
                             <th class="text-center">Matériel </th>
-                            <th class="text-center">Date d'attribution</th>
+                            <th class="text-center">Date d'affectation</th>
                             <th class="text-center">Information</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for attribution in attributions %}
-                        <tr>
-                            <td class="text-center">
-                            {% set maintenances = attribution.matos.maintenances %}
-                            {% if maintenances|length == 0 %}
-                              <i class="fas fa-check-circle text-success"></i>
-                            {% else %}
-                              {% for maintenance in maintenances %}
-                                {% if maintenance.statusMatos == "En Cours" %}
-                                  <i class="fas fa-exclamation-triangle text-warning" title="Maintenance en cours"></i><br>
-                                {% elseif maintenance.statusMatos == "Effectuer" %}
-                                  <i class="fas fa-check-circle text-success"></i>
-                                {% else %}
-                                  <i class="fas fa-tools text-danger" title="Amorti"></i>
-                                {% endif %}
-                              {% endfor %}
-                            {% endif %}
-                            </td>
-                            <td class="text-center">{{ attribution.id }}</td>
-                            <td class="text-center">{{ attribution.agent.Prenom }} {{ attribution.agent.Nom }} - {{ attribution.agent.Matricule }} </td>
-                            <td class="text-center">{{ attribution.matos.typeMatos.NomTypeMatos }} {{ attribution.matos.marqueMatos.NomMarqueMatos }}</td>
-                            <td class="text-center">{{attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y'):' '}}</td>
-                            <td class="text-center">
-                                <a href="{{ path('app_admin_attribution_show', {'id': attribution.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
-                            </td>   
-                        </tr>
+                    {% for affectation in affectations %}
+                        {% if affectation.id != 0 %}
+                            <tr>
+                                <td class="text-center">{{ affectation.statutAgent.agent.Prenom }} {{ affectation.statutAgent.agent.Nom }}</td>
+                                <td class="text-center">{{ affectation.statutAgent.Matricule }} </td>
+                                <td class="text-center">{{ affectation.sousStructure.descriptionSousStructure }}</td>
+                                <td class="text-center">{{affectation.dateAffectation ? affectation.dateAffectation|date('d-m-Y'):' '}}</td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_admin_affectation_show', {'id': affectation.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% else %}
                         <tr>
                           <td class="text-center" colspan="7">
-                            <a href="{{ path('app_admin_attribution_new') }}" class="btn btn-primary" title="Ajout Attribution" >Ajouter Attribution <i class="fas fa-fw fa-plus-circle"></i></a>
+                            <a href="{{ path('app_admin_affectation_new') }}" class="btn btn-primary" title="Ajout affectation" >Ajouter affectation <i class="fas fa-fw fa-plus-circle"></i></a>
                           </td>
                         </tr>
                     {% endfor %}

@@ -34,23 +34,23 @@
                             <th class="text-center">Id</th>
                             <th class="text-center">Prenom</th>
                             <th class="text-center">Nom</th>
-                            <th class="text-center">Matricule</th>
-                            <th class="text-center">Service/Cellule/Bureau</th>
+                            <th class="text-center">Téléphone</th>
                             <th class="text-center">Information</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for agent in agents %}
-                        <tr>
-                            <td class="text-center">{{ agent.id }}</td>
-                            <td class="text-center">{{ agent.Prenom }}</td>
-                            <td class="text-center">{{agent.Nom}}</td>
-                            <td class="text-center">{{agent.Matricule}}</td>
-                            <td class="text-center">{{agent.sousStructure.NomSousStructure}}</td>
-                            <td class="text-center">
-                                <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
-                            </td>
-                        </tr>
+                        {% if agent.id != 0 %}
+                            <tr>
+                                <td class="text-center">{{ agent.id }}</td>
+                                <td class="text-center">{{ agent.Prenom }}</td>
+                                <td class="text-center">{{agent.Nom}}</td>
+                                <td class="text-center">{{agent.Telephone}}</td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_admin_agent_show', {'id': agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% else %}
                         <tr>
                           <td class="text-center" colspan="6">

@@ -4,15 +4,17 @@ namespace App\Controller\Admin;
 
 use App\Entity\SousStructure;
 use App\Form\SousStructureType;
+use App\Repository\AffectationRepository;
 use App\Repository\AgentRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\SousStructureRepository;
+use App\Repository\StatutAgentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/sous_structure')]
 class SousStructureController extends AbstractController
@@ -54,18 +56,18 @@ class SousStructureController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_sous_structure_show', methods: ['GET'])]
-    public function show(AgentRepository $agentRepository,SousStructure $sousStructure,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
+    public function show(AffectationRepository $affectationRepository,SousStructure $sousStructure,MessagesRepository $messagesRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
-        $hommes=$agentRepository->findBy(['sous_structure'=>$sousStructure, 'genre'=>'homme']);
-        $femmes=$agentRepository->findBy(['sous_structure'=>$sousStructure, 'genre'=>'femme']);
+        $hommes=$affectationRepository->affectationBySousStructureGenre("homme",$sousStructure->getNomSousStructure());
+        $femmes=$affectationRepository->affectationBySousStructureGenre("femme",$sousStructure->getNomSousStructure());
         return $this->render('admin/sous_structure/show.html.twig', [
             'sous_structure' => $sousStructure,
             'notifications' => $notifications,
             'messages' => $messages,
-            'hommes' => $hommes,
-            'femmes' => $femmes,
+            'hommes' => count($hommes),
+            'femmes' =>count($femmes),
         ]);
     }
 

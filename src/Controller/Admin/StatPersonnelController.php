@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\StatutAgent;
+use App\Repository\AffectationRepository;
 use App\Repository\AgentRepository;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\MessagesRepository;
@@ -66,7 +67,7 @@ class StatPersonnelController extends AbstractController
 
    #[Route('/service_agents', name: 'app_admin_stat_personnel_service')]
    public function index(ChartBuilderInterface $chartBuilderRY, ChartBuilderInterface $chartBuilderAT,MessagesRepository $messagesRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartBuilderSD,ChartBuilderInterface $chartBuilderAS,
-    AgentRepository $agentRepository,TypeAgentRepository $typeAgentRepository,StatutAgentRepository $statutAgentRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository, ChartBuilderInterface $chartbuilderSTA): Response 
+    AgentRepository $agentRepository, AffectationRepository $affectationRepository,TypeAgentRepository $typeAgentRepository,StatutAgentRepository $statutAgentRepository,StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,NotificationRepository $notificationRepository, ChartBuilderInterface $chartbuilderSTA): Response
       { 
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
@@ -83,7 +84,7 @@ class StatPersonnelController extends AbstractController
             # code...
             $s_name[] = $structure->getNomStructure();
             $s_ss[] = count($structure->getSousStructures());
-            $s_agents = $agentRepository->agents_structure($structure->getId());
+            $s_agents = $affectationRepository->affectation_structure($structure->getId());
             foreach ($s_agents as $s_agent) {
                # code...
                $nbagents[] = $s_agent['agents'];
@@ -93,7 +94,7 @@ class StatPersonnelController extends AbstractController
          foreach ($typeAgents as $typeAgent) {
             # code...
             $type_name[]=$typeAgent->getNomTypeAgent();
-            $type_count[]=count($typeAgent->getAgents());
+            $type_count[]=count($typeAgent->getStatutAgents());
          }
          foreach ($statutAgents as $statutAgent) {
              # code...
@@ -108,7 +109,7 @@ class StatPersonnelController extends AbstractController
          foreach($sousStructures as $sousStructure) {
             # code...
             $ss_name[]=$sousStructure->getNomSousStructure();
-            $ss_agents[]=count($sousStructure->getAgents());
+            $ss_agents[]=count($sousStructure->getAffectations());
          }
         $chartAT = self::statistiques($chartBuilderAT, Chart::TYPE_PIE,$type_name, $type_count,'Agent Par Statut', $agents);
         $chartSA = self::statistiques($chartBuilderSA, Chart::TYPE_BAR,$ss_name, $ss_agents,'Agent Par Sous Structure', $sousStructures );

@@ -31,23 +31,7 @@ class AgentType extends AbstractType
                     'Femme'=>'femme',
                 ]
             ])
-            ->add('type_agent', EntityType::class, [
-                'class'=>TypeAgent::class,
-                'choice_label'=>'nom_type_agent',
-                'attr'=>['class'=>'js-example-basic-single']
-            ])
-            ->add('matricule')
-            ->add('fonction')
-            ->add('poste', EntityType::class, [
-                'class'=>Poste::class,
-                'choice_label'=>'nom_poste',
-                'attr'=>['class'=>'js-example-basic-single']
-            ])
-            ->add('sous_structure', EntityType::class, [
-                'class'=>SousStructure::class,
-                'choice_label'=>'nom_sous_structure',
-                'attr'=>['class'=>'js-example-basic-single']
-            ])
+            ->add('telephone')
         ;
     }
 

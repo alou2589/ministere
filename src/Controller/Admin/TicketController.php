@@ -65,7 +65,7 @@ class TicketController extends AbstractController
             $notif->setStatus(false);
             
             $notificationRepository->save($notif, true);
-            $technicien=$ticket->getTechnicien()->getInfoTechnicien()->getAgent();
+            $technicien=$ticket->getTechnicien()->getInfoTechnicien()->getStatutAgent()->getAgent();
             $message_affectation=new Messages();
             $message_affectation->setExpediteur($this->getUser());
             $message_affectation->setDestinataire($ticket->getTechnicien()->getInfoTechnicien());

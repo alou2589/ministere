@@ -34,6 +34,7 @@
                             <th></th>
                             <th class="text-center">Id</th>
                             <th class="text-center">Agent</th>
+                            <th class="text-center">Matricule</th>
                             <th class="text-center">Début Fonction Publique</th>
                             <th class="text-center">Début Ministère</th>
                             <th class="text-center">Hierarchie</th>
@@ -42,26 +43,29 @@
                     </thead>
                     <tbody>
                     {% for statut_agent in statut_agents %}
-                        <tr>
-                            <td class="text-center">
-                              {% set dateAvancement = statut_agent.dateAvancement|date("d-m-Y") %}
-                              {% set avancement = date("now"|date('d-m-Y')).diff(date(dateAvancement)) %}
-                              {% if avancement.y >= 2 %}
-                                <i class="fas fa-bell text-danger" title="Procèder pour l'avancement de l'agent"></i>
-                              {% endif %}
-                            </td>
-                            <td class="text-center">{{ statut_agent.id }}</td>
-                            <td class="text-center">{{ statut_agent.agent.Prenom }} {{ statut_agent.agent.Nom }} - {{ statut_agent.agent.Matricule }} </td>
-                            <td class="text-center">{{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</td>
-                            <td class="text-center">{{statut_agent.DateDebutMinistere ? statut_agent.DateDebutMinistere|date('d-m-Y'):' '}}</td>
-                            <td class="text-center">{{statut_agent.hierarchie }}</td>
-                            <td class="text-center">
-                                <a href="{{ path('app_admin_statut_agent_show', {'id': statut_agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
-                            </td>
-                        </tr>
+                        {% if statut_agent.id != 0 %}
+                            <tr>
+                                <td class="text-center">
+                                    {% set dateAvancement = statut_agent.dateAvancement|date("d-m-Y") %}
+                                    {% set avancement = date("now"|date('d-m-Y')).diff(date(dateAvancement)) %}
+                                    {% if avancement.y >= 2 %}
+                                        <i class="fas fa-bell text-danger" title="Procèder pour l'avancement de l'agent"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">{{ statut_agent.id }}</td>
+                                <td class="text-center">{{ statut_agent.agent.Prenom }} {{ statut_agent.agent.Nom }}</td>
+                                <td class="text-center">{{ statut_agent.Matricule }} </td>
+                                <td class="text-center">{{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</td>
+                                <td class="text-center">{{statut_agent.DateDebutMinistere ? statut_agent.DateDebutMinistere|date('d-m-Y'):' '}}</td>
+                                <td class="text-center">{{statut_agent.hierarchie }}</td>
+                                <td class="text-center">
+                                    <a href="{{ path('app_admin_statut_agent_show', {'id': statut_agent.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% else %}
                         <tr>
-                          <td class="text-center" colspan="7">
+                          <td class="text-center" colspan="8">
                             <a href="{{ path('app_admin_statut_agent_new') }}" class="btn btn-primary" title="Ajout Statut Agent" >Ajouter Statut Agent <i class="fas fa-fw fa-plus-circle"></i></a>
                           </td>
                         </tr>

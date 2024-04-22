@@ -26,33 +26,33 @@
 
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-bell-o"></i>
-                      {% if notifications %}
-                        <span class="badge bg-green">{{ notifications|length }}</span>
-                      {% endif %}
+                        {# {% if notifications %}
+                        <span class="badge bg-green">{#{ notifications|length }}</span>
+                        {% endif %} #}
                     </a>
                     <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      {% if notifications %}
+                        {# {% if notifications %}
                         {% for notification in notifications %}
-                          <li class="nav-item">
+                        <li class="nav-item">
                             <a href=# class="dropdown-item">
-                                <span>{{notification.titre}}</span>
-                                <span class="time">{{notification.dateNotification|date('d-m-Y H:i')}}</span>
-                              </span>
-                              <span class="message">
-                                {{notification.contenu}}
+                                <span>{{ notification.titre }}</span>
+                                <span class="time">{{ notification.dateNotification|date('d-m-Y H:i') }}</span>
+
+                                <span class="message">
+                                {{ notification.contenu }}
                               </span>
                             </a>
-                          </li>
+                        </li>
                         {% endfor %}
-                      {% else %}
+                        {% else %}
                         <li class="nav-item">
-                          <a href=# class="dropdown-item">
+                            <a href="#" class="dropdown-item">
                             <span class="message">
                                 Pas de notification
                             </span>
-                          </a>
+                            </a>
                         </li>
-                      {% endif %}
+                        {% endif %}#}
                       <li class="nav-item">
                         <div class="text-center">
                           <a href=# class="dropdown-item">

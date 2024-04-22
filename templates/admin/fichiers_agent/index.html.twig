@@ -42,7 +42,7 @@
                     {% for fichiers_agent in fichiers_agents %}
                         <tr>
                             <td class="text-center">{{ fichiers_agent.id }}</td>
-                            <td class="text-center">{{ fichiers_agent.agent.Prenom }} {{fichiers_agent.agent.Nom}} - {{fichiers_agent.agent.Matricule}}</td>
+                            <td class="text-center">{{ fichiers_agent.statutAgent.agent.Prenom }} {{fichiers_agent.statutAgent.agent.Nom}} - {{fichiers_agent.statutAgent.Matricule}}</td>
                             <td class="text-center">{{fichiers_agent.typeFichier.nomTypeFichier}}</td>
                             <td class="text-center">{{fichiers_agent.Fichier}}</td>
                             <td class="text-center">

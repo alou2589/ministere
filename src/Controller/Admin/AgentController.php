@@ -5,9 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Agent;
 use App\Form\AgentType;
 use App\Entity\HistoriqueRH;
+use App\Repository\AffectationRepository;
 use App\Repository\AgentRepository;
 use App\Repository\AttributionRepository;
 use App\Repository\CarteProRepository;
+use App\Repository\FichiersAgentRepository;
 use App\Repository\MessagesRepository;
 use App\Repository\StatutAgentRepository;
 use App\Repository\NotificationRepository;
@@ -63,14 +65,17 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_admin_agent_show', methods: ['GET'])]
-    public function show(AesEncryptDecrypt $aesEncryptDecrypt,Agent $agent,MessagesRepository $messagesRepository,AttributionRepository $attributionRepository, CarteProRepository $carteProRepository, StatutAgentRepository $statutAgentRepository,NotificationRepository $notificationRepository): Response
+    public function show(AesEncryptDecrypt $aesEncryptDecrypt,Agent $agent,AffectationRepository $affectationRepository,MessagesRepository $messagesRepository,FichiersAgentRepository $fichiersAgentRepository,AttributionRepository $attributionRepository, CarteProRepository $carteProRepository, StatutAgentRepository $statutAgentRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
-        $cartePro = $carteProRepository->findOneBy(['agent' => $agent->getId()]);
-        $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro->getQrcodeAgent());
-        $attributions=$attributionRepository->findBy(['agent'=> $agent->getId()]);
+        $cartePro = $carteProRepository->showCartePro($agent);
+        $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro[0]->getQrcodeAgent());
+        $statutAgent=$statutAgentRepository->findOneBy(['agent'=>$agent]);
+        $affectation=$affectationRepository->findOneBy(['statut_agent'=>$statutAgent]);
+        $attributions=$attributionRepository->findBy(['affectation'=> $affectation]);
         $statutAgent = $statutAgentRepository->findOneBy(['agent' => $agent->getId()]);
+        $files=$fichiersAgentRepository->findBy(['statut_agent'=>$statutAgent]);
         return $this->render('admin/agent/show.html.twig', [
             'agent' => $agent,
             'statut_agent' => $statutAgent,
@@ -79,6 +84,7 @@ class AgentController extends AbstractController
             'carte_pro' => $cartePro,
             'qrCodeAgent' => $qrCodeAgent,
             'messages' => $messages,
+            'files' => $files,
         ]);
     }
 

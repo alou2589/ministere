@@ -42,7 +42,8 @@ security:
         ROLE_INFO_ADMIN : ROLE_ADMIN
         ROLE_RH_ADMIN : ROLE_ADMIN
         ROLE_TECH: ROLE_INFO_ADMIN
-        ROLE_USER : ['ROLE_INFO_USER', 'ROLE_RH_USER', 'ROLE_GESTION_USER']
+        ROLE_INFO_USER: ROLE_INFO_ADMIN
+        ROLE_GESTION_USER': ROLE_USER
 
 when@test:
     security:

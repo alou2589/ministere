@@ -7,7 +7,7 @@
     <div class="col-md-12 col-sm-12  ">
         <div class="x_panel">
             <div class="x_title">
-                <h2><i class="fa fa-bars"></i> {{statut_agent.agent.Prenom}} {{statut_agent.agent.Nom}} - {{statut_agent.agent.matricule}} </h2>
+                <h2><i class="fa fa-bars"></i> {{statut_agent.agent.Prenom}} {{statut_agent.agent.Nom}} - {{statut_agent.matricule}} </h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
                         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -24,7 +24,7 @@
                         <a class="link" href="{{ path('app_admin_statut_agent_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
                     </li>
                     <li>
-                        <a class="close-link"><i class="fsa fa-close"></i></a>
+                        <a class="close-link"><i class="fas fa-close"></i></a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -48,10 +48,10 @@
                                 <p><strong>Nom Complet</strong>: {{ statut_agent.agent.Prenom}} {{ statut_agent.agent.Nom }}</p>
                             </li>
                             <li class="list-group-item">
-                                <p><strong>Matricule</strong>: {{ statut_agent.agent.Matricule }}</p>
+                                <p><strong>Matricule</strong>: {{ statut_agent.Matricule }}</p>
                             </li>
                             <li class="list-group-item">
-                                <p><strong>Fonction</strong>: {{ statut_agent.agent.Fonction }}</p>
+                                <p><strong>Fonction</strong>: {{ statut_agent.Fonction }}</p>
                             </li>
                             <li class="list-group-item">
                                 <p><strong>Grade et Echelon</strong>: {{ statut_agent.grade }} {{statut_agent.echellon}}</p>

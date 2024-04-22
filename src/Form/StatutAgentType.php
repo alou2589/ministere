@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Agent;
 use App\Entity\StatutAgent;
+use App\Entity\TypeAgent;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -49,6 +50,7 @@ class StatutAgentType extends AbstractType
                     'D1' => 'D1',
                     'D2' => 'D2',
                     'D3' => 'D3',
+                    'Non Classé'=>'Non Classé'
                 ],
                 'attr'=>['class'=>'js-example-basic-single']
             ])
@@ -67,15 +69,21 @@ class StatutAgentType extends AbstractType
                 'label' => 'Date dernier Avancement',
                 'attr' => ['class' => 'js-datepicker'],
                 ])
+            ->add('type_agent', EntityType::class, [
+                'class' => TypeAgent::class,
+                'choice_label' => 'nom_type_agent'
+            ])
             ->add('agent', EntityType::class, [
                 'class' => Agent::class,
                 'choice_label' => function (Agent $agent) {
                     if($agent->getStatutAgents()->toArray()==null){
-                        return $agent->getPrenom() . ' ' . $agent->getNom();
+                        return $agent->getPrenom() . ' ' . $agent->getNom().' '.$agent->getTelephone();
                     }
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])
+            ->add('matricule')
+            ->add('fonction')
         ;
     }
 

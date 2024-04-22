@@ -8,10 +8,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Supprimer  <strong class="text-danger"> {{attribution.matos.typeMatos.NomTypematos}} de l'agent {{attribution.agent.prenom}} {{attribution.agent.nom}} - {{attribution.agent.Matricule}} </strong>  ?</p>
-        <form method="post" action="{{ path('app_admin_attribution_delete', {'id': attribution.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ attribution.id) }}">
-            <a href="{{ path('app_admin_attribution_show', {'id':attribution.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
+        <p>Supprimer  <strong class="text-danger"> l'agent {{affectation.statutAgent.agent.prenom}} {{affectation.statutAgent.agent.nom}} - {{affectation.statutAgent.Matricule}} </strong>  ?</p>
+        <form method="post" action="{{ path('app_admin_affectation_delete', {'id': affectation.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir effectuer cette action ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ affectation.id) }}">
+            <a href="{{ path('app_admin_affectation_show', {'id':affectation.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
             <button class="btn btn-danger">Supprimer <i class="fas fa-trash-alt"></i></button>
         </form>
       </div>

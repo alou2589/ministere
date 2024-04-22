@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Affectation;
 use App\Entity\Agent;
 use App\Entity\CartePro;
 use Symfony\Component\Form\AbstractType;
@@ -19,11 +20,11 @@ class CarteProType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('agent', EntityType::class, [
-                'class' => Agent::class,
-                'choice_label' => function (Agent $agent) {
-                    if($agent->getCartePros()->toArray()==null){
-                        return $agent->getPrenom().' '.$agent->getNom().' '.$agent->getMatricule();
+            ->add('affectation', EntityType::class, [
+                'class' => Affectation::class,
+                'choice_label' => function (Affectation $affectation) {
+                    if($affectation->getCartePros()->toArray()==null){
+                        return $affectation->getStatutAgent()->getAgent()->getPrenom().' '.$affectation->getStatutAgent()->getAgent()->getNom().' '.$affectation->getStatutAgent()->getMatricule();
                     }
                 },
                 'attr'=>['class'=>'js-example-basic-single']

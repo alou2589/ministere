@@ -36,8 +36,8 @@
                               <div class="row">
                                 <div class="col-lg-10 mx-auto">
                                   <div class="p-5">
-                                    <p>Supprimer le statut de l'agent <strong class="text-danger"> {{statut_agent.agent.Prenom}} {{ statut_agent.agent.Nom }} {{statut_agent.agent.Matricule}} </strong>  ?</p>
-                                    <form method="post" action="{{ path('app_admin_statut_agent_delete', {'id': statut_agent.id}) }}" onsubmit="return confirm(Êtes-vous sûr de vouloir effectuer cette action ?');">
+                                    <p>Supprimer le statut de l'agent <strong class="text-danger"> {{statut_agent.agent.Prenom}} {{ statut_agent.agent.Nom }} {{statut_agent.Matricule}} </strong>  ?</p>
+                                    <form method="post" action="{{ path('app_admin_statut_agent_delete', {'id': statut_agent.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir effectuer cette action ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ statut_agent.id) }}">
                                         <button class="btn btn-danger">Supprimer <i class="fas fa-trash-alt"></i></button>
                                     </form>
