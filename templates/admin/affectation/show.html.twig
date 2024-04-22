@@ -1,0 +1,99 @@
+
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Attribution | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Attribution </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    {% if is_granted("ROLE_INFO_ADMIN")== true %}
+                        <li>
+                            <a class="link" href="{{ path('app_admin_attribution_delete', {'id': attribution.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        </li>
+                        <li>
+                            <a class="link" href="{{ path('app_admin_attribution_edit', {'id': attribution.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="link" href="{{ path('app_admin_attribution_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fsa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Code Attribution</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Historique Maintenance</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <p><strong>Id</strong>: {{ attribution.id }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Nom Complet Agent</strong>: {{ attribution.agent.prenom }} {{attribution.agent.nom}}-{{attribution.agent.matricule}} </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Marque et Modèle</strong>: {{ attribution.matos.marqueMatos.NomMarqueMatos }} {{ attribution.matos.ModeleMatos}} </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Numéro de Série</strong>: {{ attribution.matos.SnMatos }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Date d'attribution</strong>: {{ attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y') : '' }} </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Service</strong>: {{ attribution.agent.sousStructure.NomSousStructure }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Caractéristiques du Matériel</strong>: 
+                                    <a type="button" class="link" data-toggle="modal" data-target=".info-example-modal-lg" class="text-decoration-none float-left m-1" title="Information">Voir les Informations <i class="fas fa-info text-danger"></i> </a>
+                                    {% include "./admin/attribution/info_matos.html.twig" %}
+                                </p>
+                            </li>
+                        </ul>      
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        {% include "./admin/attribution/code_attribution.html.twig" %}
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        {% include "./admin/attribution/show_maintenance.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+
+
+
+
+
+
+
+
+
+  
+                                                                
+                                                                
+                                                                   
