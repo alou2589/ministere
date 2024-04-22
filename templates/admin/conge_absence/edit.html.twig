@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CongeAbsence{% endblock %}
+
+{% block body %}
+    <h1>Edit CongeAbsence</h1>
+
+    {{ include('admin/conge_absence/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_conge_absence_index') }}">back to list</a>
+
+    {{ include('admin/conge_absence/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends './admin/adminbase.html.twig' %}
+
+{% block title %}Congé - Absence | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 col-sm-12  ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><i class="fa fa-info-circle"></i> {{conge_absence.statutAgent.agent.Prenom}} {{conge_absence.statutAgent.agent.Nom}} - {{conge_absence.statutAgent.matricule}} </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        {% if is_granted("ROLE_RH_ADMIN")== true %}
+                            <li>
+                                <a href="#"  class="link text-decoration-none float-left m-1" title="Visualiser le fichier"> <i class="fas fa-eye text-info"></i> </a>
+                            </li>
+                            <li>
+                                <a type="button" data-toggle="modal" data-target=".bs-example-modal-lg" class="link text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                                {% include "./admin/conge_absence/delete.html.twig" %}
+                            </li>
+                            <li>
+                                <a href="{{ path('app_admin_conge_absence_edit', {'id': conge_absence.id}) }}"  class="link text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a href="{{ path('app_admin_conge_absence_index') }}" class="link text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p><strong>Id</strong>: {{ conge_absence.id }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><strong>Nom Complet</strong>: {{ conge_absence.statutAgent.agent.Prenom}} {{ conge_absence.statutAgent.agent.Nom }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><strong>Matricule</strong>: {{ conge_absence.statutAgent.Matricule }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><strong>Type d'Absence</strong>: {{ conge_absence.typeAbsence.nomTypeAbsence }}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><strong>Durée </strong>: {{conge_absence.nombreJour}} jour(s)</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><strong>Date de début</strong>: {{conge_absence.dateDebut ? conge_absence.dateDebut|date('d-m-Y') : ''}}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p><strong>Date de fin</strong>: {{conge_absence.dateFin ? conge_absence.dateFin|date('d-m-Y') : ''}}</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Papier Justificatif</strong>:<br>
+                                    <div class="row">
+                                        <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 ">
+                                            <div class="tile-stats text-dark">
+                                                <i class="fa fa-file-pdf-o fa-5x" aria-hidden="true"></i>
+                                                <br>
+                                                <small>{{conge_absence.fichier|slice(0,10)}}... <i class="fas fa-eye text-info" ></i></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

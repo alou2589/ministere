@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CongeAbsence{% endblock %}
+
+{% block body %}
+    <h1>Create new CongeAbsence</h1>
+
+    {{ include('admin/conge_absence/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_conge_absence_index') }}">back to list</a>
+{% endblock %}

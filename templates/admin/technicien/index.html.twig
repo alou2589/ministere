@@ -38,7 +38,7 @@
                     <tbody>
                     {% for technicien in techniciens %}
                         <tr>
-                            <td class="text-center">{{ technicien.infoTechnicien.statutAgent.agent.Prenom }} {{ technicien.infoTechnicien.statutAgent.agent.Nom }} - {{ technicien.infoTechnicien.statutAgent.Matricule }} </td>
+                            <td class="text-center">{{ technicien.infoTechnicien.affectation.statutAgent.agent.Prenom }} {{ technicien.infoTechnicien.affectation.statutAgent.agent.Nom }} - {{ technicien.infoTechnicien.affectation.statutAgent.Matricule }} </td>
                             <td class="text-center">
                                 <a href="{{ path('app_admin_technicien_show', {'id': technicien.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
                             </td>

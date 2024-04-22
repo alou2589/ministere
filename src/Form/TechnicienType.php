@@ -21,7 +21,7 @@ class TechnicienType extends AbstractType
                 'choice_label' => function($user){
                     if (in_array("ROLE_TECH", $user->getRoles()) && $user->getTechniciens()->toArray()==null) {
                         # code...
-                        return $user->getStatutAgent()->getAgent()->getPrenom() . ' ' . $user->getStatutAgent()->getAgent()->getNom();
+                        return $user->getAffectation()->getStatutAgent()->getAgent()->getPrenom() . ' ' . $user->getAffectation()->getStatutAgent()->getAgent()->getNom();
                     }
                 }
             ])

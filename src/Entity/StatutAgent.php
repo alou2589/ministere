@@ -56,10 +56,14 @@ class StatutAgent
     #[ORM\JoinColumn(nullable: false)]
     private ?Agent $agent = null;
 
+    #[ORM\OneToMany(mappedBy: 'statut_agent', targetEntity: CongeAbsence::class, orphanRemoval: true)]
+    private Collection $congeAbsences;
+
     public function __construct()
     {
         $this->affectations = new ArrayCollection();
         $this->fichiersAgents = new ArrayCollection();
+        $this->congeAbsences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -244,6 +248,36 @@ class StatutAgent
     public function setAgent(?Agent $agent): static
     {
         $this->agent = $agent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CongeAbsence>
+     */
+    public function getCongeAbsences(): Collection
+    {
+        return $this->congeAbsences;
+    }
+
+    public function addCongeAbsence(CongeAbsence $congeAbsence): static
+    {
+        if (!$this->congeAbsences->contains($congeAbsence)) {
+            $this->congeAbsences->add($congeAbsence);
+            $congeAbsence->setStatutAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCongeAbsence(CongeAbsence $congeAbsence): static
+    {
+        if ($this->congeAbsences->removeElement($congeAbsence)) {
+            // set the owning side to null (unless already changed)
+            if ($congeAbsence->getStatutAgent() === $this) {
+                $congeAbsence->setStatutAgent(null);
+            }
+        }
 
         return $this;
     }

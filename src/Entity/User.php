@@ -54,6 +54,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Affectation $affectation = null;
 
+    #[ORM\OneToMany(mappedBy: 'operateur', targetEntity: CongeAbsence::class)]
+    private Collection $congeAbsences;
+
+
 
     public function __construct()
     {
@@ -61,6 +65,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->techniciens = new ArrayCollection();
         $this->destinataires = new ArrayCollection();
         $this->expediteurs = new ArrayCollection();
+        $this->congeAbsences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,6 +289,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAffectation(?Affectation $affectation): static
     {
         $this->affectation = $affectation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CongeAbsence>
+     */
+    public function getCongeAbsences(): Collection
+    {
+        return $this->congeAbsences;
+    }
+
+    public function addCongeAbsence(CongeAbsence $congeAbsence): static
+    {
+        if (!$this->congeAbsences->contains($congeAbsence)) {
+            $this->congeAbsences->add($congeAbsence);
+            $congeAbsence->setOperateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCongeAbsence(CongeAbsence $congeAbsence): static
+    {
+        if ($this->congeAbsences->removeElement($congeAbsence)) {
+            // set the owning side to null (unless already changed)
+            if ($congeAbsence->getOperateur() === $this) {
+                $congeAbsence->setOperateur(null);
+            }
+        }
 
         return $this;
     }
