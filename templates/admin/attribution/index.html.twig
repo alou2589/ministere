@@ -33,9 +33,14 @@
                         <tr>
                             <th class="text-center">Status</th>
                             <th class="text-center">Agent</th>
-                            <th class="text-center">Matériel </th>
-                            <th class="text-center">Date d'attribution</th>
-                            <th class="text-center">Information</th>
+                            <th class="text-center">Matricule</th>
+                            <th class="text-center">Type </th>
+                            <th class="text-center">Marque </th>
+                            <th class="text-center">Modèle </th>
+                            <th class="text-center">S.N </th>
+                            <th class="text-center">Caractéristiques </th>
+                            <th class="text-center">Attribué le</th>
+                            <th class="text-center">Info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,9 +63,23 @@
                             {% endif %}
                             </td>
                             <td class="text-center">
-                                {{ attribution.affectation.statutAgent.agent.Prenom }} {{ attribution.affectation.statutAgent.agent.Nom }} - {{ attribution.affectation.statutAgent.Matricule }}
+                                {{ attribution.affectation.statutAgent.agent.Prenom }} {{ attribution.affectation.statutAgent.agent.Nom }}
                             </td>
-                            <td class="text-center">{{ attribution.matos.typeMatos.NomTypeMatos }} {{ attribution.matos.marqueMatos.NomMarqueMatos }} - {{ attribution.matos.snMatos }}</td>
+                            <td class="text-center">
+                                {{ attribution.affectation.statutAgent.Matricule }}
+                            </td>
+                            <td class="text-center">{{ attribution.matos.typeMatos.NomTypeMatos }}</td>
+                            <td class="text-center">{{ attribution.matos.marqueMatos.NomMarqueMatos }}</td>
+                            <td class="text-center">{{ attribution.matos.modeleMatos }}</td>
+                            <td class="text-center">{{ attribution.matos.snMatos }}</td>
+                            <td class="text-center">
+                                {% if attribution.matos.infoMatos|length >50 %}
+                                    {{ attribution.matos.infoMatos|slice(0,50) }}...
+                                {% else %}
+                                    {{ attribution.matos.infoMatos }}
+                                {% endif %}
+
+                            </td>
                             <td class="text-center">{{attribution.dateAttribution ? attribution.dateAttribution|date('d-m-Y'):' '}}</td>
                             <td class="text-center">
                                 <a href="{{ path('app_admin_attribution_show', {'id': attribution.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
