@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/historiques')]
-#[IsGranted("ROLE_INFO_ADMIN")]
+//#[IsGranted("ROLE_INFO_ADMIN")]
 class HistoriquesController extends AbstractController
 {
     #[Route('/', name: 'app_admin_historiques_index', methods: ['GET'])]

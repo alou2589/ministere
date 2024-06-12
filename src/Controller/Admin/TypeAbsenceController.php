@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/type/absence')]
-#[IsGranted("ROLE_SUPER_ADMIN")]
+//#[IsGranted("ROLE_SUPER_ADMIN")]
 class TypeAbsenceController extends AbstractController
 {
     #[Route('/', name: 'app_admin_type_absence_index', methods: ['GET'])]

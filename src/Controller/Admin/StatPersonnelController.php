@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/stat_personnel')]
-#[IsGranted("ROLE_RH_ADMIN")]
+//#[IsGranted("ROLE_RH_ADMIN")]
 class StatPersonnelController extends AbstractController
 {
 

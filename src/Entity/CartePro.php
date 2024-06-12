@@ -16,23 +16,23 @@ class CartePro
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_delivrance = null;
+    private ?\DateTimeInterface $date_delivrance;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_expiration = null;
+    private ?\DateTimeInterface $date_expiration ;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $qrcode_agent = null;
+    private ?string $qrcode_agent;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $photo_agent = null;
+    private ?string $photo_agent ;
 
     #[ORM\Column(length: 255)]
-    private ?string $status_impression = null;
+    private ?string $status_impression;
 
     #[ORM\ManyToOne(inversedBy: 'cartePros')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Affectation $affectation = null;
+    private ?Affectation $affectation;
 
 
 

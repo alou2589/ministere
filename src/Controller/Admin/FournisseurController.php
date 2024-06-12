@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/fournisseur')]
-#[IsGranted("ROLE_INFO_ADMIN")]
+//#[IsGranted("ROLE_INFO_ADMIN")]
 class FournisseurController extends AbstractController
 {
     #[Route('/', name: 'app_admin_fournisseur_index', methods: ['GET'])]

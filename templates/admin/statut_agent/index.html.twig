@@ -53,7 +53,9 @@
                                     {% endif %}
                                 </td>
                                 <td class="text-center">{{ statut_agent.id }}</td>
-                                <td class="text-center">{{ statut_agent.agent.Prenom }} {{ statut_agent.agent.Nom }}</td>
+                                <td class="text-center">
+                                    {{ dump(statut_agent.agent) }}
+                                </td>
                                 <td class="text-center">{{ statut_agent.Matricule }} </td>
                                 <td class="text-center">{{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</td>
                                 <td class="text-center">{{statut_agent.DateDebutMinistere ? statut_agent.DateDebutMinistere|date('d-m-Y'):' '}}</td>

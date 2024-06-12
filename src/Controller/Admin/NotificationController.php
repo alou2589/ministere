@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/notification')]
-#[IsGranted("ROLE_INFO_ADMIN")]
+//#[IsGranted("ROLE_INFO_ADMIN")]
 class NotificationController extends AbstractController
 {
     #[Route('/', name: 'app_admin_notification_index', methods: ['GET'])]

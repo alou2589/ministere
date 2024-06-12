@@ -18,16 +18,16 @@ class Attribution
 
     #[ORM\ManyToOne(inversedBy: 'attributions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Materiel $matos = null;
+    private ?Materiel $matos;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $QrCodeAttribution = null;
+    private ?string $QrCodeAttribution;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_attribution = null;
+    private ?\DateTimeInterface $date_attribution;
 
     #[ORM\ManyToOne(inversedBy: 'attributions')]
-    private ?Affectation $affectation = null;
+    private ?Affectation $affectation;
 
     public function getId(): ?int
     {

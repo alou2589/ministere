@@ -18,7 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/materiel')]
-#[IsGranted("ROLE_INFO_ADMIN")]
+//#[IsGranted("ROLE_INFO_ADMIN")]
 class MaterielController extends AbstractController
 {
     #[Route('/', name: 'app_admin_materiel_index', methods: ['GET'])]

@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/admin/carte_pro')]
-#[IsGranted("ROLE_RH_ADMIN")]
+//#[IsGranted("ROLE_RH_ADMIN")]
 class CarteProController extends AbstractController
 {
     #[Route('/', name: 'app_admin_carte_pro_index', methods: ['GET'])]

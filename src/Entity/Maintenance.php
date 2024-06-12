@@ -14,23 +14,23 @@ class Maintenance
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id ;
 
     #[ORM\ManyToOne(inversedBy: 'maintenances')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Materiel $matos = null;
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Materiel $matos;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_maintenance = null;
+    private ?\DateTimeInterface $date_maintenance ;
 
     #[ORM\Column(length: 255)]
-    private ?string $status_matos = null;
+    private ?string $status_matos ;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_sortie = null;
+    private ?\DateTimeInterface $date_sortie ;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $detail_maintenance = null;
+    private ?string $detail_maintenance ;
 
     public function getId(): ?int
     {

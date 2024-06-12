@@ -16,22 +16,22 @@ class Materiel
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id ;
 
     #[ORM\Column(length: 255)]
-    private ?string $modele_matos = null;
+    private ?string $modele_matos ;
 
     #[ORM\Column(length: 255)]
-    private ?string $sn_matos = null;
+    private ?string $sn_matos ;
 
 
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_reception = null;
+    private ?\DateTimeInterface $date_reception;
 
     #[ORM\ManyToOne(inversedBy: 'materiels')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?TypeMateriel $type_matos = null;
+    private ?TypeMateriel $type_matos ;
 
     #[ORM\OneToMany(mappedBy: 'matos', targetEntity: Attribution::class, orphanRemoval: true)]
     private Collection $attributions;
@@ -41,14 +41,14 @@ class Materiel
 
     #[ORM\ManyToOne(inversedBy: 'materiels')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Fournisseur $fournisseur = null;
+    private ?Fournisseur $fournisseur;
 
     #[ORM\ManyToOne(inversedBy: 'materiels')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?MarqueMatos $marque_matos = null;
+    private ?MarqueMatos $marque_matos ;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $info_matos = null;
+    private ?string $info_matos ;
 
     #[ORM\OneToMany(mappedBy: 'matos', targetEntity: Maintenance::class, orphanRemoval: true)]
     private Collection $maintenances;

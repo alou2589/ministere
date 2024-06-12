@@ -17,11 +17,10 @@
             {% for attribution in attributions %}
                 <tr>
                     <td class="text-center">
-                    {% set maintenances = attribution.matos.maintenances %}
-                    {% if maintenances|length == 0 %}
+                    {% if attribution.matos.maintenances|length == 0 %}
                       <i class="fas fa-check-circle text-success"></i>
                     {% else %}
-                      {% for maintenance in maintenances %}
+                      {% for maintenance in attribution.matos.maintenances %}
                         {% if maintenance.statusMatos == "En Cours" %}
                           <i class="fas fa-exclamation-triangle text-warning" title="Maintenance en cours"></i><br>
                         {% elseif maintenance.statusMatos == "Effectuer" %}

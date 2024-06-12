@@ -16,24 +16,24 @@ class Agent
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
     #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
+    private ?string $prenom;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $nom;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_naissance = null;
+    private ?\DateTimeInterface $date_naissance ;
 
     #[ORM\Column(length: 255)]
-    private ?string $lieu_naissance = null;
+    private ?string $lieu_naissance;
 
     #[ORM\Column(length: 255)]
-    private ?string $genre = null;
+    private ?string $genre;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $telephone = null;
+    private ?string $telephone;
 
     #[ORM\OneToMany(mappedBy: 'agent', targetEntity: StatutAgent::class, orphanRemoval: true)]
     private Collection $statutAgents;

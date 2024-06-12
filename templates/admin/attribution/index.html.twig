@@ -47,7 +47,7 @@
                     {% for attribution in attributions %}
                         <tr>
                             <td class="text-center">
-                            {% set maintenances = attribution.matos.maintenances %}
+                            {% set maintenances = attribution.matos.maintenances??'' %}
                             {% if maintenances|length == 0 %}
                               <i class="fas fa-check-circle text-success"></i>
                             {% else %}

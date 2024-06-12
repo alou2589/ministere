@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/type_agent')]
-#[IsGranted("ROLE_SUPER_ADMIN")]
+//#[IsGranted("ROLE_SUPER_ADMIN")]
 class TypeAgentController extends AbstractController
 {
     #[Route('/', name: 'app_admin_type_agent_index', methods: ['GET'])]

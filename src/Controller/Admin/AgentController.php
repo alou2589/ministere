@@ -36,7 +36,7 @@ class AgentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_agent_new', methods: ['GET', 'POST'])]
-    #[IsGranted("ROLE_RH_ADMIN")]
+    //#[IsGranted("ROLE_RH_ADMIN")]
     public function new(Request $request,MessagesRepository $messagesRepository, AgentRepository $agentRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
@@ -70,6 +70,7 @@ class AgentController extends AbstractController
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $cartePro = $carteProRepository->showCartePro($agent);
+        //dd(gettype($cartePro));
         $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro[0]->getQrcodeAgent());
         $statutAgent=$statutAgentRepository->findOneBy(['agent'=>$agent]);
         $affectation=$affectationRepository->findOneBy(['statut_agent'=>$statutAgent]);
@@ -89,7 +90,7 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_agent_edit', methods: ['GET', 'POST'])]
-    #[IsGranted("ROLE_RH_ADMIN")]
+    //#[IsGranted("ROLE_RH_ADMIN")]
     public function edit(Request $request,MessagesRepository $messagesRepository, Agent $agent, AgentRepository $agentRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
@@ -112,7 +113,7 @@ class AgentController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'app_admin_agent_delete', methods: ['GET','POST'])]
-    #[IsGranted("ROLE_RH_ADMIN")]
+    //#[IsGranted("ROLE_RH_ADMIN")]
     public function delete(Request $request,MessagesRepository $messagesRepository, Agent $agent, AgentRepository $agentRepository,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);

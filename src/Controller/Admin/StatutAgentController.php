@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/statut_agent')]
-#[IsGranted("ROLE_RH_ADMIN")]
+//#[IsGranted("ROLE_RH_ADMIN")]
 class StatutAgentController extends AbstractController
 {
     #[Route('/', name: 'app_admin_statut_agent_index', methods: ['GET'])]

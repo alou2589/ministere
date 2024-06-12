@@ -14,22 +14,22 @@ class Affectation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\ManyToOne(inversedBy: 'affectations')]
-    private ?SousStructure $sous_structure = null;
+    private ?SousStructure $sous_structure;
 
     #[ORM\ManyToOne(inversedBy: 'affectations')]
-    private ?Poste $poste = null;
+    private ?Poste $poste;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $status_affectation = null;
+    private ?string $status_affectation;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_affectation = null;
+    private ?\DateTimeInterface $date_affectation;
 
     #[ORM\ManyToOne(inversedBy: 'affectations')]
-    private ?StatutAgent $statut_agent = null;
+    private ?StatutAgent $statut_agent;
 
     #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: CartePro::class, orphanRemoval: true)]
     private Collection $cartePros;

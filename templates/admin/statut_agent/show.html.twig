@@ -14,14 +14,14 @@
                     </li>
                     {% if is_granted("ROLE_RH_ADMIN")== true %}
                         <li>
-                            <a class="link" href="{{ path('app_admin_statut_agent_delete', {'id': statut_agent.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            <a  href="{{ path('app_admin_statut_agent_delete', {'id': statut_agent.id}) }}" class="link text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
                         </li>
                         <li>
-                            <a class="link" href="{{ path('app_admin_statut_agent_edit', {'id': statut_agent.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                            <a href="{{ path('app_admin_statut_agent_edit', {'id': statut_agent.id}) }}"  class="link text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
                         </li>
                     {% endif %}
                     <li>
-                        <a class="link" href="{{ path('app_admin_statut_agent_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                        <a  href="{{ path('app_admin_statut_agent_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
                     </li>
                     <li>
                         <a class="close-link"><i class="fas fa-close"></i></a>

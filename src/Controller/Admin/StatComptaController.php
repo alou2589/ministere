@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[IsGranted("ROLE_GESTION_ADMIN")]
+//#[IsGranted("ROLE_GESTION_ADMIN")]
 class StatComptaController extends AbstractController
 {
     #[Route('/admin/stat/compta', name: 'app_admin_stat_compta')]

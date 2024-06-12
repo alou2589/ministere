@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/affectation')]
-#[IsGranted("ROLE_RH_ADMIN")]
+//#[IsGranted("ROLE_RH_ADMIN")]
 class AffectationController extends AbstractController
 {
     #[Route('/', name: 'app_admin_affectation_index', methods: ['GET'])]
@@ -23,6 +23,7 @@ class AffectationController extends AbstractController
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
+        //dd($affectationRepository->findAll());
         return $this->render('admin/affectation/index.html.twig', [
             'affectations' => $affectationRepository->findAll(),
             'notifications' => $notifications,
