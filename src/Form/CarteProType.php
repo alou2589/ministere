@@ -23,9 +23,7 @@ class CarteProType extends AbstractType
             ->add('affectation', EntityType::class, [
                 'class' => Affectation::class,
                 'choice_label' => function (Affectation $affectation) {
-                    if($affectation->getCartePros()->toArray()==null){
-                        return $affectation->getStatutAgent()->getMatricule();
-                    }
+                        return $affectation->getStatutAgent()->getAgent()->getPrenom().' '.$affectation->getStatutAgent()->getAgent()->getNom().' '.$affectation->getStatutAgent()->getMatricule();
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])

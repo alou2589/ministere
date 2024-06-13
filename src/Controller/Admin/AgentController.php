@@ -70,8 +70,11 @@ class AgentController extends AbstractController
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         $cartePro = $carteProRepository->showCartePro($agent);
-        //dd(gettype($cartePro));
-        $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro[0]->getQrcodeAgent());
+        $qrCodeAgent=null;
+        //dd($cartePro);
+        if($cartePro != null ){
+            $qrCodeAgent=$aesEncryptDecrypt->decrypt($cartePro[0]->getQrcodeAgent());
+        }
         $statutAgent=$statutAgentRepository->findOneBy(['agent'=>$agent]);
         $affectation=$affectationRepository->findOneBy(['statut_agent'=>$statutAgent]);
         $attributions=$attributionRepository->findBy(['affectation'=> $affectation]);

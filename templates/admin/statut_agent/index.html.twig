@@ -54,7 +54,7 @@
                                 </td>
                                 <td class="text-center">{{ statut_agent.id }}</td>
                                 <td class="text-center">
-                                    {{ dump(statut_agent.agent) }}
+                                    {{ statut_agent.agent.prenom}} {{ statut_agent.agent.nom}}
                                 </td>
                                 <td class="text-center">{{ statut_agent.Matricule }} </td>
                                 <td class="text-center">{{statut_agent.DatePriseService ? statut_agent.DatePriseService|date('d-m-Y'):' '}}</td>

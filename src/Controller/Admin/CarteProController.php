@@ -119,7 +119,7 @@ class CarteProController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_carte_pro_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request,MessagesRepository $messagesRepository, CartePro $cartePro, CarteProRepository $carteProRepository,NotificationRepository $notificationRepository): Response
+    public function edit(Request $request,MessagesRepository $messagesRepository, CartePro $cartePro, CarteProRepository $carteProRepository, SluggerInterface $slugger,NotificationRepository $notificationRepository): Response
     {
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
@@ -127,6 +127,32 @@ class CarteProController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $carteProRepository->save($cartePro, true);
+
+            $imageFile = $form->get('photo_agent')->getData();
+
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imageFile->move(
+                        $this->getParameter('photoAgent_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $cartePro->setPhotoAgent($newFilename);
+            }
             $carteProRepository->save($cartePro, true);
 
             return $this->redirectToRoute('app_admin_carte_pro_index', [], Response::HTTP_SEE_OTHER);

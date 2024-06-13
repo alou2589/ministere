@@ -40,7 +40,6 @@
                     </thead>
                     <tbody>
                     {% for affectation in affectations %}
-                        {% if affectation.id != 0 %}
                             <tr>
                                 <td class="text-center">{{ affectation.statutAgent.agent.Prenom }} {{ affectation.statutAgent.agent.Nom }}</td>
                                 <td class="text-center">{{ affectation.statutAgent.Matricule }} </td>
@@ -50,13 +49,6 @@
                                     <a href="{{ path('app_admin_affectation_show', {'id': affectation.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
                                 </td>
                             </tr>
-                        {% else %}
-                            <tr>
-                                <td class="text-center" colspan="7">
-                                    <a href="{{ path('app_admin_affectation_new') }}" class="btn btn-primary" title="Ajout affectation" >Ajouter affectation <i class="fas fa-fw fa-plus-circle"></i></a>
-                                </td>
-                            </tr>
-                        {% endif %}
                     {% else %}
                         <tr>
                           <td class="text-center" colspan="7">
