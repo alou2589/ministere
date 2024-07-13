@@ -29,6 +29,16 @@ class MaterielRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllWithTypeAndMarque():array
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m','t','mq')
+            ->leftJoin('m.type_matos','t')
+            ->leftJoin('m.marque_matos','mq')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     public function remove(Materiel $entity, bool $flush = false): void
     {

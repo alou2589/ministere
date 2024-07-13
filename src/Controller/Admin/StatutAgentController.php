@@ -23,7 +23,7 @@ class StatutAgentController extends AbstractController
         $messages= $messagesRepository->findBy(['status'=>'Non Lu', 'destinataire'=>$this->getUser()]);
         $notifications= $notificationRepository->findBy(['status'=>false]);
         return $this->render('admin/statut_agent/index.html.twig', [
-            'statut_agents' => $statutAgentRepository->findAll(),
+            'statut_agents' => $statutAgentRepository->findAllWithAgent(),
             'notifications' => $notifications,
             'messages' => $messages,
         ]);

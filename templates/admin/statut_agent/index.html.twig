@@ -32,7 +32,6 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th class="text-center">Id</th>
                             <th class="text-center">Agent</th>
                             <th class="text-center">Matricule</th>
                             <th class="text-center">Début Fonction Publique</th>
@@ -45,14 +44,6 @@
                     {% for statut_agent in statut_agents %}
                         {% if statut_agent.id != 0 %}
                             <tr>
-                                <td class="text-center">
-                                    {% set dateAvancement = statut_agent.dateAvancement|date("d-m-Y") %}
-                                    {% set avancement = date("now"|date('d-m-Y')).diff(date(dateAvancement)) %}
-                                    {% if avancement.y >= 2 %}
-                                        <i class="fas fa-bell text-danger" title="Procèder pour l'avancement de l'agent"></i>
-                                    {% endif %}
-                                </td>
-                                <td class="text-center">{{ statut_agent.id }}</td>
                                 <td class="text-center">
                                     {{ statut_agent.agent.prenom}} {{ statut_agent.agent.nom}}
                                 </td>

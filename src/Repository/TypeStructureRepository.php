@@ -39,6 +39,16 @@ class TypeStructureRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllWithStructures():array
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t','s')
+            ->leftJoin('t.structures','s')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    /**
 //     * @return TypeStructure[] Returns an array of TypeStructure objects
 //     */

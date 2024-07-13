@@ -25,7 +25,7 @@ class AffectationController extends AbstractController
         $notifications= $notificationRepository->findBy(['status'=>false]);
         //dd($affectationRepository->findAll());
         return $this->render('admin/affectation/index.html.twig', [
-            'affectations' => $affectationRepository->findAll(),
+            'affectations' => $affectationRepository->findWithAgentAndStatutAgentAndSousStructure(),
             'notifications' => $notifications,
             'messages' => $messages,
         ]);

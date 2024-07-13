@@ -20,6 +20,17 @@ class AffectationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Affectation::class);
     }
+    public function findWithAgentAndStatutAgentAndSousStructure():array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a','sta', 'ag','ss')
+            ->leftJoin('a.statut_agent','sta')
+            ->leftJoin('a.sous_structure','ss')
+            ->leftJoin('sta.agent','ag')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 
     public function affectationByStructureGenre(string $nom_structure,string $genre)

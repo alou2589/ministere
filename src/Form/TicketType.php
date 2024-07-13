@@ -32,7 +32,7 @@ class TicketType extends AbstractType
                 'class' => Technicien::class,
                 'label'=>'Affecté au technicien',
                 'choice_label' => function ($technicien) {
-                    return $technicien->getInfoTechnicien()->getStatutAgent()->getAgent()->getPrenom() . ' ' . $technicien->getInfoTechnicien()->getStatutAgent()->getAgent()->getNom().' '.$technicien->getInfoTechnicien()->getStatutAgent()->getMatricule();
+                    return $technicien->getInfoTechnicien()->getAffectation()->getStatutAgent()->getAgent()->getPrenom() . ' ' . $technicien->getInfoTechnicien()->getAffectation()->getStatutAgent()->getAgent()->getNom().' '.$technicien->getInfoTechnicien()->getAffectation()->getStatutAgent()->getMatricule();
                 }
             ])
             ->add('description_proprietaire', TextareaType::class, [

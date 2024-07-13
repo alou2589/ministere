@@ -30,6 +30,15 @@ class StatutAgentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllWithAgent():array
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s','a')
+            ->leftJoin('s.agent','a')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     public function remove(StatutAgent $entity, bool $flush = false): void
     {

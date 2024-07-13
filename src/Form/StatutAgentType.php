@@ -23,6 +23,7 @@ class StatutAgentType extends AbstractType
                     '2ème E' => '2ème echellon',
                     '3ème E' => '3ème echellon',
                     '4ème E' => '4ème echellon',
+                    'Non Classé' => 'Non Classé',
                 ],
                 'attr'=>['class'=>'js-example-basic-single']
             ])
@@ -32,6 +33,7 @@ class StatutAgentType extends AbstractType
                     '2ème C' => '2ème classe',
                     '3ème C' => '3ème classe',
                     '4ème C' => '4ème classe',
+                    'Non Classé' => 'Non Classé',
                 ],
                 'attr'=>['class'=>'js-example-basic-single']
             ])
@@ -76,9 +78,10 @@ class StatutAgentType extends AbstractType
             ->add('agent', EntityType::class, [
                 'class' => Agent::class,
                 'choice_label' => function (Agent $agent) {
-                    if($agent->getStatutAgents()->toArray()==null){
-                        return $agent->getPrenom() . ' ' . $agent->getNom().' '.$agent->getTelephone();
+                    if($agent->getId()== 0) {
+                        return null;
                     }
+                    return $agent->getPrenom() . ' ' . $agent->getNom() . ' ' . $agent->getTelephone();
                 },
                 'attr'=>['class'=>'js-example-basic-single']
             ])

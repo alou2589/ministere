@@ -28,7 +28,7 @@ class MaterielController extends AbstractController
         $notifications= $notificationRepository->findBy(['status'=>false]);
         
         return $this->render('admin/materiel/index.html.twig', [
-            'materiels' => $materielRepository->findAll(),
+            'materiels' => $materielRepository->findAllWithTypeAndMarque(),
             'notifications'=>$notifications,
             'messages' => $messages,
         ]);

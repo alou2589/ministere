@@ -60,12 +60,12 @@ class TicketController extends AbstractController
             $notif=new Notification();
             $notif->setTicket($ticket);
             $notif->setTitre("Titre N°".$ticket->getId());
-            $notif->setContenu($ticket->getDescriptionProprietaire()."vient de déclarer que ".$ticket->getMatos()->getModeleMatos()." est tombé en panne ");
+            $notif->setContenu($ticket->getTechnicien()->getInfoTechnicien()->getUsername()." vient de déclarer que ".$ticket->getMatos()->getModeleMatos()." est tombé en panne ");
             $notif->setDateNotification($ticket->getDateDeclaration());
             $notif->setStatus(false);
             
             $notificationRepository->save($notif, true);
-            $technicien=$ticket->getTechnicien()->getInfoTechnicien()->getStatutAgent()->getAgent();
+            $technicien=$ticket->getTechnicien()->getInfoTechnicien()->getAffectation()->getStatutAgent()->getAgent();
             $message_affectation=new Messages();
             $message_affectation->setExpediteur($this->getUser());
             $message_affectation->setDestinataire($ticket->getTechnicien()->getInfoTechnicien());

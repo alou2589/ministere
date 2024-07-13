@@ -39,6 +39,18 @@ class AttributionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findAllWithTypeMatosAndMarque():array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a','m','aff','t','mq')
+            ->leftJoin('a.matos','m')
+            ->leftJoin('a.affectation','aff')
+            ->leftJoin('m.type_matos','t')
+            ->leftJoin('m.marque_matos','mq')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     public function attribByYear()
     {

@@ -7,6 +7,9 @@ use App\Entity\Agent;
 use App\Entity\Poste;
 use App\Entity\SousStructure;
 use App\Entity\StatutAgent;
+use App\Repository\StatutAgentRepository;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -21,6 +24,11 @@ class AffectationType extends AbstractType
         $builder
             ->add('statut_agent', EntityType::class, [
                 'class' => StatutAgent::class,
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('s')
+                        ->select('s','a')
+                        ->leftJoin('s.agent','a');
+                },
                 'choice_label' => function ($statutAgent) {
                     return $statutAgent->getAgent()->getPrenom() . ' ' . $statutAgent->getAgent()->getNom() . '-' . $statutAgent->getMatricule();
                 },

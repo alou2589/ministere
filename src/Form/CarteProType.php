@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Affectation;
 use App\Entity\Agent;
 use App\Entity\CartePro;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,6 +24,13 @@ class CarteProType extends AbstractType
         $builder
             ->add('affectation', EntityType::class, [
                 'class' => Affectation::class,
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('a')
+                        ->select('a','sta', 'ag','ss')
+                        ->leftJoin('a.statut_agent','sta')
+                        ->leftJoin('a.sous_structure','ss')
+                        ->leftJoin('sta.agent','ag');
+                },
                 'choice_label' => function (Affectation $affectation) {
                         return $affectation->getStatutAgent()->getAgent()->getPrenom().' '.$affectation->getStatutAgent()->getAgent()->getNom().' '.$affectation->getStatutAgent()->getMatricule();
                 },

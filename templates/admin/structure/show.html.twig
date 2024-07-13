@@ -14,14 +14,14 @@
                     </li>
                     {% if is_granted("ROLE_RH_ADMIN")== true %}
                         <li>
-                            <a class="link" href="{{ path('app_admin_structure_delete', {'id': structure.id}) }}" class="text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                            <a  href="{{ path('app_admin_structure_delete', {'id': structure.id}) }}" class="link text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
                         </li>
                         <li>
-                            <a class="link" href="{{ path('app_admin_structure_edit', {'id': structure.id}) }}"  class="text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                            <a href="{{ path('app_admin_structure_edit', {'id': structure.id}) }}"  class="link text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
                         </li>
                     {% endif %}
                     <li>
-                        <a class="link" href="{{ path('app_admin_structure_index') }}" class="text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                        <a href="{{ path('app_admin_structure_index') }}" class="link text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
                     </li>
                     <li>
                         <a class="close-link"><i class="fsa fa-close"></i></a>
@@ -43,13 +43,13 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        {% include "./admin/structure/show_info.html.twig" %}
+                        {% include "admin/structure/show_info.html.twig" %}
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        {% include "./admin/structure/show_services.html.twig" %}
+                        {% include "admin/structure/show_services.html.twig" %}
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                        {% include "./admin/structure/show_agents.html.twig" %}
+                        {% include "admin/structure/show_agents.html.twig" %}
                     </div>
                 </div>
             </div>
