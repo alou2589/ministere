@@ -41,7 +41,6 @@ class UserController extends AbstractController
         $password="passe123";
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setNbConnect(0);
-            $user->setRoles(["ROLE_USER"]);
             $user->setPassword(
                 $passwordHasher->hashPassword(
                         $user,

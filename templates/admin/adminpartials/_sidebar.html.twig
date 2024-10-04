@@ -32,16 +32,16 @@
                 <h3>General</h3>
                 {# SideBar Globale #}
                   {% if is_granted("ROLE_SUPER_ADMIN")== true %}
-                    {% include './admin/adminpartials/sidebar_globale/_sidebar_globale.html.twig' %}
+                    {% include 'admin/adminpartials/sidebar_globale/_sidebar_globale.html.twig' %}
                 {# SideBar RH #}
                   {% elseif is_granted("ROLE_RH_ADMIN")== true %}
-                   {% include './admin/adminpartials/sidebar_rh/_sidebar_rh.html.twig' %}
+                   {% include 'admin/adminpartials/sidebar_rh/_sidebar_rh.html.twig' %}
                 {# SideBar Info #}
                   {% elseif is_granted("ROLE_INFO_ADMIN")== true %}
-                    {% include './admin/adminpartials/sidebar_info/_sidebar_info.html.twig' %}
+                    {% include 'admin/adminpartials/sidebar_info/_sidebar_info.html.twig' %}
                 {# SideBar Gestion Compta #}
               {% elseif is_granted("ROLE_GESTION_ADMIN")== true %}
-                {% include './admin/adminpartials/sidebar_compta/_sidebar_compta.html.twig' %}
+                {% include 'admin/adminpartials/sidebar_compta/_sidebar_compta.html.twig' %}
               {% endif %}
               </div>
 
