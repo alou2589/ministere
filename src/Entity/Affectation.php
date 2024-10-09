@@ -40,12 +40,19 @@ class Affectation
     #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
+    /**
+     * @var Collection<int, AffectationVehicule>
+     */
+    #[ORM\OneToMany(mappedBy: 'affectation', targetEntity: AffectationVehicule::class)]
+    private Collection $affectationVehicules;
+
 
     public function __construct()
     {
         $this->cartePros = new ArrayCollection();
         $this->attributions = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->affectationVehicules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +204,36 @@ class Affectation
             // set the owning side to null (unless already changed)
             if ($user->getAffectation() === $this) {
                 $user->setAffectation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AffectationVehicule>
+     */
+    public function getAffectationVehicules(): Collection
+    {
+        return $this->affectationVehicules;
+    }
+
+    public function addAffectationVehicule(AffectationVehicule $affectationVehicule): static
+    {
+        if (!$this->affectationVehicules->contains($affectationVehicule)) {
+            $this->affectationVehicules->add($affectationVehicule);
+            $affectationVehicule->setAffectation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffectationVehicule(AffectationVehicule $affectationVehicule): static
+    {
+        if ($this->affectationVehicules->removeElement($affectationVehicule)) {
+            // set the owning side to null (unless already changed)
+            if ($affectationVehicule->getAffectation() === $this) {
+                $affectationVehicule->setAffectation(null);
             }
         }
 

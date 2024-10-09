@@ -83,22 +83,25 @@
                       </ul>
                     </li>
                   </ul>
-                </li>  
                 </li>
                 <li><a><i class="fas fa-car"></i> Parc Automobile<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                  </ul>                      
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{ path('app_admin_type_vehicule_index') }}">Type de Véhicule</a></li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_marque_vehicule_index') }}">Marque Véhicule</a></li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_etat_vehicule_index') }}">État Véhicule</a></li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_vehicule_index') }}">Véhicule</a></li>
+                        <li class="sub_menu"><a href="{{ path('app_admin_affectation_vehicule_index') }}">Affectation</a></li>
+                    </ul>
                 </li>
                 <li><a><i class="fas fa-cash-register"></i> Gestion Compta Matière<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                  </ul>                      
                 </li>
                 <li><a><i class="fas fa-chart-line"></i> Statistiques<span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a href="{{ path('app_admin_stat_personnel_service') }}">Statistiques Personnel</a></li>
                   <li><a href="{{ path('app_admin_stat_informatique') }}">Statistiques Informatique</a></li>
+                  <li><a href="#">Statistiques Parc Auto</a></li>
                   <li><a href="#">Statistiques Compta Matière</a></li>
-                </ul>                      
+                </ul>
                 </li>
                 <li><a><i class="fa fa-user-circle"></i> Comptes <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">

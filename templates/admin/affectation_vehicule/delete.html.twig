@@ -1,0 +1,20 @@
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel2">Confirmation de la suppression</h2>
+        <button type="button" class="close" data-dilgiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Supprimer  <strong class="text-danger"> le véhicule de l'agent  {{affectation_vehicule.affectation.statutAgent.agent.prenom}} {{affectation_vehicule.affectation.statutAgent.agent.nom}} - {{affectation_vehicule.affectation.statutAgent.Matricule}} </strong> de la liste des affectations  ?</p>
+        <form method="post" action="{{ path('app_admin_affectation_delete', {'id': affectation_vehicule.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir effectuer cette action ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ affectation_vehicule.id) }}">
+            <a href="{{ path('app_admin_affectation_show', {'id':affectation_vehicule.id}) }}" class="btn btn-secondary">Annuler <i class="fas fa-times"></i></a>
+            <button class="btn btn-danger">Supprimer <i class="fas fa-trash-alt"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

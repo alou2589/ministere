@@ -35,11 +35,13 @@ class UserType extends AbstractType
                     'RH Admin' => 'ROLE_RH_ADMIN',
                     'Info Admin' => 'ROLE_INFO_ADMIN',
                     'Gestion Admin' => 'ROLE_GESTION_ADMIN',
+                    'Parc Auto Admin' => 'ROLE_PARC_AUTO_ADMIN',
                     'Technicien' => 'ROLE_TECH',
                     'Utilisateur' => 'ROLE_USER',
                     'Utilisateur RH' => 'ROLE_RH_USER',
                     'Utilisateur Info' => 'ROLE_INFO_USER',
                     'Utilisateur Gestion' => 'ROLE_Gestion_USER',
+                    'Utilisateur Parc Auto' => 'ROLE_Gestion_USER',
                 ],
                 'attr'=>['class'=>'js-example-basic-multiple']
             ])

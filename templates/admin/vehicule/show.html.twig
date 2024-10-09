@@ -1,0 +1,99 @@
+
+{% extends 'admin/adminbase.html.twig' %}
+
+{% block title %}Type Véhicule | {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Type Véhicule </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    {% if is_granted("ROLE_INFO_ADMIN")== true %}
+                        <li>
+                            <a href="{{ path('app_admin_vehicule_delete', {'id': vehicule.id}) }}" class="link text-decoration-none float-left m-1" title="Supprimer"> <i class="fas fa-trash-alt text-danger"></i> </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_admin_vehicule_edit', {'id': vehicule.id}) }}"  class="link text-decoration-none float-left m-1" title="Modifier"> <i class="fas fa-edit text-warning"></i> </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ path('app_admin_vehicule_index') }}" class="link text-decoration-none float-left m-1" title="Accueil"><i class="fas fa-home text-primary"></i></a>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fsa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="attribution-tab" data-toggle="tab" href="#attribution" role="tab" aria-controls="attribution" aria-selected="false">Historique Attribution</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="maintenance-tab" data-toggle="tab" href="#maintenance" role="tab" aria-controls="maintenance" aria-selected="false">Historique Maintenance</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Véhicules</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <p><strong>Id</strong>: {{ vehicule.id }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Véhicule</strong>: {{ vehicule.typevehicule.NomTypeVehicule}} {{ vehicule.marqueVehicule.NomMarqueVehicule }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Modèle du Véhicule</strong>: {{ vehicule.modeleVehicule }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Numéro d'immatriculation</strong>: {{ vehicule.Immatriculation }}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Date d'Enregistrement</strong>: {{ vehicule.dateEnregistrement ? vehicule.dateEnregistrement|date('d-m-Y') : '' }} </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Date de Rececption</strong>: {{ vehicule.dateCirculation ? vehicule.dateCirculation|date('d-m-Y') : '' }} </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><strong>Caractéristiques du Véhicule</strong>: 
+                                    <a type="button" data-toggle="modal" data-target=".info-example-modal-lg" class="link text-decoration-none float-left m-1" title="Information">Voir les Infos <i class="fas fa-info text-danger"></i> </a>
+                                    {% include "admin/vehicule/info_vehicule.html.twig" %}
+                                </p>
+                            </li>
+                        </ul>  
+                    </div>
+                    <div class="tab-pane fade" id="attribution" role="tabpanel" aria-labelledby="attribution-tab">
+                        {#% include "./admin/vehicule/liste.html.twig" %#}
+                    </div>
+                    <div class="tab-pane fade" id="maintenance" role="tabpanel" aria-labelledby="maintenance-tab">
+                        {#% include "./admin/vehicule/liste.html.twig" %#}
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        {#% include "./admin/vehicule/liste.html.twig" %#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
+
+
+
+
+
+
+  

@@ -40,8 +40,8 @@
                   {% elseif is_granted("ROLE_INFO_ADMIN")== true %}
                     {% include 'admin/adminpartials/sidebar_info/_sidebar_info.html.twig' %}
                 {# SideBar Gestion Compta #}
-              {% elseif is_granted("ROLE_GESTION_ADMIN")== true %}
-                {% include 'admin/adminpartials/sidebar_compta/_sidebar_compta.html.twig' %}
+              {% elseif is_granted("ROLE_PARC_AUTO_ADMIN")== true %}
+                {% include 'admin/adminpartials/sidebar_parcauto/_sidebar_parcauto.html.twig' %}
               {% endif %}
               </div>
 
