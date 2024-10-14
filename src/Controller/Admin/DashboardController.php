@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Repository\AffectationRepository;
 use App\Repository\AgentRepository;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\MaterielRepository;
 use App\Repository\MessagesRepository;
@@ -66,7 +67,7 @@ class DashboardController extends AbstractController
  
         return $mychart;
     }
- 
+    #[IsGranted("ROLE_INFO_ADMIN")]
     #[Route('/admin/dashboard_info', name: 'app_admin_dashboard_info')]
     public function dash_info(MaterielRepository $materielRepository,MaintenanceRepository $maintenanceRepository,TypeMaterielRepository $typeMaterielRepository,
     MessagesRepository $messagesRepository,NotificationRepository $notificationRepository,MarqueMatosRepository $marqueMatosRepository,AttributionRepository $attributionRepository, ChartBuilderInterface $cahertbuilderAY,
@@ -196,6 +197,8 @@ class DashboardController extends AbstractController
             'messages' => $messages,
         ]);
     }
+
+    #[IsGranted("ROLE_RH_ADMIN")]
     #[Route('/admin/dashboard_perso', name: 'app_admin_dashboard_perso')]
     public function dash_perso(NotificationRepository $notificationRepository,MessagesRepository $messagesRepository, AffectationRepository $affectationRepository,ChartBuilderInterface $chartBuilderSA,ChartBuilderInterface $chartBuilderRY, ChartBuilderInterface $chartBuilderDA,ChartBuilderInterface $chartbuilderSTA ,ChartBuilderInterface $chartBuilderAS,AgentRepository $agentRepository, StructureRepository $structureRepository, SousStructureRepository $sousStructureRepository,
                         StatutAgentRepository $statutAgentRepository,TypeAgentRepository $typeAgentRepository,TypeStructureRepository $typeStructureRepository, TypeSousStructureRepository $typeSousStructureRepository): Response
@@ -270,5 +273,12 @@ class DashboardController extends AbstractController
             'notifications' => $notifications,
             'messages' => $messages,
         ]);
+    }
+
+    #[IsGranted("ROLE_PARC_AUTO_ADMIN")]
+    #[Route('/admin/dashboard_parc_auto', name:'app_admin_dashboard_parc_auto')]
+    public function dash_parc_auto()
+    {
+
     }
 }

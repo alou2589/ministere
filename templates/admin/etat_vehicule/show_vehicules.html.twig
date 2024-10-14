@@ -1,1 +1,27 @@
 
+<table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th class="text-center">Id</th>
+        <th class="text-center">Véhicule</th>
+        <th class="text-center">Immatriculation</th>
+        <th class="text-center">Information</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for affectation_vehicule in etat_vehicule.affectationVehicules %}
+        <tr>
+            <td class="text-center">{{ affectation_vehicule.id }}</td>
+            <td class="text-center">{{ affectation_vehicule.vehicule.marqueVehicule.nomMarqueVehicule }}-{{ affectation_vehicule.vehicule.modeleVehicule }}</td>
+            <td class="text-center">{{affectation_vehicule.vehicule.immatriculation }}</td>
+            <td class="text-center">
+                <a href="{{ path('app_admin_vehicule_show', {'id': affectation_vehicule.vehicule.id}) }}"><i class="fas fa-eye text-info" title="Détails"></i></a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td class="text-center" colspan="5">Pas de données</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
