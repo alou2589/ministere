@@ -18,7 +18,13 @@
             <div class="row">
               <div class="right col-sm-4 text-center">
                 <div class="photo_agent">
+                  {% if carte_pro.PhotoAgent %}
+                    
                   <img src="{{asset('assets/photoAgent/'~ carte_pro.PhotoAgent)| imagine_filter('my_image')}}" alt="photo_agent" class="img-fluid"  width="120" height="50px" ><br>
+
+                  {% else %}
+                    <img src="https://img.freepik.com/vecteurs-libre/cercle-bleu-utilisateur-blanc_78370-4707.jpg" alt="photo_agent" class="img-fluid"  width="120" height="50px" ><br>
+                  {% endif %}
                 </div>
                 <br>  
                 <br>

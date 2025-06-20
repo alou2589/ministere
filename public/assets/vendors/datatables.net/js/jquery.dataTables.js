@@ -11395,7 +11395,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Afficher _START_ to _END_ of _TOTAL_ éléments",
+			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
 	
 	
 			/**
@@ -11416,7 +11416,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Afficher 0 to 0 of 0 éléments",
+			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
 	
 	
 			/**
@@ -11438,7 +11438,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(Filtrer à partir de _MAX_ total élèment)",
+			"sInfoFiltered": "(filtered from _MAX_ total entries)",
 	
 	
 			/**
@@ -14479,7 +14479,7 @@
 		},
 	
 		full: function ( page, pages ) {
-			return [  'Début', 'Précèdente', 'Suivante', 'Dernière' ];
+			return [  'first', 'previous', 'next', 'last' ];
 		},
 	
 		numbers: function ( page, pages ) {
@@ -14487,11 +14487,11 @@
 		},
 	
 		simple_numbers: function ( page, pages ) {
-			return [ 'Précèdente', _numbers(page, pages), 'Suivante' ];
+			return [ 'previous', _numbers(page, pages), 'next' ];
 		},
 	
 		full_numbers: function ( page, pages ) {
-			return [ 'Début', 'Précèdente', _numbers(page, pages), 'Suivant', 'Dernière' ];
+			return [ 'first', 'previous', _numbers(page, pages), 'next', 'last' ];
 		},
 	
 		// For testing and plug-ins to use
@@ -14539,19 +14539,19 @@
 										'' : ' '+classes.sPageButtonDisabled);
 									break;
 	
-								case 'Précèdente':
+								case 'previous':
 									btnDisplay = lang.sPrevious;
 									btnClass = button + (page > 0 ?
 										'' : ' '+classes.sPageButtonDisabled);
 									break;
 	
-								case 'Suivante':
+								case 'next':
 									btnDisplay = lang.sNext;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);
 									break;
 	
-								case 'Dernière':
+								case 'last':
 									btnDisplay = lang.sLast;
 									btnClass = button + (page < pages-1 ?
 										'' : ' '+classes.sPageButtonDisabled);
